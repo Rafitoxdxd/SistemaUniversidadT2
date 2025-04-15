@@ -1,34 +1,41 @@
 <?php
 
-class connection
+//clase para manejar la conexion con la base de datos
+class Conexion
 {
+    //maneja la conexion con la base de datos
     private static $pdo;
 
-    static function connect()
+    //Conecta con la base de datos
+    static function conectar()
     {
         try
         {
-            connection::$pdo = new PDO("mysql:host=localhost; dbname=sistema_psicologia", "root", "");
-            connection::$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            connection::$pdo->exec("SET CHARACTER SET UTF8");
+            //crea una nueva instancia PDO en localhost con la BDD asignada
+            Conexion::$pdo = new PDO("mysql:host=localhost; dbname=sistema_psicologia", "root", "");
+            //asigna el mensaje de error a mostrar en caso de problemas al conectar
+            Conexion::$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            //establece la codificación de caracteres a UTF-8, para aceptar caracteres especiales
+            Conexion::$pdo->exec("SET CHARACTER SET UTF8");
         }
         catch (PDOException $e)
         {
             //creates a new database if the DB doesn't exists (TO DELETE WHEN TESTS ARE DONE)
+            //ELIMINAR ESTO DESDE AQUI--------------------------------------------------------------------
             try
             {
-                connection::$pdo = new PDO("mysql:host=localhost", "root", "");
-                connection::$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                connection::$pdo->exec("SET CHARACTER SET UTF8");
+                Conexion::$pdo = new PDO("mysql:host=localhost", "root", "");
+                Conexion::$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                Conexion::$pdo->exec("SET CHARACTER SET UTF8");
 
-                $sql = "CREATE DATABASE IF NOT EXISTS sistema_psicologia";
-                $stmt = connection::$pdo->prepare($sql);
+                $sql  = "CREATE DATABASE IF NOT EXISTS sistema_psicologia";
+                $stmt = Conexion::$pdo->prepare($sql);
                 $stmt->execute();
 
                 //set the database to $pdo
-                connection::$pdo = new PDO("mysql:host=localhost; dbname=sistema_psicologia", "root", "");
-                connection::$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                connection::$pdo->exec("SET CHARACTER SET UTF8");
+                Conexion::$pdo = new PDO("mysql:host=localhost; dbname=sistema_psicologia", "root", "");
+                Conexion::$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                Conexion::$pdo->exec("SET CHARACTER SET UTF8");
 
                 //create tables
                 //user table
@@ -40,7 +47,7 @@ class connection
                 ."password VARCHAR(80) NOT NULL, "
                 ."birthDate DATE, "
                 ."gender CHAR(1))";
-                $stmt = connection::$pdo->prepare($sql);
+                $stmt = Conexion::$pdo->prepare($sql);
                 $stmt->execute();
 
                 //psychologists table
@@ -52,7 +59,7 @@ class connection
                 ."password VARCHAR(80) NOT NULL, "
                 ."birthDate DATE, "
                 ."gender CHAR(1))";
-                $stmt = connection::$pdo->prepare($sql);
+                $stmt = Conexion::$pdo->prepare($sql);
                 $stmt->execute();
 
                 //consultations table
@@ -60,7 +67,7 @@ class connection
                 ."idUser INT NOT NULL, "
                 ."idPsychologist INT NOT NULL, "
                 ."consulDate DATE)";
-                $stmt = connection::$pdo->prepare($sql);
+                $stmt = Conexion::$pdo->prepare($sql);
                 $stmt->execute();
 
                 //history date
@@ -71,17 +78,18 @@ class connection
                 ."documentTitle VARCHAR(64) NOT NULL, "
                 ."documentPa VARCHAR(128), "
                 ."uploadDate DATE NOT NULL)";
-                $stmt = connection::$pdo->prepare($sql);
+                $stmt = Conexion::$pdo->prepare($sql);
                 $stmt->execute();
 
             }
             catch (PDOException $e)
             { echo $e->getMessage(); }
+            //HASTA AQUI------------------------------------------------------------------------------------------------
         }
     }
 
-    static function getConnection()
-    { return connection::$pdo; }
+    static function getConexion()
+    { return Conexion::$pdo; }
 }
 
 ?>

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="es">
     <head>
         <title>Title</title>
         <!-- Required meta tags -->
@@ -23,26 +23,21 @@
 
         <main>
             <ul>
-                
                 <?php
                     if (isset($_SESSION["name"]))
                     {
-                        echo "<li> <a href='?page=profile'>PROFILE</a></li>";
-                        echo "<li> <a href='?page=logout'>LOGOUT</a></li>";
+                        echo "<li> <a href='?pagina=profile'>PERFIL</a></li>";
+                        echo "<li> <a href='?pagina=logout'>CERRAR SESION</a></li>";
                     }
                     else
                     {
-                        echo "<li> <a href='?page=login'>LOGIN</a></li>";
-                        echo "<li> <a href='?page=register'>REGISTER</a></li>";
+                        echo "<li> <a href='?pagina=login'>INICIAR SESION</a></li>";
+                        echo "<li> <a href='?pagina=register'>REGISTRARSE</a></li>";
                     }
                 ?>
             </ul>
         </main>
 
-        <footer>
-            <!-- place footer here -->
-        </footer>
-        <!-- Bootstrap JavaScript Libraries -->
         <script
             src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
             integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"

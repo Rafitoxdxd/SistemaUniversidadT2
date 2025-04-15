@@ -1,9 +1,12 @@
 <?php
 
+//importa el archivo de conexion
 include("connection.php");
 
-if (connection::getConnection() == null)
-{ connection::connect(); }
+//conecta con la base de datos
+if (Conexion::getConexion() == null)
+{ Conexion::conectar(); }
+
 
 if (isset($_POST["login"]))
 {
@@ -12,7 +15,7 @@ if (isset($_POST["login"]))
     
     $sql = "SELECT * FROM users WHERE cedula = :ci";
 
-    $stmt = connection::getConnection()->prepare($sql);
+    $stmt = Conexion::getConexion()->prepare($sql);
     $stmt->bindParam(':ci', $u_ci);
     $stmt->execute();
 
@@ -31,7 +34,7 @@ if (isset($_POST["login"]))
         $_SESSION["gender"] = $userdata["gender"];
 
         //return to main page
-        header("Location: ?page=main");
+        header("Location: ?pagina=main");
         exit;
     }
     else

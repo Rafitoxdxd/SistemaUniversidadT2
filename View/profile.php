@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="es">
     <head>
         <title>Title</title>
         <!-- Required meta tags -->
@@ -23,43 +23,41 @@
         <!-- row: Define filas para organizar el contenido en columnas. -->
       <div class="row">
         <nav class="col-md-2 d-none d-md-block bg-dark sidebar">
-          <div class="sidebar-sticky">
-            <ul class="nav flex-column">
-                <li class="nav-item"><a class="nav-link active" href="?page=main">HOME</a></li>
-                <li class="nav-item"><a class="nav-link" href='?page=logout'>Cerrar Sesión</a></li>
-                <br>
-            </ul>
+            <div class="sidebar-sticky">
+                <ul class="nav flex-column">
+                    <li class="nav-item"><a class="nav-link active" href="?pagina=main">INICIO</a></li>
+                    <li class="nav-item"><a class="nav-link" href='?pagina=logout'>CERRAR SESION</a></li>
+                    <br>
+                </ul>
             </div>
-            </nav>
+        </nav>
+
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
             <h1 class="h2">Mi Perfil</h1>
-          </div> 
+        </div> 
 
         <div class="row">
-            <!-- col-md-*: Define el ancho de las columnas en diferentes tamaños de pantalla. -->
             <div class="col-md-4">
-                <!-- Card crea contenedores de tarjetas para mostrar la información de las órdenes. -->
                 <div class="card">
                     <?php
 
-                        echo "<li> Name: ".$_SESSION["name"]."</li>";
-                        echo "<li> Lastname: ".$_SESSION["lastname"]."</li>";
-                        echo "<li> Mail: ".$_SESSION["mail"]."</li>";
-                        if (isset($_SESSION["birthdate"]))
-                        { echo "<li> Birth Date: ".$_SESSION["birthdate"]."</li>"; }
-                        if (isset($_SESSION["gender"]))
-                        {echo "<li> Gender: ".$_SESSION["gender"]."</li>"; }
+                        echo "<li> Nombre: ".$_SESSION["nombre"]."</li>";
+                        echo "<li> Apellido: ".$_SESSION["apellido"]."</li>";
+                        echo "<li> Correo: ".$_SESSION["correo"]."</li>";
+                        if (isset($_SESSION["FNacimiento"]))
+                        { echo "<li> Fecha de Nacimiento: ".$_SESSION["FNacimiento"]."</li>"; }
+                        if (isset($_SESSION["genero"]))
+                        {echo "<li> Género: ".$_SESSION["genero"]."</li>"; }
                     ?>
         </div>
             </div>
                 </div>
-
-                <!-- canvas: Reserva un espacio para el gráfico (necesitarás una librería como Chart.js para generar el gráfico dinámicamente) -->
-                 <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
-    </main>
+    
         </div>
             </div>
+
+    </main>
             
         
 

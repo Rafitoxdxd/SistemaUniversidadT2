@@ -1,14 +1,14 @@
 <?php
 
-if (!isset($_SESSION["name"]))
-{ $page = "main"; }
+if (!isset($_SESSION["usuario"]))
+{ $pagina = "main"; }
 
-if (is_file("View/".$page.".php"))
-{ require_once("View/".$page.".php"); }
+if (is_file("View/".$pagina.".php"))
+{ require_once("View/".$pagina.".php"); }
 else
 { echo "page not found"; }
 
-if (is_file("Model/".$page.".php"))
-{ require_once("Model/".$page.".php"); }
+if (is_file("Model/".$pagina.".php"))
+{ require_once("Model/".$pagina.".php"); }
 
 ?>

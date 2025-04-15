@@ -1,18 +1,22 @@
 <?php
 
+//inicia una sesión
 session_start();
-$page = "main";
+$pagina = "main"; //pagina principal
 
+//código de prueba NO PRESTAR ATENCION---------------------
 //session_start();
 //$_SESSION["username"] = "test";
-
 //session_destroy();
+//---------------------------------------------------------
 
-if (!empty($_GET['page']))
-{ $page = $_GET['page']; }
+//si el GET tiene un valor, cambia de página
+if (!empty($_GET['pagina']))
+{ $pagina = $_GET['pagina']; }
 
-if (is_file("Controller/".$page.".php"))
-{ require_once("Controller/".$page.".php"); }
+//importa el controlador de la página
+if (is_file("Controller/".$pagina.".php"))
+{ require_once("Controller/".$pagina.".php"); }
 else
 { echo "page not found"; }
 

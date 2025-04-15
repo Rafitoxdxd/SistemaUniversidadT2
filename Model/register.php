@@ -1,30 +1,7 @@
 <?php
 
 include("connection.php");
-
-if (isset($_POST["register"]))
-{
-    echo "<script>console.log('test');</script>";
-
-    $userData["ci"]             = $_POST["ci"];
-    $userData["name"]           = $_POST["name"];
-    $userData["lastname"]       = $_POST["lastname"];
-    $userData["mail"]           = $_POST["mail"];
-    $userData["password"]       = $_POST["pass"];
-    $userData["birthdate"]      = $_POST["birthdate"];
-    $userData["gender"]         = $_POST["gender"];
-    
-    $registered = registerUser($userData, "users");
-    if (isset($_POST["isPsychologist"]) && $registered)
-    { registerUser($userData, "psychologists"); }
-
-    if ($registered)
-    { echo "<script>console.log('USER REGISTERED');</script>"; }
-    else
-    { echo "<script>console.log('USER NOT REGISTERED');</script>"; }
-
-    $_POST["register"] = null;
-}
+include("userManagement.php");
 
 function registerUser($tableData, $tablename)
 {

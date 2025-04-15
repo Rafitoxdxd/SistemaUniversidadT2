@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="Styles/Bootstrap/css/bootstrap.min.css">
     <style>
         body {
             background-color: #f8f9fa;
@@ -47,47 +47,49 @@
                 
                 <div class="form-group">
                     <label for="cedula">Cédula:</label>
-                    <input type="text" class="form-control" name="ci" id="ci" placeholder="Ingresa tu cédula">
+                    <input type="text" class="form-control" name="cedula" id="cedula" placeholder="Ingresa tu cédula">
                 </div>
                 
                 <div class="form-group">
-                    <label for="name">Nombre:</label>
-                    <input type="text" class="form-control" name="name" id="name" placeholder="Ingresa tu nombre">
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Ingresa tu nombre">
                 </div>
 
                 <div class="form-group">
-                    <label for="lastname">Apellido:</label>
-                    <input type="text" class="form-control" name="lastname" id="lastname" placeholder="Ingresa tu apellido">
+                    <label for="apellido">Apellido:</label>
+                    <input type="text" class="form-control" name="apellido" id="apellido" placeholder="Ingresa tu apellido">
                 </div>
 
                 <div class="form-group">
-                    <label for="mail">Gmail:</label>
-                    <input type="email" class="form-control" name="mail" id="mail" placeholder="Ingresa tu gmail">
+                    <label for="correo">Correo:</label>
+                    <input type="email" class="form-control" name="correo" id="correo" placeholder="Ingresa tu gmail">
                 </div>
 
                 <div class="form-group">
-                    <label for="pass">Contraseña:</label>
-                    <input type="password" class="form-control" name="pass" id="pass" placeholder="Ingresa tu contraseña">
+                    <label for="contra">Contraseña:</label>
+                    <input type="password" class="form-control" name="contra" id="contra" placeholder="Ingresa tu contraseña">
                 </div>
 
                 <div class="form-group">
-                    <label for="birthdate">Fecha de nacimiento:</label>
-                    <input type="date" class="form-control" name="birthdate" id="birthdate">
+                    <label for="FNacimiento">Fecha de nacimiento:</label>
+                    <input type="date" class="form-control" name="FNacimiento" id="FNacimiento">
                 </div>
 
                 <div class="form-group">
-                    <label for="gender">Género:</label>
-                    <select class="form-control" id="gender" name="gender">
-                        <option value="masculino">Masculino</option>
-                        <option value="femenino">Femenino</option>
-                        <option value="otro">Otro</option>
+                    <label for="genero">Género:</label>
+                    <select class="form-control" id="genero" name="genero">
+                        <option value="m">Masculino</option>
+                        <option value="f">Femenino</option>
+                        <option value="o">Otro</option>
                     </select>
                 </div>
 
+                <!--
                 <div class="form-group">
                     <label for="isPsychologist">Es usted psicólogo/a?</label>
                     <input type="checkbox" class="form-control-check" name="isPsychologist" id="isPsychologist" id="">
                 </div>
+                -->
 
                 <input type="submit" name="register" class="btn btn-primary btn-block">
             </form>
