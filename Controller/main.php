@@ -1,4 +1,6 @@
 <?php
+if (session_status() == PHP_SESSION_NONE)
+{ session_start(); }
 
 //importa la vista de la página
 if (is_file("View/".$pagina.".php"))

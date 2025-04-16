@@ -1,5 +1,9 @@
 <?php
 
+//esto simplemente esta aqui para que el resto no se buguee
+if (session_status() == PHP_SESSION_NONE)
+{ session_start(); }
+
 //verifica si hay una sesión activa
 //si es el caso, no tiene sentido meterse en el login
 //por lo que redirige a la página principal
@@ -18,6 +22,7 @@ if (is_file("Model/".$pagina.".php"))
 
 //importa los modelos necesarios para el register
 require_once("Model/userManagement.php");
+require_once("Model/connection.php");
 
 //instancia un objeto usuario
 $usuario = new Usuario();
@@ -32,11 +37,9 @@ if (isset($_POST["register"]))
     $datosUsuario["nombre"]      = $_POST["nombre"];
     $datosUsuario["apellido"]    = $_POST["apellido"];
     $datosUsuario["correo"]      = $_POST["correo"];
-    //$datosUsuario["contra"]      = $_POST["contra"]; //pa solucionar
     $datosUsuario["FNacimiento"] = $_POST["FNacimiento"];
     $datosUsuario["genero"]      = $_POST["genero"];
-
-    $datosUsuario["id"]          = null; //para solucionar
+    $datosUsuario["id"]          = null;
 
     //establece los datos del usuario en la instancia usuario
     $usuario->setDatosUsuario(...$datosUsuario);

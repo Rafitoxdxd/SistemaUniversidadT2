@@ -31,6 +31,62 @@ class Usuario
         setDatosUsuario(...$data);
     }*/
 
+    public static function cargarUsuario(string $tablename, string $ci, string $contra)
+    {
+        $usuario = null; //variable para retornar su valor
+
+        //verifica si se ha hecho una conexión con la BD
+        //si no hay conexión la crea
+        if (Conexion::getConexion() == null)
+        { Conexion::conectar(); }
+
+        //almacena la conexion en la variable PDO
+        $pdo = Conexion::getConexion();
+
+        //almacenar la consulta en una variable
+        //eso de :ci es un marcador
+        //los marcadores digamos que son referencias que usaremos luego
+        $sql = "SELECT * FROM " . $tablename . " WHERE cedula = :ci";
+        
+        //prepara la consulta
+        $stmt = Conexion::getConexion()->prepare($sql);
+        //establece el marcador a un valor que le hayamos asignado
+        $stmt->bindParam(':ci', $ci);
+        //ejecuta la consulta
+        $stmt->execute();
+        
+        //obtiene los resultados de la consulta, devolverá los datos del usuario si existe, si no, será null
+        $userdata = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        //aqui se verifica si el usuario existe
+        if (!$userdata)
+        { echo "Usuario no encontrado"; }
+        else if (password_verify($contra, $userdata["password"])) //acá se verifica si la contraseña es correcta
+        {
+            //crea un usuario nuevo para retornarlo luego
+            $usuario = new Usuario();
+            
+            //almacena todos los datos de la consulta en un array
+            $data = array();
+            $data["id"] = $userdata["id"];
+            $data["cedula"] = $userdata["cedula"];
+            $data["nombre"] = $userdata["name"];
+            $data["apellido"] = $userdata["lastName"];
+            $data["correo"] = $userdata["mail"];
+            $data["FNacimiento"] = $userdata["birthDate"];
+            $data["genero"] = $userdata["gender"];
+
+            //establece los datos del usuario en la instancia usuario
+            $usuario->setDatosUsuario(...$data);
+        }
+        else
+        { echo "Contraseña incorrecta"; }
+        
+        //retorna la instancia usuario creada antes
+        //la retornará con sus datos si el usuario existe
+        //si no, será null
+        return $usuario;
+    }
 
     public static function registrarUsuario(Usuario $usuario, string $tablename, string $contra)
     {
@@ -71,7 +127,7 @@ class Usuario
         //esta consulta sigue el mismo procedimiento de antes
         $verify_sql = "SELECT cedula FROM ". $tablename ." WHERE cedula = :ci"; //guarda la consulta en una variable
         $verify_stmt = $pdo->prepare($verify_sql); //prepara la consulta
-        $verify_stmt->bindParam(':ci', $tableData["ci"]); //establece los valores de los marcadores
+        $verify_stmt->bindParam(':ci', $usuario->getCedula()); //establece los valores de los marcadores
         $verify_stmt->execute(); //ejecuta la consulta
 
         //si no hay ningun usuario con esa cedula, ejecuta la primera consulta que se ha preparado
@@ -100,24 +156,24 @@ class Usuario
     //bueno los métodos son autodescriptivos
     //métodos getter
     //el & hace que el valor que retorne sea la referencia de la variable
-    public function &getId() { return $this->id; }
-    public function &getCedula() { return $this->cedula; }
-    public function &getNombre() { return $this->nombre; }
-    public function &getApellido() { return $this->apellido; }
-    public function &getCorreo() { return $this->correo; }
+    public function &getId()          { return $this->id; }
+    public function &getCedula()      { return $this->cedula; }
+    public function &getNombre()      { return $this->nombre; }
+    public function &getApellido()    { return $this->apellido; }
+    public function &getCorreo()      { return $this->correo; }
     public function &getFNacimiento() { return $this->FNacimiento; }
-    public function &getGenero() { return $this->genero; }
-    public function &getPsicologo() { return $this->psicologo; }
+    public function &getGenero()      { return $this->genero; }
+    public function &getPsicologo()   { return $this->psicologo; }
 
     //métodos Setter
-    public function setId($id) { $this->id = $id; }
-    public function setCedula($cedula) { $this->cedula = $cedula; }
-    public function setNombre($nombre) { $this->nombre = $nombre; }
-    public function setApellido($apellido) { $this->apellido = $apellido; }
-    public function setCorreo($correo) { $this->correo = $correo; }
+    public function setId($id)                   { $this->id = $id; }
+    public function setCedula($cedula)           { $this->cedula = $cedula; }
+    public function setNombre($nombre)           { $this->nombre = $nombre; }
+    public function setApellido($apellido)       { $this->apellido = $apellido; }
+    public function setCorreo($correo)           { $this->correo = $correo; }
     public function setFNacimiento($fNacimiento) { $this->FNacimiento = $fNacimiento; }
-    public function setGenero($genero) { $this->genero = $genero; }
-    public function setPsicologo($psicologo) { $this->psicologo = $psicologo; }
+    public function setGenero($genero)           { $this->genero = $genero; }
+    public function setPsicologo($psicologo)     { $this->psicologo = $psicologo; }
 
 }
 

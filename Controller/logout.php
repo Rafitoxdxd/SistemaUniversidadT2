@@ -1,5 +1,8 @@
 <?php
 
+if (session_status() == PHP_SESSION_NONE)
+{ session_start(); }
+
 //importa el modelo de la página
 if (is_file("Model/".$pagina.".php"))
 { require_once("Model/".$pagina.".php"); }

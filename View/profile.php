@@ -41,14 +41,15 @@
             <div class="col-md-4">
                 <div class="card">
                     <?php
+                        //obtiene los datos de la sesión, en este caso el usuario
+                        $v_usuario = $_SESSION["usuario"];
 
-                        echo "<li> Nombre: ".$_SESSION["nombre"]."</li>";
-                        echo "<li> Apellido: ".$_SESSION["apellido"]."</li>";
-                        echo "<li> Correo: ".$_SESSION["correo"]."</li>";
-                        if (isset($_SESSION["FNacimiento"]))
-                        { echo "<li> Fecha de Nacimiento: ".$_SESSION["FNacimiento"]."</li>"; }
-                        if (isset($_SESSION["genero"]))
-                        {echo "<li> Género: ".$_SESSION["genero"]."</li>"; }
+                        //extrae los datos del usuario
+                        echo "<li> Nombre: ".$v_usuario->getNombre()."</li>";
+                        echo "<li> Apellido: ".$v_usuario->getApellido()."</li>";
+                        echo "<li> Correo: ".$v_usuario->getCorreo()."</li>";
+                        echo "<li> Fecha de Nacimiento: ".$v_usuario->getFNacimiento()."</li>";
+                        echo "<li> Género: ".$v_usuario->getGenero()."</li>";
                     ?>
         </div>
             </div>

@@ -24,13 +24,16 @@
         <main>
             <ul>
                 <?php
-                    if (isset($_SESSION["name"]))
+                    //se verifica si el usuario esta logueado
+                    if (isset($_SESSION["usuario"]))
                     {
+                        //muestra el menu de una sesión iniciada
                         echo "<li> <a href='?pagina=profile'>PERFIL</a></li>";
                         echo "<li> <a href='?pagina=logout'>CERRAR SESION</a></li>";
                     }
                     else
                     {
+                        //muestra el menu de una sesión no iniciada
                         echo "<li> <a href='?pagina=login'>INICIAR SESION</a></li>";
                         echo "<li> <a href='?pagina=register'>REGISTRARSE</a></li>";
                     }

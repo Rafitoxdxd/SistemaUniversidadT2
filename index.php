@@ -1,7 +1,7 @@
 <?php
 
 //inicia una sesión
-session_start();
+//session_start();
 $pagina = "main"; //pagina principal
 
 //código de prueba NO PRESTAR ATENCION---------------------
