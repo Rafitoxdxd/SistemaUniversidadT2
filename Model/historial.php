@@ -597,6 +597,5 @@ class personasaj extends datos{
 
 	
 	
-	
 }
 ?>
