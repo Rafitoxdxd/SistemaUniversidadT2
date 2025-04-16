@@ -18,6 +18,7 @@ class personasaj extends datos{
 	//misma clase, la forma de colcoarlo privado es usando la palabra private
 	
 	private $nombre; //recuerden que en php, las variables no tienen tipo predefinido
+	private $cedula;
 	private $edad;
 	private $localidad;
 	private $telefono;
@@ -59,7 +60,10 @@ class personasaj extends datos{
 		//luego el nombre del elemento sin el $
 	}
 	//lo mismo que se hizo para cedula se hace para usuario y clave
-	
+	function set_cedula($valor){
+		$this->cedula = $valor;
+	}
+
 	function set_edad($valor){
 		$this->edad = $valor;
 	}
@@ -154,6 +158,9 @@ class personasaj extends datos{
 	
 	function get_nombre(){
 		return $this->nombre;
+	}
+	function get_cedula(){
+		return $this->cedula;
 	}
 	function get_edad(){
 		return $this->edad;
@@ -261,6 +268,7 @@ class personasaj extends datos{
 			try {
 					$co->query("Insert into personas(
 						nombre,
+						cedula,
 						edad,
 						localidad,
 						telefono,
@@ -292,6 +300,7 @@ class personasaj extends datos{
 						)
 						Values(
 						'$this-> nombre',
+						'$this-> cedula',
 						'$this->  edad',
 						'$this->  localidad',
 						'$this->  telefono',
@@ -344,6 +353,7 @@ class personasaj extends datos{
 					$co->query("Update personas set
 
 						nombre= '$this-> nombre',
+						cedula= '$this-> cedula',
 						edad= '$this->  edad',
 						localidad= '$this->  localidad',
 						telefono= '$this->  telefono',
@@ -418,24 +428,96 @@ class personasaj extends datos{
 				foreach($resultado as $r){
 					$respuesta = $respuesta."<tr style='cursor:pointer' onclick='coloca(this);'>";
 						$respuesta = $respuesta."<td>";
+							$respuesta = $respuesta.$r['nombre'];
+						$respuesta = $respuesta."</td>";
+						$respuesta = $respuesta."<td>";
 							$respuesta = $respuesta.$r['cedula'];
 						$respuesta = $respuesta."</td>";
 						$respuesta = $respuesta."<td>";
-							$respuesta = $respuesta.$r['apellidos'];
+							$respuesta = $respuesta.$r['edad'];
 						$respuesta = $respuesta."</td>";
 						$respuesta = $respuesta."<td>";
-							$respuesta = $respuesta.$r['nombres'];
+							$respuesta = $respuesta.$r['localidad'];
 						$respuesta = $respuesta."</td>";
 						$respuesta = $respuesta."<td>";
-							$respuesta = $respuesta.$r['fechadenacimiento'];
+							$respuesta = $respuesta.$r['telefono'];
 						$respuesta = $respuesta."</td>";
 						$respuesta = $respuesta."<td>";
-							$respuesta = $respuesta.$r['sexo'];
+							$respuesta = $respuesta.$r['gmail'];
 						$respuesta = $respuesta."</td>";
-						$respuesta = $respuesta."<td>";
-							$respuesta = $respuesta.$r['gradodeinstruccion'];
+						$respuesta = $respuesta."</tr>";
+							$respuesta = $respuesta.$r['estado_civil'];
 						$respuesta = $respuesta."</td>";
-					$respuesta = $respuesta."</tr>";
+						$respuesta = $respuesta."</tr>";
+							$respuesta = $respuesta.$r['profesion'];
+						$respuesta = $respuesta."</td>";
+						$respuesta = $respuesta."</tr>";
+							$respuesta = $respuesta.$r['estudios'];
+						$respuesta = $respuesta."</td>";
+						$respuesta = $respuesta."</tr>";
+							$respuesta = $respuesta.$r['como_conocio'];
+						$respuesta = $respuesta."</td>";
+						$respuesta = $respuesta."</tr>";
+							$respuesta = $respuesta.$r['sintomas'];
+						$respuesta = $respuesta."</td>";
+						$respuesta = $respuesta."</tr>";
+							$respuesta = $respuesta.$r['otro_sintomas'];
+						$respuesta = $respuesta."</td>";
+						$respuesta = $respuesta."</tr>";
+							$respuesta = $respuesta.$r['convives'];
+						$respuesta = $respuesta."</td>";
+						$respuesta = $respuesta."</tr>";
+							$respuesta = $respuesta.$r['cambiarias'];
+						$respuesta = $respuesta."</td>";
+						$respuesta = $respuesta."</tr>";
+							$respuesta = $respuesta.$r['destacarias'];
+						$respuesta = $respuesta."</td>";
+						$respuesta = $respuesta."</tr>";
+							$respuesta = $respuesta.$r['fortalezas'];
+						$respuesta = $respuesta."</td>";
+						$respuesta = $respuesta."</tr>";
+							$respuesta = $respuesta.$r['alcohol'];
+						$respuesta = $respuesta."</td>";
+						$respuesta = $respuesta."</tr>";
+							$respuesta = $respuesta.$r['frecuencia1'];
+						$respuesta = $respuesta."</td>";
+						$respuesta = $respuesta."</tr>";
+							$respuesta = $respuesta.$r['fumas'];
+						$respuesta = $respuesta."</td>";
+						$respuesta = $respuesta."</tr>";
+							$respuesta = $respuesta.$r['frecuencia2'];
+						$respuesta = $respuesta."</td>";
+						$respuesta = $respuesta."</tr>";
+							$respuesta = $respuesta.$r['sustancia'];
+						$respuesta = $respuesta."</td>";
+						$respuesta = $respuesta."</tr>";
+							$respuesta = $respuesta.$r['frecuencia3'];
+						$respuesta = $respuesta."</td>";
+						$respuesta = $respuesta."</tr>";
+							$respuesta = $respuesta.$r['otro_psicologo'];
+						$respuesta = $respuesta."</td>";
+						$respuesta = $respuesta."</tr>";
+							$respuesta = $respuesta.$r['finalizaste_tratamiento'];
+						$respuesta = $respuesta."</td>";
+						$respuesta = $respuesta."</tr>";
+							$respuesta = $respuesta.$r['personas_significativas'];
+						$respuesta = $respuesta."</td>";
+						$respuesta = $respuesta."</tr>";
+							$respuesta = $respuesta.$r['ayudarte'];
+						$respuesta = $respuesta."</td>";
+						$respuesta = $respuesta."</tr>";
+							$respuesta = $respuesta.$r['que_conseguir'];
+						$respuesta = $respuesta."</td>";
+						$respuesta = $respuesta."</tr>";
+							$respuesta = $respuesta.$r['compromiso'];
+						$respuesta = $respuesta."</td>";
+						$respuesta = $respuesta."</tr>";
+							$respuesta = $respuesta.$r['tiempo'];
+						$respuesta = $respuesta."</td>";
+						$respuesta = $respuesta."</tr>";
+							$respuesta = $respuesta.$r['reflejar'];
+						$respuesta = $respuesta."</td>";
+						$respuesta = $respuesta."</tr>";
 				}
 				return $respuesta;
 			    
