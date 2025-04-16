@@ -31,7 +31,8 @@ require_once("Model/".$pagina.".php");
 		  //clase es guardar esos valores en ella //con los metodos set
 		  $accion = $_POST['accion'];
 		  $o->set_nombre($_POST['nombre']);
-		  $o->set_cedula($_POST['apellido']);
+		  $o->set_apellido($_POST['apellido']);
+          $o->set_cedula($_POST['cedula']);
 		  $o->set_edad($_POST['edad']);
           $o->set_telefono($_POST['telefono']);
 		  $o->set_localidad($_POST['localidad']);
