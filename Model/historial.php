@@ -260,20 +260,67 @@ class personasaj extends datos{
 			//2 Se ejecuta el sql
 			try {
 					$co->query("Insert into personas(
-						cedula,
-						apellidos,
-						nombres,
-						fechadenacimiento,
-						sexo,
-						gradodeinstruccion
+						nombre,
+						edad,
+						localidad,
+						telefono,
+						gmail,
+						estado_civil,
+						profesion,
+						estudios,
+						como_conocio,
+						sintomas,
+						otro_sintomas,
+						convives,
+						cambiarias,
+						destacarias,
+						fortalezas,
+						alcohol,
+						frecuencia1,
+						fumas,
+						frecuencia2,
+						sustancia,
+						frecuencia3,
+						otro_psicologo,
+						finalizaste_tratamiento,
+						personas_significativas,
+						ayudarte,
+						que_conseguir,
+						compromiso,
+						tiempo,
+						reflejar
 						)
 						Values(
-						'$this->cedula',
-						'$this->apellidos',
-						'$this->nombres',
-						'$this->fechadenacimiento',
-						'$this->sexo',
-						'$this->gradodeinstruccion'
+						'$this-> nombre',
+						'$this->  edad',
+						'$this->  localidad',
+						'$this->  telefono',
+						'$this->  gmail',
+						'$this->  estado_civil',
+						'$this->  profesion',
+						'$this->  estudios',
+						'$this->  como_conocio',
+						'$this->  sintomas',
+						'$this->  otro_sintomas',
+						'$this->  convives',
+						'$this->  cambiarias',
+						'$this->  destacarias',
+						'$this->  fortalezas',
+						'$this->  alcohol',
+						'$this->  frecuencia1',
+						'$this->  fumas',
+						'$this->  frecuencia2',
+						'$this->  sustancia',
+						'$this->  frecuencia3',
+						'$this->  otro_psicologo',
+						'$this->  finalizaste_tratamiento',
+						'$this->  personas_significativas',
+						'$this->  ayudarte',
+						'$this->  que_conseguir',
+						'$this->  compromiso',
+						'$this->  tiempo',
+						'$this-> reflejar'
+
 						)");
 						return "Registro incluido";
 			} catch(Exception $e) {
@@ -294,15 +341,38 @@ class personasaj extends datos{
 		$co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		if($this->existe($this->cedula)){
 			try {
-					$co->query("Update personas set 
-					    cedula = '$this->cedula',
-						apellidos = '$this->apellidos',
-						nombres = '$this->nombres',
-						fechadenacimiento = '$this->fechadenacimiento',
-						sexo = '$this->sexo',
-						gradodeinstruccion = '$this->gradodeinstruccion'
-						where
-						cedula = '$this->cedula'
+					$co->query("Update personas set
+
+						nombre= '$this-> nombre',
+						edad= '$this->  edad',
+						localidad= '$this->  localidad',
+						telefono= '$this->  telefono',
+						gmail= '$this->  gmail',
+						estado_civil= '$this->  estado_civil',
+						profesion'$this->  profesion',
+						estudios= '$this->  estudios',
+						como_conocio= '$this->  como_conocio',
+						sintomas= '$this->  sintomas',
+						otro_sintomas= '$this->  otro_sintomas',
+						convives= '$this->  convives',
+						cambiarias= '$this->  cambiarias',
+						destacarias= '$this->  destacarias',
+						fortalezas= '$this->  fortalezas',
+						alcohol= '$this->  alcohol',
+						frecuencia1= '$this->  frecuencia1',
+						fumas= '$this->  fumas',
+						frecuencia2= '$this->  frecuencia2',
+						sustancia= '$this->  sustancia',
+						frecuencia3= '$this->  frecuencia3',
+						otro_psicologo= '$this->  otro_psicologo',
+						finalizaste_tratamiento= '$this->  finalizaste_tratamiento',
+						personas_significativas= '$this->  personas_significativas',
+						ayudarte= '$this->  ayudarte',
+						que_conseguir= '$this->  que_conseguir',
+						compromiso= '$this->  compromiso',
+						tiempo= '$this->  tiempo',
+						reflejar= '$this-> reflejar'
+					   
 						");
 						return "Registro Modificado";
 			} catch(Exception $e) {
@@ -310,7 +380,7 @@ class personasaj extends datos{
 			}
 		}
 		else{
-			return "Cedula no registrada";
+			return "Registro no modificado";
 		}
 		
 	}
