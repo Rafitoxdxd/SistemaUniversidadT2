@@ -33,6 +33,7 @@ class historial extends datos{
 	private $cambiarias;
 	private $destacarias;
 	private $fortalezas;
+	private $Debilidades;
 	private $alcohol;
 	private $frecuencia1;
 	private $fumas;
@@ -109,6 +110,9 @@ class historial extends datos{
 	}
 	function set_fortalezas($valor){
 		$this->fortalezas = $valor;
+	}
+	function set_Debilidades($valor){
+		$this->Debilidades = $valor;
 	}
 	function set_alcohol($valor){
 		$this->alcohol = $valor;
@@ -204,6 +208,9 @@ class historial extends datos{
 	function set_fortalezas(){
 		return	$this->fortalezas;
 	}
+	function set_Debilidades(){
+		return	$this->Debilidades;
+	}
 	function set_alcohol(){
 		return	$this->alcohol;
 	}
@@ -283,6 +290,7 @@ class historial extends datos{
 						cambiarias,
 						destacarias,
 						fortalezas,
+						Debilidades,
 						alcohol,
 						frecuencia1,
 						fumas,
@@ -315,6 +323,7 @@ class historial extends datos{
 						'$this->  cambiarias',
 						'$this->  destacarias',
 						'$this->  fortalezas',
+						'$this->  Debilidades',
 						'$this->  alcohol',
 						'$this->  frecuencia1',
 						'$this->  fumas',
@@ -368,6 +377,7 @@ class historial extends datos{
 						cambiarias= '$this->  cambiarias',
 						destacarias= '$this->  destacarias',
 						fortalezas= '$this->  fortalezas',
+						Debilidades= '$this->  Debilidades',
 						alcohol= '$this->  alcohol',
 						frecuencia1= '$this->  frecuencia1',
 						fumas= '$this->  fumas',
@@ -474,6 +484,9 @@ class historial extends datos{
 						$respuesta = $respuesta."</td>";
 						$respuesta = $respuesta."</tr>";
 							$respuesta = $respuesta.$r['fortalezas'];
+						$respuesta = $respuesta."</td>";
+						$respuesta = $respuesta."</tr>";
+						$respuesta = $respuesta.$r['Debilidades'];
 						$respuesta = $respuesta."</td>";
 						$respuesta = $respuesta."</tr>";
 							$respuesta = $respuesta.$r['alcohol'];
