@@ -2,14 +2,14 @@
 //llamda al archivo que contiene la clase
 //datos, en ella posteriormente se colcora el codigo
 //para enlazar a su base de datos
-require_once('modelo/datos.php');
+require_once('Model/datos.php');
 
 //declaracion de la clase usuarios que hereda de la clase datos
 //la herencia se declara con la palabra extends y no es mas 
 //que decirle a esta clase que puede usar los mismos metodos
 //que estan en la clase de dodne hereda (La padre) como sir fueran de el
 
-class personasaj extends datos{
+class historial extends datos{
 	//el primer paso dentro de la clase
 	//sera declarar los atributos (variables) que describen la clase
 	//para nostros no es mas que colcoar los inputs (controles) de
