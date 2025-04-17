@@ -12,7 +12,7 @@ if (!is_file("Model/".$pagina.".php")){
 	echo "Falta definir la clase ".$pagina;
 	exit;
 }  
-require_once("Model/".$pagina.".php");  
+require_once("View/".$pagina.".php");  
   if(is_file("View/".$pagina.".php")){
 	  
 	  //bien si estamos aca es porque existe la //vista y la clase
@@ -32,9 +32,9 @@ require_once("Model/".$pagina.".php");
 		  $accion = $_POST['accion'];
 		  $o->set_nombre($_POST['nombre']);
 		  $o->set_apellido($_POST['apellido']);
-          $o->set_cedula($_POST['cedula']);
+       $o->set_cedula($_POST['cedula']);
 		  $o->set_edad($_POST['edad']);
-          $o->set_telefono($_POST['telefono']);
+       $o->set_telefono($_POST['telefono']);
 		  $o->set_localidad($_POST['localidad']);
           $o->set_email($_POST['gmail']);
           $o->set_estado_civil($_POST['estado_civil']);
@@ -47,6 +47,7 @@ require_once("Model/".$pagina.".php");
           $o->set_cambiarias($_POST['cambiarias']);
           $o->set_destacarias($_POST['destacarias']);
 		  $o->set_fortalezas($_POST['fortalezas']);
+		  $o->set_debilidades($_POST['debilidades']);
           $o->set_alcohol($_POST['alcohol']);
           $o->set_frecuencia1($_POST['frecuencia1']);
           $o->set_fumas($_POST['fumas']);

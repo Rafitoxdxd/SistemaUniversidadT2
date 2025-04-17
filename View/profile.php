@@ -27,6 +27,8 @@
                 <ul class="nav flex-column">
                     <li class="nav-item"><a class="nav-link active" href="?pagina=main">INICIO</a></li>
                     <li class="nav-item"><a class="nav-link" href='?pagina=logout'>CERRAR SESION</a></li>
+                    <li class="nav-item"><a class="nav-link" href='?pagina=historial'>Historial</a></li>
+
                     <br>
                 </ul>
             </div>
