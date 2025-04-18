@@ -41,7 +41,9 @@ if(is_file("View/".$pagina.".php")){
           $o->set_estado_civil($_POST['estado_civil']);
           $o->set_profesion($_POST['profesion']);
           $o->set_estudios($_POST['estudios']);
+          if(!empty($_POST['como_conocio'])){
           $o->set_como_conocio($_POST['como_conocio']);
+          }
           $o->set_sistomas($_POST['sistomas']);
           $o->set_otros_sistomas($_POST['otros_sistomas']);
           $o->set_convives($_POST['convives']);
@@ -49,13 +51,22 @@ if(is_file("View/".$pagina.".php")){
           $o->set_destacarias($_POST['destacarias']);
 		  $o->set_fortalezas($_POST['fortalezas']);
 		  $o->set_debilidades($_POST['debilidades']);
-          $o->set_alcohol($_POST['alcohol']);
+		  		if(!empty($_POST['alcohol'])){
+					$o->set_alcohol($_POST['alcohol']);
+	      } 
           $o->set_frecuencia1($_POST['frecuencia1']);
-          $o->set_fumas($_POST['fumas']);
+          if(!empty($_POST['fumas'])){
+					$o->set_fumas($_POST['fumas']);
+          }
+         
           $o->set_frecuencia2($_POST['frecuencia2']);
-          $o->set_sustancia($_POST['sustacia']);
+          if(!empty($_POST['alcohol'])){
+					$o->set_sustancia($_POST['sustacia']);
+          }
           $o->set_frecuencia3($_POST['frecuencia3']);
+          if(!empty($_POST['alcohol'])){
           $o->set_otro_psicologo($_POST['otro_psicologo']);
+          }       
           $o->set_finalizaste_tratamiento($_POST['finalizaste_tratamiento']);
           $o->set_personas_significativas($_POST['personas_significativas']);
           $o->set_ayudarte($_POST['ayudarte']);
