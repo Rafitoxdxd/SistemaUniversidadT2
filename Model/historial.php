@@ -9,7 +9,7 @@ require_once('Model/datos.php');
 //que decirle a esta clase que puede usar los mismos metodos
 //que estan en la clase de dodne hereda (La padre) como sir fueran de el
 
-class historial extends datos{
+class historial {
 	//el primer paso dentro de la clase
 	//sera declarar los atributos (variables) que describen la clase
 	//para nostros no es mas que colcoar los inputs (controles) de
@@ -18,6 +18,7 @@ class historial extends datos{
 	//misma clase, la forma de colcoarlo privado es usando la palabra private
 	
 	private $nombre; //recuerden que en php, las variables no tienen tipo predefinido
+	private $apellido;
 	private $cedula;
 	private $edad;
 	private $localidad;
@@ -48,212 +49,16 @@ class historial extends datos{
 	private $compromiso;
 	private $tiempo;
 	private $reflejar;
-
 	
-	//Ok ya tenemos los atributos, pero como son privados no podemos acceder a ellos desde fueran
-	//por lo que debemos colcoar metodos (funciones) que me permitan leer (get) y colocar (set)
-	//valores en ello, esto es  muy mal llamado geters y seters por si alguien se los pregunta
-	
-	function set_nombre($valor){
-		$this->nombre = $valor; //fijencen como se accede a los elementos dentro de una clase
-		//this que singnifica esto es decir esta clase luego -> simbolo que indica que apunte
-		//a un elemento de this, es decir esta clase
-		//luego el nombre del elemento sin el $
+	//getter y setter para propiedades
+	public function __get($name) {
+		if ($name == 'myProperty') { return $this->myProperty; }
 	}
-	//lo mismo que se hizo para cedula se hace para usuario y clave
-	function set_cedula($valor){
-		$this->cedula = $valor;
-	}
-
-	function set_edad($valor){
-		$this->edad = $valor;
+		
+	public function __set($name, $value) {
+		if ($name == 'myProperty') { $this->myProperty = $value; }
 	}
 	
-	function set_localidad($valor){
-		$this->localidad = $valor;
-	}
-	
-	function set_telefono($valor){
-		$this->telefono = $valor;
-	}
-	
-	function set_gmail($valor){
-		$this->gmail = $valor;
-	}
-	
-	function set_estado_civil($valor){
-		$this->estado_civil = $valor;
-	}
-	function set_profesion($valor){
-		$this->profesion = $valor;
-	}
-	function set_estudios($valor){
-		$this->estudios = $valor;
-	}
-	function set_como_conocio($valor){
-		$this->como_conocio = $valor;
-	}
-	function set_sintomas($valor){
-		$this->sintomas = $valor;
-	}
-	function set_otro_sintomas($valor){
-		$this->otro_sintomas = $valor;
-	}
-	function set_convives($valor){
-		$this->convives = $valor;
-	}
-	function set_cambiarias($valor){
-		$this->cambiarias = $valor;
-	}
-	function set_destacarias($valor){
-		$this->destacarias = $valor;
-	}
-	function set_fortalezas($valor){
-		$this->fortalezas = $valor;
-	}
-	function set_Debilidades($valor){
-		$this->Debilidades = $valor;
-	}
-	function set_alcohol($valor){
-		$this->alcohol = $valor;
-	}
-	function set_frecuencia1($valor){
-		$this->frecuencia1 = $valor;
-	}
-	function set_fumas($valor){
-		$this->fumas = $valor;
-	}
-	function set_frecuencia2($valor){
-		$this->frecuencia2 = $valor;
-	}
-	function set_sustancia($valor){
-		$this->sustancia = $valor;
-	}
-	function set_frecuencia3($valor){
-		$this->frecuencia3 = $valor;
-	}
-	function set_otro_psicologo($valor){
-		$this->otro_psicologo = $valor;
-	}
-	function set_finalizaste_tratamiento($valor){
-		$this->finalizaste_tratamiento = $valor;
-	}
-	function set_personas_significativas($valor){
-		$this->personas_significativas = $valor;
-	}
-	function set_ayudarte($valor){
-		$this->ayudarte = $valor;
-	}
-	function set_que_conseguir($valor){
-		$this->que_conseguir = $valor;
-	}
-	function set_compromiso($valor){
-		$this->compromiso = $valor;
-	}
-	function set_tiempo($valor){
-		$this->tiempo = $valor;
-	}
-	function set_reflejar($valor){
-		$this->reflejar = $valor;
-	}
-
-	
-	//ahora la misma cosa pero para leer, es decir get
-	
-	function get_nombre(){
-		return $this->nombre;
-	}
-	function get_cedula(){
-		return $this->cedula;
-	}
-	function get_edad(){
-		return $this->edad;
-	}
-	function get_localidad(){
-		return $this->localidad;
-	}
-	function get_telefono(){
-		return $this->telefono;
-	}
-	function get_gmail(){
-		return $this->gmail;
-	}
-	function get_estado_civil(){
-		return $this->estado_civil;
-	}
-	function get_profesion(){
-		return	$this->profesion;
-	}
-	function set_estudios(){
-		return	$this->estudios;
-	}
-	function set_como_conocio(){
-		return	$this->como_conocio;
-	}
-	function set_sintomas(){
-		return	$this->sintomas;
-	}
-	function set_otro_sintomas(){
-		return	$this->otro_sintomas;
-	}
-	function set_convives(){
-		return	$this->convives;
-	}
-	function set_cambiarias(){
-		return	$this->cambiarias;
-	}
-	function set_destacarias(){
-		return	$this->destacarias;
-	}
-	function set_fortalezas(){
-		return	$this->fortalezas;
-	}
-	function set_Debilidades(){
-		return	$this->Debilidades;
-	}
-	function set_alcohol(){
-		return	$this->alcohol;
-	}
-	function set_frecuencia1(){
-		return	$this->frecuencia1;
-	}
-	function set_fumas(){
-		return	$this->fumas;
-	}
-	function set_frecuencia2(){
-		return	$this->frecuencia2;
-	}
-	function set_sustancia(){
-		return	$this->sustancia;
-	}
-	function set_frecuencia3(){
-		return	$this->frecuencia3;
-	}
-	function set_otro_psicologo(){
-		return	$this->otro_psicologo;
-	}
-	function set_finalizaste_tratamiento(){
-		return	$this->finalizaste_tratamiento;
-	}
-	function set_personas_significativas(){
-		return	$this->personas_significativas;
-	}
-	function set_ayudarte(){
-		return	$this->ayudarte;
-	}
-	function set_que_conseguir(){
-		return	$this->que_conseguir;
-	}
-	function set_compromiso(){
-		return	$this->compromiso;
-	}
-	function set_tiempo(){
-		return	$this->tiempo;
-	}
-	function set_reflejar(){
-		return	$this->reflejar;
-	}
-
 	
 	//Lo siguiente que demos hacer es crear los metodos para incluir, consultar y eliminar
 	
@@ -351,7 +156,7 @@ class historial extends datos{
 		
 		//Listo eso es todo y es igual para el resto de las operaciones
 		//incluir, modificar y eliminar
-		//solo cambia para buscar 
+		//solo cambia para buscar
 	}
 	
 	function modificar(){

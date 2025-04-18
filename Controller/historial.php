@@ -6,14 +6,15 @@
 
 
 //lo primero que se debe hacer es verificar al //igual que en la vista que exista el archivo
-if (!is_file("Model/".$pagina.".php")){
-	//alli pregunte que si no es archivo se niega //con !
-	//si no existe envio mensaje y me salgo
-	echo "Falta definir la clase ".$pagina;
-	exit;
-}  
-require_once("View/".$pagina.".php");  
-  if(is_file("View/".$pagina.".php")){
+require_once("Model/historial.php"); 
+
+//importa la vista de la página
+if (is_file("View/".$pagina.".php"))
+{ require_once("View/".$pagina.".php"); }
+else
+{ echo "page not found"; }
+
+if(is_file("View/".$pagina.".php")){
 	  
 	  //bien si estamos aca es porque existe la //vista y la clase
 	  //por lo que lo primero que debemos hace es //realizar una instancia de la clase
@@ -75,8 +76,6 @@ require_once("View/".$pagina.".php");
 			
 		  }
 	  };
-	  
-	  require_once("vista/".$pagina.".php"); 
   }
   else{
 	  echo "pagina en construccion";
