@@ -143,414 +143,356 @@
 
     </div>
 
-    <div class="modal fade" id="incluirPacienteModal" tabindex="-1" role="dialog" aria-labelledby="incluirPacienteModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-
+    <div class="modal fade" id="incluirPacienteModal" tabindex="-1" aria-labelledby="incluirPacienteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
         <div class="modal-content">
-
             <div class="modal-header bg-success text-white">
                 <h5 class="modal-title" id="incluirPacienteModalLabel">Incluir Nuevo Paciente</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+            <div class="modal-body py-4">
+                <form action="" method="POST">
 
-            <div class="modal-body">
-                <div class="container mt-5">
-                    <form action="" method="post">
+                   
+                    <header class="mb-4 text-center">
+                        <h2 class="">Historia de Vida</h2>
+                    </header>
 
-                        <header class="mb-4 text-center">
-                            <h2 class="">Historia de Vida</h2>
-                        </header>
-
-                        <section class="form-group">
-                        
-                            <h2 class="h5">Datos Personales</h2>
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <label for="nombre">Nombre:</label>
-                                    <input type="text" class="form-control" id="nombre" name="nombre" required>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="apellidos">Apellido:</label>
-                                    <input type="text" class="form-control" id="apellidos" name="apellidos" required>
-                                </div>
+                    <section class="mb-3">
+                        <h2 class="h5">Datos Personales</h2>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="nombre" class="form-label">Nombre:</label>
+                                <input type="text" class="form-control" id="nombre" name="nombre">
                             </div>
+                            <div class="col-md-6">
+                                <label for="apellidos" class="form-label">Apellido:</label>
+                                <input type="text" class="form-control" id="apellidos" name="apellidos">
+                            </div>
+                        </div>
 
+                        <div class="mb-3">
                             <div>
-                                <div>
-                                    <label for="idPacienteModificar">Cédula de Identidad:</label><br>
-                                    <input type="text" class="form-control" id="idPacienteModificar" placeholder="Cédula ( Inicia con V o E )"><br>
-                                </div>
+                                <label for="idPacienteModificar" class="form-label">Cédula de Identidad:</label><br>
+                                <input type="text" class="form-control" id="idPacienteModificar" placeholder="Cédula ( Inicia con V o E )"><br>
                             </div>
-
-                            <div class="form-row">
-                                <div class="form-group col-md-3">
-                                    <label for="edad">Edad:</label>
-                                    <input type="number" class="form-control" id="Edad" name="Edad" required> 
-                                </div>
-                                <div class="form-group col-md-3">
-                                    <label for="fecha_nacimiento">F. de nac:</label>
-                                    <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" required>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="localidad">Localidad:</label>
-                                    <input type="text" class="form-control" id="Localidad" name="Localidad" required>
-                                </div>
-                            </div>
-
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <label for="telefono">Teléfono:</label>
-                                    <input type="tel" class="form-control" id="telefono" name="telefono">
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="email">Email:</label>
-                                    <input type="email" class="form-control" id="email" name="email" required>
-                                </div>
-                            </div>
-
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <label for="estado_civil">Estado civil:</label>
-                                    <select class="form-control" id="estado_civil" name="estado_civil" required>
-                                        <option value="target_blank"></option>
-                                        <option value="soltero">Soltero</option>
-                                        <option value="casado">Casado</option>
-                                        <option value="divorciado">Divorciado</option>
-                                        <option value="viudo">Viudo</option>
-                                    </select>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="profesion">Profesión:</label>
-                                    <input type="text" class="form-control" id="profesion" name="profesion" required>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="estudios">Estudios:</label>
-                                <input type="text" class="form-control" id="estudios" name="estudios" required>
-                            </div>
-
-                            <div class="form-group">
-                                <label>¿Cómo nos has conocido?</label><br>
-                                <div class="form-check form-check-inline">
-                                    <input type="radio" class="form-check-input" id="Amigos/familia" name="conocido" value="Amigos/familia" required>
-                                    <label class="form-check-label" for="Amigos/familia">Amigos/familia</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input type="radio" class="form-check-input" id="Instagram" name="conocido" value="Instagram">
-                                    <label class="form-check-label" for="Instagram">Instagram</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input type="radio" class="form-check-input" id="Google" name="conocido" value="Google">
-                                    <label class="form-check-label" for="Google">Google</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input type="radio" class="form-check-input" id="Otros" name="conocido" value="Otros">
-                                    <label class="form-check-label" for="Otros">Otros</label>
-                                </div>
-                            </div>
-                        
-                        </section>
-
-                        <div class="alert alert-info" role="alert">
-                            <b>A continuación, rellena aquellos apartados/preguntas que consideres que son necesarios para el tratamiento</b>
                         </div>
 
-                        <section>
-                            <h3 class="h5">Análisis funcional</h3>
-                            <p><b>Del siguiente listado, ¿Qué sensación presentas actualmente?:</b></p>
-
-                            <div class="form-row">
-                                <div class="form-group col-md-3">
-                                    <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="tensión" name="sintoma" value="tensión" required>
-                                        <label class="form-check-label" for="Tensión">Tensión</label>
-                                    </div>
-                                </div>
-                                <div class="form-group col-md-3">
-                                    <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="taquicardia" name="sintoma" value="taquicardia">
-                                        <label class="form-check-label" for="Taquicardia">Taquicardia</label>
-                                    </div>
-                                </div>
-                                <div class="form-group col-md-3">
-                                    <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="Fracaso" name="sintoma" value="Fracaso">
-                                        <label class="form-check-label" for="Fracaso">Fracaso</label>
-                                    </div>
-                                </div>
-                                <div class="form-group col-md-3">
-                                    <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="Presión en el pecho" name="sintoma" value="Presión en el pecho">
-                                        <label class="form-check-label" for="Presión en el pecho">Presión en el pecho</label>
-                                    </div>
-                                </div>
+                        <div class="row g-3">
+                            <div class="col-md-3">
+                                <label for="edad" class="form-label">Edad:</label>
+                                <input type="number" class="form-control" id="Edad" name="Edad">
                             </div>
-
-                            <div class="form-row">
-                                <div class="form-group col-md-3">
-                                    <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="Ansiedad" name="sintoma" value="Ansiedad" required>
-                                        <label class="form-check-label" for="Tensión">Ansiedad</label>
-                                    </div>
-                                </div>
-                                <div class="form-group col-md-3">
-                                    <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="Presión" name="sintoma" value="Presión">
-                                        <label class="form-check-label" for="Presión">Presión</label>
-                                    </div>
-                                </div>
-                                <div class="form-group col-md-3">
-                                    <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="Celos" name="sintoma" value="Celos">
-                                        <label class="form-check-label" for="Celos">Celos</label>
-                                    </div>
-                                </div>
-                                <div class="form-group col-md-3">
-                                    <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="Problemas de pareja" name="sintoma" value="Problemas de pareja">
-                                        <label class="form-check-label" for="Problemas de pareja">Problemas de pareja</label>
-                                    </div>
-                                </div>
+                            <div class="col-md-3">
+                                <label for="fecha_nacimiento" class="form-label">F. de nac:</label>
+                                <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento">
                             </div>
-
-                            <div class="form-row">
-                                <div class="form-group col-md-3">
-                                    <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="Flojedad" name="sintoma" value="Flojedad" required>
-                                        <label class="form-check-label" for="Flojedad">Flojedad</label>
-                                    </div>
-                                </div>
-                                <div class="form-group col-md-3">
-                                    <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="Irritabilidad" name="Irritabilidad" value="Irritabilidad">
-                                        <label class="form-check-label" for="Irritabilidad">Irritabilidad</label>
-                                    </div>
-                                </div>
-                                <div class="form-group col-md-3">
-                                    <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="Miedo" name="sintoma" value="Miedo">
-                                        <label class="form-check-label" for="Miedo">Miedo</label>
-                                    </div>
-                                </div>
-                                <div class="form-group col-md-3">
-                                    <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="Dificultades sexuales" name="sintoma" value="Dificultades sexuales">
-                                        <label class="form-check-label" for="Dificultades sexuales">Dificultades sexuales</label>
-                                    </div>
-                                </div>
+                            <div class="col-md-6">
+                                <label for="localidad" class="form-label">Localidad:</label>
+                                <input type="text" class="form-control" id="Localidad" name="Localidad">
                             </div>
-
-                            <div class="form-row">
-                                <div class="form-group col-md-3">
-                                    <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="Sudor" name="sintoma" value="Sudor" required>
-                                        <label class="form-check-label" for="Sudor">Sudor</label>
-                                    </div>
-                                </div>
-                                <div class="form-group col-md-3">
-                                    <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="Culpa" name="sintoma" value="Culpa">
-                                        <label class="form-check-label" for="Culpa">Culpa</label>
-                                    </div>
-                                </div>
-                                <div class="form-group col-md-3">
-                                    <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="Desconfianza" name="sintoma" value="Desconfianza">
-                                        <label class="form-check-label" for="Desconfianza">Desconfianza</label>
-                                    </div>
-                                </div>
-                                <div class="form-group col-md-3">
-                                    <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="Problemas familiares" name="sintoma" value="Problemas familiares">
-                                        <label class="form-check-label" for="Problemas familiares">Problemas familiares</label>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="form-row">
-                                <div class="form-group col-md-3">
-                                    <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="Mareo" name="sintoma" value="Mareo" required>
-                                        <label class="form-check-label" for="Mareo">Mareo</label>
-                                    </div>
-                                </div>
-                                <div class="form-group col-md-3">
-                                    <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="Cansancio" name="sintoma" value="Cansancio" required>
-                                        <label class="form-check-label" for="Cansancio">Cansancio</label>
-                                    </div>
-                                </div>
-                                <div class="form-group col-md-3">
-                                    <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="Sueño" name="sintoma" value="Sueño">
-                                        <label class="form-check-label" for="Sueño">Sueño</label>
-                                    </div>
-                                </div>
-                                <div class="form-group col-md-3">
-                                    <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="Nerviosismo" name="sintoma" value="Nerviosismo">
-                                        <label class="form-check-label" for="Nerviosismo">Nerviosismo</label>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="otros_sintomas">Otros síntomas:</label>
-                                <textarea class="form-control" id="otros_sintomas" rows="3"></textarea>
-                            </div>
-                        </section>
-                        
-                        <section>
-                            <h2 class="h2">Organismo</h2>
-
-                            <div class="form-group">
-                                <label for="convivencia">¿Con quién convives actualmente?</label>
-                                <textarea class="form-control" id="convivencia" rows="3"></textarea>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="relacion_mejorar">¿Cambiarías/mejorarías tu relación con alguno de ellos? ¿Por qué?</label>
-                                <textarea class="form-control" id="relacion_mejorar" rows="3"></textarea>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="area_conflictiva">¿Destacarías alguna área conflictiva en tu relación con tu familia/pareja que quisieras trabajar en terapia? (Entendiendo área como comunicación, relaciones sexuales en el caso de tu pareja...)</label>
-                                <textarea class="form-control" id="area_conflictiva" rows="3"></textarea>
-                            </div>
-                    
-                            <h3 class="h5">Hábitos y estilo de vida</h3>
-
-                            <div class="form-group">
-                                <label>¿Consumes alcohol?</label><br>
-                                <div class="form-check form-check-inline">
-                                    <input type="radio" class="form-check-input" id="alcohol_si" name="alcohol" value="si" required>
-                                    <label class="form-check-label" for="alcohol_si">Sí</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input type="radio" class="form-check-input" id="alcohol_no" name="alcohol" value="no">
-                                    <label class="form-check-label" for="alcohol_no">No</label>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="frecuencia_alcohol">¿Con qué frecuencia y cuánta cantidad?</label>
-                                <textarea class="form-control" id="frecuencia_alcohol" rows="2"></textarea>
-                            </div>
-
-                            
-                            <div class="form-group">
-                                <label>¿Fumas o vapeas?</label><br>
-                                <div class="form-check form-check-inline">
-                                    <input type="radio" class="form-check-input" id="fumar_si" name="fumar" value="si" required>
-                                    <label class="form-check-label" for="fumar_si">Sí</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input type="radio" class="form-check-input" id="fumar_no" name="fumar" value="no">
-                                    <label class="form-check-label" for="fumar_no">No</label>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="frecuencia_fumar">¿Con qué frecuencia y cuánta cantidad?</label>
-                                <textarea class="form-control" id="frecuencia_fumar" rows="2"></textarea>
-                            </div>
-
-                            <div class="form-group">
-                                <label>¿Consumes algún otro tipo de sustancia?</label><br>
-                                <div class="form-check form-check-inline">
-                                    <input type="radio" class="form-check-input" id="sustancia_si" name="sustancia" value="si" required>
-                                    <label class="form-check-label" for="sustancia_si">Sí</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input type="radio" class="form-check-input" id="sustancia_no" name="sustancia" value="no">
-                                    <label class="form-check-label" for="sustancia_no">No</label>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="frecuencia_sustancia">Indica cuál y con qué frecuencia</label>
-                                <textarea class="form-control" id="frecuencia_sustancia" rows="2"></textarea>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="rutina_sueno">Explica brevemente tu rutina de sueño (tiempo, calidad y si haces siesta...)</label>
-                                <textarea class="form-control" id="rutina_sueno" rows="3"></textarea>
-                            </div>
-                
-                            <h3 class="h5">Tratamientos anteriores</h3>
-                            <div class="form-group">
-                                <label>¿Has acudido al psicólogo o psiquiatría anteriormente? ¿Qué tipo de tratamiento recibió?</label><br>
-                                <div class="form-check form-check-inline">
-                                    <input type="radio" class="form-check-input" id="no_acudido" name="acudido" value="no" required>
-                                    <label class="form-check-label" for="no_acudido">No</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input type="radio" class="form-check-input" id="psicologo" name="acudido" value="psicólogo">
-                                    <label class="form-check-label" for="psicologo">Psicólogo</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input type="radio" class="form-check-input" id="psiquiatra" name="acudido" value="psiquiatra">
-                                    <label class="form-check-label" for="psiquiatra">Psiquiatra</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input type="radio" class="form-check-input" id="otro_acudido" name="acudido" value="otro">
-                                    <label class="form-check-label" for="otro_acudido">Otro</label>
-                                </div>
-                                <textarea class="form-control mt-2" name="tratamiento_recibido" rows="2" placeholder="Especifica el tratamiento recibido"></textarea>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="finalizado_tratamiento">¿Finalizaste el tratamiento? En caso negativo, ¿por qué razón?</label>
-                                <textarea class="form-control" id="finalizado_tratamiento" rows="2"></textarea>
-                            </div>
-                    
-                            <h3 class="h5">Preguntas relativas</h3>
-                            <div class="form-group">
-                                <label for="personas_significativas">¿Cuáles son las personas más significativas de tu vida actualmente?</label>
-                                <textarea class="form-control" id="personas_significativas" rows="3"></textarea>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="ayuda_terapia">¿Cuál o cuáles crees que podrían ayudarte durante tu terapia?</label>
-                                <textarea class="form-control" id="ayuda_terapia" rows="3"></textarea>
-                            </div>
-                    
-                            <h3 class="h5">Motivación y compromiso</h3>
-                            <div class="form-group">
-                                <label for="espera_terapia">¿Qué esperas conseguir cuando finalice la terapia?</label>
-                                <textarea class="form-control" id="espera_terapia" rows="3"></textarea>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="compromiso_terapia">Del 1 al 10 ¿Cuál es tu compromiso hacia la terapia?</label>
-                                <input type="number" class="form-control" id="compromiso_terapia" name="compromiso_terapia" min="1" max="10">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="duracion_terapia">¿Cuánto tiempo crees que durará la terapia?</label>
-                                <textarea class="form-control" id="duracion_terapia" rows="2"></textarea>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="importante_reflejar">¿Hay algo que no haya aparecido aquí pero consideras importante reflejar para abordar de manera adecuada el tratamiento? en caso afirmativo, indícalo</label>
-                                <textarea class="form-control" id="importante_reflejar" rows="3"></textarea>
-                            </div>
-                        </section>
-
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                            <input type="submit" name="guardar" class="btn btn-success">Guardar Paciente</input>
                         </div>
 
-                    </form>
-                </div>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="telefono" class="form-label">Teléfono:</label>
+                                <input type="tel" class="form-control" id="telefono" name="telefono">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="email" class="form-label">Email:</label>
+                                <input type="email" class="form-control" id="email" name="email">
+                            </div>
+                        </div>
+
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="estado_civil" class="form-label">Estado civil:</label>
+                                <select class="form-control" id="estado_civil" name="estado_civil">
+                                    <option value=""></option>
+                                    <option value="soltero">Soltero</option>
+                                    <option value="casado">Casado</option>
+                                    <option value="divorciado">Divorciado</option>
+                                    <option value="viudo">Viudo</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="profesion" class="form-label">Profesión:</label>
+                                <input type="text" class="form-control" id="profesion" name="profesion">
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="estudios" class="form-label">Estudios:</label>
+                            <input type="text" class="form-control" id="estudios" name="estudios">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">¿Cómo nos has conocido?</label><br>
+                            <div class="form-check form-check-inline">
+                                <input type="radio" class="form-check-input" id="Amigos/familia" name="conocido" value="Amigos/familia">
+                                <label class="form-check-label" for="Amigos/familia">Amigos/familia</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input type="radio" class="form-check-input" id="Instagram" name="conocido" value="Instagram">
+                                <label class="form-check-label" for="Instagram">Instagram</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input type="radio" class="form-check-input" id="Google" name="conocido" value="Google">
+                                <label class="form-check-label" for="Google">Google</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input type="radio" class="form-check-input" id="Otros" name="conocido" value="Otros">
+                                <label class="form-check-label" for="Otros">Otros</label>
+                            </div>
+                        </div>
+                    </section>
+
+                    <div class="alert alert-info" role="alert">
+                        <b>A continuación, rellena aquellos apartados/preguntas que consideres que son necesarios para el tratamiento</b>
+                    </div>
+
+                    <section class="mb-3">
+                        <h3 class="h5">Análisis funcional</h3>
+                        <p><b>Del siguiente listado, ¿Qué sensación presentas actualmente?:</b></p>
+
+                        <div class="row g-3">
+                            <div class="col-md-3">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="tensión" name=" sintoma[]" value="tensión">
+                                    <label class="form-check-label" for="Tensión">Tensión</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="taquicardia" name=" sintoma[]" value="taquicardia">
+                                    <label class="form-check-label" for="Taquicardia">Taquicardia</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="Fracaso" name=" sintoma[]" value="Fracaso">
+                                    <label class="form-check-label" for="Fracaso">Fracaso</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="Presión en el pecho" name=" sintoma[]" value="Presión en el pecho">
+                                    <label class="form-check-label" for="Presión en el pecho">Presión en el pecho</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="Ansiedad" name=" sintoma[]" value="Ansiedad">
+                                    <label class="form-check-label" for="Tensión">Ansiedad</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="Presión" name=" sintoma[]" value="Presión">
+                                    <label class="form-check-label" for="Presión">Presión</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="Celos" name=" sintoma[]" value="Celos">
+                                    <label class="form-check-label" for="Celos">Celos</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="Problemas de pareja" name=" sintoma[]" value="Problemas de pareja">
+                                    <label class="form-check-label" for="Problemas de pareja">Problemas de pareja</label>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="Flojedad" name=" sintoma[]" value="Flojedad">
+                                    <label class="form-check-label" for="Flojedad">Flojedad</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="Irritabilidad" name="Irritabilidad" value="Irritabilidad">
+                                    <label class="form-check-label" for="Irritabilidad">Irritabilidad</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="Miedo" name=" sintoma[]" value="Miedo">
+                                    <label class="form-check-label" for="Miedo">Miedo</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="Dificultades sexuales" name=" sintoma[]" value="Dificultades sexuales">
+                                    <label class="form-check-label" for="Dificultades sexuales">Dificultades sexuales</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="Sudor" name=" sintoma[]" value="Sudor">
+                                    <label class="form-check-label" for="Sudor">Sudor</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="Culpa" name=" sintoma[]" value="Culpa">
+                                    <label class="form-check-label" for="Culpa">Culpa</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="Desconfianza" name=" sintoma[]" value="Desconfianza">
+                                    <label class="form-check-label" for="Desconfianza">Desconfianza</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="Problemas familiares" name=" sintoma[]" value="Problemas familiares">
+                                    <label class="form-check-label" for="Problemas familiares">Problemas familiares</label>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="Mareo" name=" sintoma[]" value="Mareo">
+                                    <label class="form-check-label" for="Mareo">Mareo</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="Cansancio" name=" sintoma[]" value="Cansancio">
+                                    <label class="form-check-label" for="Cansancio">Cansancio</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="Sueño" name=" sintoma[]" value="Sueño">
+                                    <label class="form-check-label" for="Sueño">Sueño</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="Nerviosismo" name=" sintoma[]" value="Nerviosismo">
+                                    <label class="form-check-label" for="Nerviosismo">Nerviosismo</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="otros_ sintoma" class="form-label">Otros síntomas:</label>
+                            <textarea class="form-control" id="otros_ sintoma" name="otros_ sintoma" rows="3"></textarea>
+                        </div>
+                    </section>
+
+                    <section class="mb-3">
+                        <h2 class="h2">Organismo</h2>
+
+                        <div class="mb-3">
+                            <label for="convivencia" class="form-label">¿Con quién convives actualmente?</label>
+                            <textarea class="form-control" id="convivencia" name="convivencia" rows="3"></textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="relacion_mejorar" class="form-label">¿Cambiarías/mejorarías tu relación con alguno de ellos? ¿Por qué?</label>
+                            <textarea class="form-control" id="relacion_mejorar" name="relacion_mejorar" rows="3"></textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="area_conflictiva" class="form-label">¿Destacarías alguna área conflictiva en tu relación con tu familia/pareja que quisieras trabajar en terapia? (Entendiendo área como comunicación, relaciones sexuales en el caso de tu pareja...)</label>
+                            <textarea class="form-control" id="area_conflictiva" name="area_conflictiva" rows="3"></textarea>
+                        </div>
+
+                        <h3 class="h5">Hábitos y estilo de vida</h3>
+
+                        <div class="mb-3">
+                            <label class="form-label">¿Consumes alcohol?</label><br>
+                            <div class="form-check form-check-inline">
+                                <input type="radio" class="form-check-input" id="alcohol_si" name="alcohol" value="si">
+                                <label class="form-check-label" for="alcohol_si">Sí</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input type="radio" class="form-check-input" id="alcohol_no" name="alcohol" value="no">
+                                <label class="form-check-label" for="alcohol_no">No</label>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="frecuencia_alcohol" class="form-label">¿Con qué frecuencia y cuánta cantidad?</label>
+                            <textarea class="form-control" id="frecuencia_alcohol" name="frecuencia_alcohol" rows="2"></textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">¿Fumas o vapeas?</label><br>
+                            <div class="form-check form-check-inline">
+                                <input type="radio" class="form-check-input" id="fumar_si" name="fumar" value="si">
+                                <label class="form-check-label" for="fumar_si">Sí</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input type="radio" class="form-check-input" id="fumar_no" name="fumar" value="no">
+                                <label class="form-check-label" for="fumar_no">No</label>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="frecuencia_fumar" class="form-label">¿Con qué frecuencia y cuánta cantidad?</label>
+                            <textarea class="form-control" id="frecuencia_fumar" name="frecuencia_fumar" rows="2"></textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">¿Consumes algún otro tipo de sustancia?</label><br>
+                            <div class="form-check form-check-inline">
+                                <input type="radio" class="form-check-input" id="sustancia_si" name="sustancia" value="si">
+                                <label class="form-check-label" for="sustancia_si">Sí</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input type="radio" class="form-check-input" id="sustancia_no" name="sustancia" value="no">
+                                <label class="form-check-label" for="sustancia_no">No</label>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="frecuencia_sustancia" class="form-label">Indica cuál y con qué frecuencia</label>
+                            <textarea class="form-control" id="frecuencia_sustancia" name="frecuencia_sustancia" rows="2"></textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="rutina_sueno" class="form-label">Explica brevemente tu rutina de sueño (tiempo, calidad y si haces siesta...)</label>
+                            <textarea class="form-control" id="rutina_sueno" name="rutina_sueno" rows="3"></textarea>
+                        </div>
+
+                        <h3 class="h5">Tratamientos anteriores</h3>
+                        <div class="mb-3">
+                            <label class="form-label">¿Has acudido al psicólogo o psiquiatría anteriormente? ¿Qué tipo de tratamiento recibió?</label><br>
+                            <div class="form-check form-check-inline">
+                                <input type="radio" class="form-check-input" id="no_acudido" name="acudido" value="no">
+                                <label class="form-check-label" for="no_acudido">No</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input type="radio" class="form-check-input" id="psicologo" name="acudido" value="psicólogo">
+                                <label class="form-check-label" for="psicologo">Psicólogo</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input type="radio" class="form-check-input" id="psiquiatra" name="acudido" value="psiquiatra">
+                                <label class="form-check-label" for="psiquiatra">Psiquiatra</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input type="radio" class="form-check-input" id="otro_acudido" name="acudido" value="otro">
+                                <label class="form-check-label" for="otro_acudido">Otro</label>
+                            </div>
+                            <textarea class="form-control mt-2" name="tratamiento_recibido" rows="2" placeholder="Especifica el tratamiento recibido"></textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="finalizado_tratamiento" class="form-label">¿Finalizaste el tratamiento? En caso negativo, ¿por qué razón?</label>
+                            <textarea class="form-control" id="finalizado_tratamiento" name="finalizado_tratamiento" rows="2"></textarea>
+                        </div>
+
+                        <h3 class="h5">Preguntas relativas</h3>
+                        <div class="mb-3">
+                            <label for="personas_significativas" class="form-label">¿Cuáles son las personas más significativas de tu vida actualmente?</label>
+                            <textarea class="form-control" id="personas_significativas" name="personas_significativas" rows="3"></textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="ayuda_terapia" class="form-label">¿Cuál o cuáles crees que podrían ayudarte durante tu terapia?</label>
+                            <textarea class="form-control" id="ayuda_terapia" name="ayuda_terapia" rows="3"></textarea>
+                        </div>
+
+                        <h3 class="h5">Motivación y compromiso</h3>
+                        <div class="mb-3">
+                            <label for="espera_terapia" class="form-label">¿Qué esperas conseguir cuando finalice la terapia?</label>
+                            <textarea class="form-control" id="espera_terapia" name="espera_terapia" rows="3"></textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="compromiso_terapia" class="form-label">Del 1 al 10 ¿Cuál es tu compromiso hacia la terapia?</label>
+                            <input type="number" class="form-control" id="compromiso_terapia" name="compromiso_terapia" min="1" max="10">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="duracion_terapia" class="form-label">¿Cuánto tiempo crees que durará la terapia?</label>
+                            <textarea class="form-control" id="duracion_terapia" name="duracion_terapia" rows="2"></textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="importante_reflejar" class="form-label">¿Hay algo que no haya aparecido aquí pero consideras importante reflejar para abordar de manera adecuada el tratamiento? en caso afirmativo, indícalo</label>
+                            <textarea class="form-control" id="importante_reflejar" name="importante_reflejar" rows="3"></textarea>
+                        </div>
+                    </section>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <input type="submit" value="Guardar Pacientes" id="guardar" name="guardar" class="btn btn-success">
+                    </div>
+
+                </form>
             </div>
-
-        </div>
-
         </div>
     </div>
 </div>
