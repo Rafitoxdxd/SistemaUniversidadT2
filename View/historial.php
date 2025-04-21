@@ -81,33 +81,28 @@
             <div class="" id="pacientesContainer">
 
             <?php
-                $pacientes = array();
-                // Aquí se va ha iterar el array de pacientes en PHP
-                /*$pacientes = [
-                    ['nombre' => 'María Pérez', 'cedula' => 'V-12345678', 'fecha_nacimiento' => '15/03/1988', 'id' => '1'],
-                    ['nombre' => 'José Rodríguez', 'cedula' => 'E-98765432', 'fecha_nacimiento' => '28/09/1995', 'id' => '2'],
-                    ['nombre' => 'Ana Gómez', 'cedula' => 'V-54321876', 'fecha_nacimiento' => '02/07/1979', 'id' => '3'],
-                    ['nombre' => 'Carlos López', 'cedula' => 'E-11223344', 'fecha_nacimiento' => '20/01/2000', 'id' => '4'],
-                    ['nombre' => 'Laura Vargas', 'cedula' => 'V-99887766', 'fecha_nacimiento' => '05/11/1992', 'id' => '5'],
-                    ['nombre' => 'Sofía Martínez', 'cedula' => 'V-76543210', 'fecha_nacimiento' => '10/06/1990', 'id' => '6'],
-                    // ... más pacientes
-                ];*/
+                //$pacientes = array();
+                
+                $pacientes = Historial::cargarHistoriales();
 
                 foreach ($pacientes as $paciente) {
-                    echo '<article class="col mb-4 paciente-card" data-nombre="' . htmlspecialchars($paciente['nombre']) . '" data-cedula="' . htmlspecialchars($paciente['cedula']) . '" data-paciente-id="' . htmlspecialchars($paciente['id']) . '">';
+
+                    $datosPaciente = json_decode($paciente->getDatos(), true);
+
+                    echo '<article class="col mb-4 paciente-card" data-nombre="' . $datosPaciente['nombre'] . '" data-cedula="' . $datosPaciente['cedula'] . '" data-paciente-id="' . $paciente->getId() . '">';
                     echo '     <div class="card">';
                     echo '         <div class="card-body">';
-                    echo '             <h5 class="card-title">' . htmlspecialchars($paciente['nombre']) . '</h5>';
-                    echo '             <p class="card-text">Cédula: ' . htmlspecialchars($paciente['cedula']) . '</p>';
-                    echo '             <p class="card-text">Fecha de Nacimiento: ' . htmlspecialchars($paciente['fecha_nacimiento']) . '</p>';
+                    echo '             <h5 class="card-title">' . htmlspecialchars($datosPaciente['nombre']) . '</h5>';
+                    echo '             <p class="card-text">Cédula: ' . htmlspecialchars($datosPaciente['cedula']) . '</p>';
+                    echo '             <p class="card-text">Fecha de Nacimiento: ' . htmlspecialchars($datosPaciente['fecha_nacimiento']) . '</p>';
                     echo '             <div class="d-flex justify-content-between align-items-center">';
                     echo '                 <button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#verDetallesModal"';
-                    echo '                         data-nombre-paciente="' . htmlspecialchars($paciente['nombre']) . '"';
-                    echo '                         data-cedula-paciente="' . htmlspecialchars($paciente['cedula']) . '"';
-                    echo '                         data-fecha-nacimiento="' . htmlspecialchars($paciente['fecha_nacimiento']) . '">';
+                    echo '                         data-nombre-paciente="' . htmlspecialchars($datosPaciente['nombre']) . '"';
+                    echo '                         data-cedula-paciente="' . htmlspecialchars($datosPaciente['cedula']) . '"';
+                    echo '                         data-fecha-nacimiento="' . htmlspecialchars($datosPaciente['fecha_nacimiento']) . '">';
                     echo '                     Ver Detalles';
                     echo '                 </button>';
-                    echo '                 <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#eliminarPacienteModal-' . htmlspecialchars($paciente['id']) . '">';
+                    echo '                 <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#eliminarPacienteModal-' . $paciente->getId() . '">';
                     echo '                     <i class="bi bi-trash3-fill eliminar-icono-tarjeta"></i> Eliminar';
                     echo '                 </button>';
                     echo '             </div>';
@@ -115,21 +110,29 @@
                     echo '     </div>';
 
                     // Modal de Eliminar Paciente para cada tarjeta
-                    echo '<div class="modal fade" id="eliminarPacienteModal-' . htmlspecialchars($paciente['id']) . '" tabindex="-1" aria-labelledby="eliminarPacienteModalLabel-' . htmlspecialchars($paciente['id']) . '" aria-hidden="true">';
+                    echo '<div class="modal fade" id="eliminarPacienteModal-' . $paciente->getId() . '" tabindex="-1" aria-labelledby="eliminarPacienteModalLabel-' . $paciente->getId() . '" aria-hidden="true">';
                     echo '    <div class="modal-dialog">';
                     echo '        <div class="modal-content">';
+
+                    echo '        <form  action="" method="POST">';
+
                     echo '            <div class="modal-header bg-warning text-dark">';
-                    echo '                <h5 class="modal-title" id="eliminarPacienteModalLabel-' . htmlspecialchars($paciente['id']) . '">Confirmar Eliminación</h5>';
+                    echo '                <h5 class="modal-title" id="eliminarPacienteModalLabel-' . $paciente->getId() . '">Confirmar Eliminación</h5>';
                     echo '                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>';
                     echo '            </div>';
                     echo '            <div class="modal-body">';
-                    echo '                <p>¿Está seguro de que desea eliminar a <strong>' . htmlspecialchars($paciente['nombre']) . '</strong>?</p>';
+                    echo '                <p>¿Está seguro de que desea eliminar a <strong>' . htmlspecialchars($datosPaciente['nombre']) . '</strong>?</p>';
                     echo '                <p class="text-danger">Esta acción no se puede deshacer.</p>';
                     echo '            </div>';
                     echo '            <div class="modal-footer">';
                     echo '                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>';
-                    echo '                <button type="button" class="btn btn-danger" onclick="eliminarPaciente(\'' . htmlspecialchars($paciente['id']) . '\')">Eliminar Paciente</button>';
+                    //hidden text
+                    echo '                <input type="text" name="idPacienteEliminar" value="' . $paciente->getId() . '" hidden  name="eliminar"/>';    
+                    echo '                <input type="submit" class="btn btn-danger" name="eliminar"/>';
                     echo '            </div>';
+
+                    echo '        </form>';
+
                     echo '        </div>';
                     echo '    </div>';
                     echo '</div>';
@@ -174,7 +177,7 @@
                         <div class="mb-3">
                             <div>
                                 <label for="idPacienteModificar" class="form-label">Cédula de Identidad:</label><br>
-                                <input type="text" class="form-control" id="idPacienteModificar" placeholder="Cédula ( Inicia con V o E )"><br>
+                                <input type="text" class="form-control" id="idPacienteModificar" name="cedula" placeholder="Cédula ( Inicia con V o E )"><br>
                             </div>
                         </div>
 
@@ -257,18 +260,22 @@
 
                         <div class="row g-3">
                             <div class="col-md-3">
+
                                 <div class="form-check">
                                     <input type="checkbox" class="form-check-input" id="tensión" name=" sintoma[]" value="tensión">
                                     <label class="form-check-label" for="Tensión">Tensión</label>
                                 </div>
+
                                 <div class="form-check">
                                     <input type="checkbox" class="form-check-input" id="taquicardia" name=" sintoma[]" value="taquicardia">
                                     <label class="form-check-label" for="Taquicardia">Taquicardia</label>
                                 </div>
+
                                 <div class="form-check">
                                     <input type="checkbox" class="form-check-input" id="Fracaso" name=" sintoma[]" value="Fracaso">
                                     <label class="form-check-label" for="Fracaso">Fracaso</label>
                                 </div>
+
                                 <div class="form-check">
                                     <input type="checkbox" class="form-check-input" id="Presión en el pecho" name=" sintoma[]" value="Presión en el pecho">
                                     <label class="form-check-label" for="Presión en el pecho">Presión en el pecho</label>
@@ -277,6 +284,7 @@
                                     <input type="checkbox" class="form-check-input" id="Ansiedad" name=" sintoma[]" value="Ansiedad">
                                     <label class="form-check-label" for="Tensión">Ansiedad</label>
                                 </div>
+
                                 <div class="form-check">
                                     <input type="checkbox" class="form-check-input" id="Presión" name=" sintoma[]" value="Presión">
                                     <label class="form-check-label" for="Presión">Presión</label>
@@ -285,58 +293,67 @@
                                     <input type="checkbox" class="form-check-input" id="Celos" name=" sintoma[]" value="Celos">
                                     <label class="form-check-label" for="Celos">Celos</label>
                                 </div>
+
                                 <div class="form-check">
                                     <input type="checkbox" class="form-check-input" id="Problemas de pareja" name=" sintoma[]" value="Problemas de pareja">
                                     <label class="form-check-label" for="Problemas de pareja">Problemas de pareja</label>
                                 </div>
-                            </div>
-                            <div class="col-md-3">
+
                                 <div class="form-check">
                                     <input type="checkbox" class="form-check-input" id="Flojedad" name=" sintoma[]" value="Flojedad">
                                     <label class="form-check-label" for="Flojedad">Flojedad</label>
                                 </div>
+
                                 <div class="form-check">
                                     <input type="checkbox" class="form-check-input" id="Irritabilidad" name="Irritabilidad" value="Irritabilidad">
                                     <label class="form-check-label" for="Irritabilidad">Irritabilidad</label>
                                 </div>
+
                                 <div class="form-check">
                                     <input type="checkbox" class="form-check-input" id="Miedo" name=" sintoma[]" value="Miedo">
                                     <label class="form-check-label" for="Miedo">Miedo</label>
                                 </div>
+
                                 <div class="form-check">
                                     <input type="checkbox" class="form-check-input" id="Dificultades sexuales" name=" sintoma[]" value="Dificultades sexuales">
                                     <label class="form-check-label" for="Dificultades sexuales">Dificultades sexuales</label>
                                 </div>
+
                                 <div class="form-check">
                                     <input type="checkbox" class="form-check-input" id="Sudor" name=" sintoma[]" value="Sudor">
                                     <label class="form-check-label" for="Sudor">Sudor</label>
                                 </div>
+
                                 <div class="form-check">
                                     <input type="checkbox" class="form-check-input" id="Culpa" name=" sintoma[]" value="Culpa">
                                     <label class="form-check-label" for="Culpa">Culpa</label>
                                 </div>
+
                                 <div class="form-check">
                                     <input type="checkbox" class="form-check-input" id="Desconfianza" name=" sintoma[]" value="Desconfianza">
                                     <label class="form-check-label" for="Desconfianza">Desconfianza</label>
                                 </div>
+
                                 <div class="form-check">
                                     <input type="checkbox" class="form-check-input" id="Problemas familiares" name=" sintoma[]" value="Problemas familiares">
                                     <label class="form-check-label" for="Problemas familiares">Problemas familiares</label>
                                 </div>
-                            </div>
-                            <div class="col-md-3">
+
                                 <div class="form-check">
                                     <input type="checkbox" class="form-check-input" id="Mareo" name=" sintoma[]" value="Mareo">
                                     <label class="form-check-label" for="Mareo">Mareo</label>
                                 </div>
+
                                 <div class="form-check">
                                     <input type="checkbox" class="form-check-input" id="Cansancio" name=" sintoma[]" value="Cansancio">
                                     <label class="form-check-label" for="Cansancio">Cansancio</label>
                                 </div>
+
                                 <div class="form-check">
                                     <input type="checkbox" class="form-check-input" id="Sueño" name=" sintoma[]" value="Sueño">
                                     <label class="form-check-label" for="Sueño">Sueño</label>
                                 </div>
+
                                 <div class="form-check">
                                     <input type="checkbox" class="form-check-input" id="Nerviosismo" name=" sintoma[]" value="Nerviosismo">
                                     <label class="form-check-label" for="Nerviosismo">Nerviosismo</label>

@@ -84,6 +84,14 @@
                     </select>
                 </div>
 
+                <div class="form-group">
+                    <label for="rol">Rol:</label>
+                    <select class="form-control" id="rol" name="rol">
+                        <option value="c">Paciente</option>
+                        <option value="p">Psicólogo</option>
+                    </select>
+                </div>
+
                 <!--
                 <div class="form-group">
                     <label for="isPsychologist">Es usted psicólogo/a?</label>

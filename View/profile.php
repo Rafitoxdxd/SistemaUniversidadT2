@@ -27,7 +27,15 @@
                 <ul class="nav flex-column">
                     <li class="nav-item"><a class="nav-link active" href="?pagina=main">INICIO</a></li>
                     <li class="nav-item"><a class="nav-link" href='?pagina=logout'>CERRAR SESION</a></li>
-                    <li class="nav-item"><a class="nav-link" href='?pagina=historial'>Historial</a></li>
+                    
+                    <?php
+                        $v_usuario = $_SESSION["usuario"];
+
+                        if ($v_usuario->getRol() == 'p')
+                        {
+                            echo "<li class='nav-item'><a class='nav-link' href='?pagina=historial'>Historial</a></li>";
+                        }
+                    ?>
 
                     <br>
                 </ul>

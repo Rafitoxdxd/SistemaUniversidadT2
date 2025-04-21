@@ -13,6 +13,7 @@ class Usuario
     private $FNacimiento;
     private $genero;
     private $psicologo;
+    private $rol;
 
     //NO PRESTAR ATENCION
     //Metodo constructor (en caso de ser necesario)
@@ -75,6 +76,7 @@ class Usuario
             $data["correo"] = $userdata["mail"];
             $data["FNacimiento"] = $userdata["birthDate"];
             $data["genero"] = $userdata["gender"];
+            $data["rol"] = $userdata["role"];
 
             //establece los datos del usuario en la instancia usuario
             $usuario->setDatosUsuario(...$data);
@@ -103,8 +105,8 @@ class Usuario
         //almacenar la consulta en una variable
         //eso que esta en values (que si :ci, :name, :mail, etc.) son marcadores
         //los marcadores digamos que son referencias que usaremos luego
-        $sql =  "INSERT INTO ". $tablename ." (cedula, name, lastName, mail, password, birthDate, gender) "
-        ."VALUES (:ci, :name, :lastname, :mail, :password, :birthdate, :gender)";
+        $sql =  "INSERT INTO ". $tablename ." (cedula, name, lastName, mail, password, birthDate, gender, role) "
+        ."VALUES (:ci, :name, :lastname, :mail, :password, :birthdate, :gender, :role)";
         
         //esto simplemente encripta la contraseña que se haya ingresado en el formulario
         $encryptedPass = password_hash($contra, PASSWORD_BCRYPT);
@@ -122,6 +124,7 @@ class Usuario
         $stmt->bindParam(':password', $encryptedPass);
         $stmt->bindParam(':birthdate', $usuario->getFNacimiento());
         $stmt->bindParam(':gender', $usuario->getGenero());
+        $stmt->bindParam(':role', $usuario->getRol());
 
         //verifica si ya existia ese usuario en la BD
         //esta consulta sigue el mismo procedimiento de antes
@@ -142,7 +145,7 @@ class Usuario
     }
 
     //asigna los valores a la instancia usuario que llame el método
-    public function setDatosUsuario($id, $cedula, $nombre, $apellido, $correo, $FNacimiento, $genero)
+    public function setDatosUsuario($id, $cedula, $nombre, $apellido, $correo, $FNacimiento, $genero, $rol)
     {
         $this->id = $id;
         $this->cedula = $cedula;
@@ -151,6 +154,7 @@ class Usuario
         $this->correo = $correo;
         $this->FNacimiento = $FNacimiento;
         $this->genero = $genero;
+        $this->rol = $rol;
     }
 
     //bueno los métodos son autodescriptivos
@@ -164,6 +168,7 @@ class Usuario
     public function &getFNacimiento() { return $this->FNacimiento; }
     public function &getGenero()      { return $this->genero; }
     public function &getPsicologo()   { return $this->psicologo; }
+    public function &getRol()         { return $this->rol; }
 
     //métodos Setter
     public function setId($id)                   { $this->id = $id; }
@@ -174,6 +179,7 @@ class Usuario
     public function setFNacimiento($fNacimiento) { $this->FNacimiento = $fNacimiento; }
     public function setGenero($genero)           { $this->genero = $genero; }
     public function setPsicologo($psicologo)     { $this->psicologo = $psicologo; }
+    public function setRol($rol)                 { $this->rol = $rol; }
 
 }
 

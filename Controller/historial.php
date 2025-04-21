@@ -1,20 +1,15 @@
 <?php
+ob_start();
 
-//llamada al archivo que contiene la clase
-//usuarios, en ella estara el codigo que me //permitirá
-//guardar, consultar y modificar dentro de mi base //de datos
-
-//lo primero que se debe hacer es verificar al //igual que en la vista que exista el archivo
 require_once("Model/historial.php");
+require_once("Model/userManagement.php");
 
-//importa la vista de la página
-//  Verificar si la sesión está iniciada
+//Verificar si la sesión está iniciada
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
-// Carga la vista ANTES de procesar el POST para que la página se muestre
-// incluso si no hay envío de formulario.
+//importa la vista de la página
 if (is_file("View/".$pagina.".php")) {
     require_once("View/".$pagina.".php");
 } else {
@@ -22,30 +17,47 @@ if (is_file("View/".$pagina.".php")) {
     exit; // Detener la ejecución si la vista no existe
 }
 
+$historial = new Historial();
+
 // Ahora, procesa el formulario SI FUE ENVIADO
 if(isset($_POST["guardar"])) {
 
-    // directamente sobre $_POST. Es más directo. Usamos $key => $value para obtener tanto el nombre del campo como su valor.
-    foreach ($_POST as $key => $value) {
-      if ($key === 'guardar') {
-        continue; // Salta a la siguiente iteración si la clave es 'guardar'
-    }
-        // Mostramos el nombre del campo (la clave). Es importante sanitizarla.
-        echo "<b>" . htmlspecialchars($key) . ":</b> ";
+    unset($_POST["guardar"]);
+    $usuario = $_SESSION["usuario"];
+    
+    $datosJson = json_encode($_POST);
 
-        // Verificamos si el valor es un array
-        if (is_array($value)) {
-            // Si es un array (como 'sintoma'), lo convertimos en un string separando los elementos con ", ".
+    //crea un array para almacenar los datos del usuario
+    $datosHistorial = array();
 
-            echo htmlspecialchars(implode(', ', $value));
-        } else {
+    //guarda todos los datos del formulario en el array
+    $datosHistorial["ID"] = null;
+    $datosHistorial["datos"] = $datosJson;
+    $datosHistorial["idPaciente"] = null;
+    $datosHistorial["idPsicologo"] = $usuario->getId();
 
-            // Si no es un array (es un string simple), simplemente lo mostramos
-            echo htmlspecialchars($value);
-        }
+    //establece los datos del historial en la instancia historial
+    $historial->setDatosHistorial(...$datosHistorial);
 
-        echo "<br>"; // Añadimos un salto de línea para mejor lectura
-    }
+    //registra el historial en la BD
+    Historial::registrarHistorial($historial);
+
+    //recarga la pagina para que se actualice
+    header('Location: '. $_SERVER['REQUEST_URI']);
+    exit;
 }
 
+if(isset($_POST["eliminar"])) {
+
+    unset($_POST["eliminar"]);
+
+    //registra el historial en la BD
+    Historial::eliminarHistorial($_POST["idPacienteEliminar"]);
+
+    //recarga la pagina para que se actualice
+    header('Location: '. $_SERVER['REQUEST_URI']);
+    exit;
+}
+
+ob_end_flush();
 ?>

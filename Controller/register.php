@@ -33,13 +33,14 @@ if (isset($_POST["register"]))
     $datosUsuario = array();
 
     //guarda todos los datos del formulario en el array
+    $datosUsuario["id"]          = null;
     $datosUsuario["cedula"]      = $_POST["cedula"];
     $datosUsuario["nombre"]      = $_POST["nombre"];
     $datosUsuario["apellido"]    = $_POST["apellido"];
     $datosUsuario["correo"]      = $_POST["correo"];
     $datosUsuario["FNacimiento"] = $_POST["FNacimiento"];
     $datosUsuario["genero"]      = $_POST["genero"];
-    $datosUsuario["id"]          = null;
+    $datosUsuario["rol"]         = $_POST["rol"];
 
     //establece los datos del usuario en la instancia usuario
     $usuario->setDatosUsuario(...$datosUsuario);
