@@ -1,4 +1,5 @@
 <?php
+ob_start();
 
 //esto simplemente esta aqui para que el resto no se buguee
 if (session_status() == PHP_SESSION_NONE)
@@ -47,6 +48,9 @@ if (isset($_POST["register"]))
 
     //registra el usuario en la BD
     Usuario::registrarUsuario($usuario, "users", $_POST["contra"]);
+    header("Location: ?pagina=login");
+    exit;
 }
 
+ob_end_flush();
 ?>

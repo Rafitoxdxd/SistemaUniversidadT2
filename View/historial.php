@@ -7,6 +7,7 @@
     <title>Historial de Pacientes</title>
     <link rel="stylesheet" href="Styles/Bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="Styles/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     <style>
         /* Estilos CSS personalizados para la página */
@@ -19,6 +20,11 @@
             max-width: 956px; /* Ancho máximo del contenedor principal */
             margin: 0 auto; /* Centrar el contenedor horizontalmente */
             padding: 20px; /* Espacio interno alrededor del contenido del contenedor */
+        }
+
+        .cont{
+            display: flex;
+            flex-wrap: wrap;
         }
             .profile-button {
             width: 100px; /* Ancho del botón de perfil */
@@ -70,17 +76,21 @@
         <main class="col-md-10 p-4" style="margin-top: 10px;">
             <header class="d-flex justify-content-between align-items-center mb-4 sticky-top bg-light shadow-sm p-3">
                 <h2>Historial de Pacientes</h2>
-            </header>
 
-            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#incluirPacienteModal">Incluir Paciente</button>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modificarPacienteModal">Modificar Paciente</button>
-            <div class="input-group mb-4">
+                <div class="input-group mb-2">
+
                 <input type="text" class="form-control" id="searchInput" placeholder="Buscar paciente por nombre, cédula..." onkeyup="buscarPacientesEnTiempoReal()">
-            </div>
+                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#incluirPacienteModal">Incluir Paciente</button>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modificarPacienteModal">Modificar Paciente</button>
 
-            <div class="" id="pacientesContainer">
+            </div>
+            </header>
+            
+
+            <div class="cont" id="pacientesContainer">
 
             <?php
+
                 //$pacientes = array();
                 
                 $pacientes = Historial::cargarHistoriales();
@@ -89,8 +99,8 @@
 
                     $datosPaciente = json_decode($paciente->getDatos(), true);
 
-                    echo '<article class="col mb-4 paciente-card" data-nombre="' . $datosPaciente['nombre'] . '" data-cedula="' . $datosPaciente['cedula'] . '" data-paciente-id="' . $paciente->getId() . '">';
-                    echo '     <div class="card">';
+                    echo '<article class="col mb-4 paciente-card " data-nombre="' . $datosPaciente['nombre'] . '" data-cedula="' . $datosPaciente['cedula'] . '" data-paciente-id="' . $paciente->getId() . '">';
+                    echo '     <div class="card" style="width: 30rem;" >';
                     echo '         <div class="card-body">';
                     echo '             <h5 class="card-title">' . htmlspecialchars($datosPaciente['nombre']) . '</h5>';
                     echo '             <p class="card-text">Cédula: ' . htmlspecialchars($datosPaciente['cedula']) . '</p>';
@@ -591,9 +601,7 @@
 
 </body>
 
-<footer class="bg-light text-center p-3">
-    <p>&copy; 2023 Historial de Pacientes. Todos los derechos reservados.</p>
-</footer>
+
 
 <script
     src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
@@ -612,6 +620,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <script>
+    
     function buscarPacientesEnTiempoReal() {
         const searchTerm = document.getElementById('searchInput').value.toLowerCase();
         const pacienteCards = document.querySelectorAll('.paciente-card');
