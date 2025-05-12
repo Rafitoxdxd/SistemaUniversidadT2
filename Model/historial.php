@@ -1,5 +1,5 @@
 <?php
-require_once('Model/connection.php');
+require_once BASE_PATH . ('Config/conexion.php');
 
 class Historial {
 	

@@ -1,5 +1,6 @@
 <?php
 
+require_once("Config/config.php");
 //inicia una sesión
 //session_start();
 $pagina = "main"; //pagina principal
