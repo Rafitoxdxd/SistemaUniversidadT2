@@ -29,14 +29,13 @@
     <div class="d-flex justify-content-end mb-3">
         
     
-        
-    </div>
-
-    <div class="input-group mb-2">
-        <input type="text" id="buscarPaciente" class="form-control" placeholder="Buscar pacientes..." >
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#registroPacienteModal">
             <i class="bi bi-plus-circle me-2"></i> Añadir paciente
         </button>
+    </div>
+
+    <div class="mb-3">
+        <input type="text" id="buscarPaciente" class="form-control" placeholder="Buscar pacientes...">
     </div>
 
     <h5 class="mb-3">Todos los pacientes</h5>
@@ -164,13 +163,12 @@
                                 <input type="password" class="form-control" id="password" name="password" required>
                             </div>
                         </div>
-            
+                        <button type="submit" class="btn btn-primary" name="guardara" value="guardara">Guardar Paciente</button>
+                    </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary" name="guardara" value="guardara">Guardar Paciente</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                 </div>
-                </form>
             </div>
         </div>
     </div>
