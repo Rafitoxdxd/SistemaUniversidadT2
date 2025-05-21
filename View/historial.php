@@ -166,7 +166,6 @@
             <div class="modal-body py-4">
                 <form action="" method="POST">
 
-                   
                     <header class="mb-4 text-center">
                         <h2 class="">Historia de Vida</h2>
                     </header>
