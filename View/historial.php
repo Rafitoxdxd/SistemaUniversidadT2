@@ -62,6 +62,9 @@
                     <a class="nav-link" href="#">Historial</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="#">Examenes</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="#">Documentos</a>
                 </li>
                 <li class="nav-item">
