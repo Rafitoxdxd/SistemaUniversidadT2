@@ -2,14 +2,12 @@
 <html lang="en">
     <head>
         <title>test</title>
-        <!-- Required meta tags -->
         <meta charset="utf-8" />
         <meta
             name="viewport"
             content="width=device-width, initial-scale=1, shrink-to-fit=no"
         />
 
-        <!-- Bootstrap CSS v5.2.1 -->
         <link
             href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
             rel="stylesheet"
@@ -25,10 +23,10 @@
                 --sidebar-bg-end: #495057;    /* Gris medio para el final del degradado */
                 --link-color-normal: #e9ecef; /* Gris claro para el texto normal */
                 --link-color-hover: #ffffff;   /* Blanco puro para el texto al pasar el ratón */
-                --link-bg-hover: #6c757d;     /* Gris azulado para el fondo al pasar el ratón */
+                --link-bg-hover: #6c757d;      /* Gris azulado para el fondo al pasar el ratón */
                 --link-color-active: #ffffff; /* Blanco puro para el texto activo */
                 --link-bg-active: #007bff;    /* Azul brillante para el fondo activo */
-                --header-color: #f8f9fa;      /* Blanco casi puro para el encabezado */
+                --header-color: #f8f9fa;        /* Blanco casi puro para el encabezado */
                 --font-family-playful: 'Quicksand', sans-serif; /* Mantiene la fuente lúdica, aunque ahora en tonos serios */
                 --main-content-bg: #f8f9fa; /* Un fondo general muy claro */
             }
@@ -100,7 +98,7 @@
                 font-weight: 700;
                 /* MODIFICACIÓN CLAVE: Padding superior e inferior para los links normales */
                 padding: 10px 12px; /* Aumentado de 7px a 10px en vertical */
-                margin: 6px 7px; /* Aumentado de 4px a 6px en vertical */
+                margin: 10px 7px; /* Aumentado de 4px a 6px en vertical */
                 border-radius: 18px;
                 transition: all 0.35s cubic-bezier(0.68, -0.55, 0.27, 1.55);
                 display: flex;
@@ -234,374 +232,420 @@
     </head>
 
     <body>
+        <div class="container-fluid">
+            <div class="row">
+                <nav class="col-md-2 d-none d-md-block sidebar">
+                    <div class="sidebar-sticky">
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="?pagina=main">¡EXPLORA AQUÍ!</a>
+                            </li>
+                        </ul>
 
-        <header>
-            <!-- place navbar here -->
-        </header>
-        <main>
-        <div class="container mt-4">
+                        <?php
+                            // Asegúrate de iniciar la sesión al principio de tu script si aún no lo has hecho.
+                            // session_start();
+                            if (isset($_SESSION["usuario"])) {
+                                $v_usuario = $_SESSION["usuario"];
+                            } else {
+                                // Opcional: Redirigir o manejar si no hay sesión
+                                // header("Location: ?pagina=login");
+                                // exit();
+                            }
+                        ?>
 
-    
-        <h2>test</h2>
-    <div class="d-flex justify-content-end mb-3">
-        
-        
-    
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#registrotestModal">
-            <i class="bi bi-plus-circle me-2"></i> Añadir test
-        </button>
-    </div>
+                        <hr>
 
-    <div class="mb-3">
-        <input type="text" id="buscartest" class="form-control" placeholder="Buscar test...">
-    </div>
+                        <ul class="nav flex-column flex-grow-1">
+                            <li class="nav-item">
+                                <a class="nav-link" href="?pagina=main">Casa</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href='?pagina=historial'>Historial</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Exámenes</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Documentos</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href='?pagina=test'>Test</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href='?pagina=pacientes'>Pacientes</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href='?pagina=cita'>Citas</a>
+                            </li>
+                          <li class="nav-item">
+                                <a class="nav-link" href='?pagina=tratamiento'>Tratamientos</a>
+                            </li>
+                            <li class="nav-item mt-auto">
+                                <a class="nav-link" href="?pagina=logout">Cerrar sesión</a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
 
-    <h5 class="mb-3">Todos los test</h5>
+                <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4 main-content">
+                    <div class="container mt-4">
 
-    <nav aria-label="Paginación de test (arriba)">
-            <ul class="pagination justify-content-center" id="paginaciontestTop">
-                <!-- El contenido se generará con JavaScript -->
-            </ul>
-        </nav>
-
-    <table class="table table-striped">
-        <thead class="table-dark">
-            <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Apellidos</th>
-                <th>Cédula</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody id="tablatest">
-        <?php
-            // Verificar si hay productos antes de iterar
-            if (isset($test) && !empty($test)):
-                foreach ($test as $test): // Usar $persona para claridad
-            ?>
-                <tr>
-                    <td><?= htmlspecialchars($test['id']) ?></td>
-                    <td><?= htmlspecialchars($test['nombre']) ?></td>
-                    <td><?= htmlspecialchars($test['apellidos']) ?></td>
-                    <td><?= htmlspecialchars($test['cedula']) ?></td>
+            
+                    <h2>test</h2>
+                <div class="d-flex justify-content-end mb-3">
                     
-                    <td>
-                        <a href="index.php?accion=editar&id=<?= htmlspecialchars($test['id']) ?>" class="btn btn-warning btn-sm">Editar</a>
-                        <a href="index.php?accion=eliminar&id=<?= htmlspecialchars($test['id']) ?>" class="btn btn-danger btn-sm" onclick="return confirm('¿Desea eliminar este test?');">Eliminar</a>
-                        <!-- Botón para abrir el modal (CORREGIDO para Bootstrap 5) -->
-                        <button type="button" class="btn btn-info btn-sm"
-                                data-bs-toggle="modal" data-bs-target="#modalConsulta">
-                            Consultar 
-                        </button>
-                    </td>
-                </tr>
-            <?php
-                endforeach;
-            else: // Si no hay productos
-            ?>
-            <tr><td colspan="6">Cargando test...</td></tr>
-            <?php endif; ?>
-        </tbody>
-    </table>
-
-    <nav aria-label="Paginación de test (abajo)">
-            <ul class="pagination justify-content-center" id="paginaciontestBottom">
-                <!-- El contenido se generará con JavaScript -->
-            </ul>
-        </nav>
-
-    <div class="modal fade" id="registrotestModal" tabindex="-1" aria-labelledby="registrotestModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="registrotestModalLabel">Añadir Nuevo test</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#registrotestModal">
+                        <i class="bi bi-plus-circle me-2"></i> Añadir test
+                    </button>
                 </div>
-                <div class="modal-body">
-                    <form id="formularioRegistrotest" action="index.php?accion=guardarNuevotest" method="POST">
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <label for="nombre" class="form-label">Nombre</label>
-                                <input type="text" class="form-control" id="nombre" name="nombre" required>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="apellidos" class="form-label">Apellidos</label>
-                                <input type="text" class="form-control" id="apellidos" name="apellidos" required>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <label for="cedula" class="form-label">Cédula</label>
-                                <input type="text" class="form-control" id="cedula" name="cedula">
-                            </div>
-                            <div class="col-md-6">
-                                <label for="edad" class="form-label">Edad:</label>
-                                <input type="text" class="form-control" id="edad" name="edad"> <br>
-                            </div>
-                        </div>
 
-                            <h3 class="h5">Preguntas sobre la competencia</h3>
-
-                        <div class="mb-3">
-                            <label for="nombre_competencia" class="form-label">Nombre de la competencia</label>
-                            <textarea class="form-control" id="nombre_competencia" name="nombre_competencia" rows="3"></textarea>
-                        </div>
-                      <div class="mb-3">
-                            <label for="ubicacion_competencia" class="form-label">Ubicacion de la competencia</label>
-                            <textarea class="form-control" id="ubicacion_competencia" name="ubicacion_competencia" rows="3"></textarea>
-                        </div>
-
-                            <div class="md-3 col-md-6">
-                                <label for="fecha_competencia" class="form-label">Fecha de la competencia:</label>
-                                <input type="date" class="form-control" id="fecha_competencia" name="fecha_competencia">
-                            </div> <br>
-
-                        <h3 class="h5">Preguntas sobre preparación</h3>
-
-                        <div class="mb-3">
-                            <label for="preparado_competencia" class="form-label">¿Te sientes preparado para la competencia que se aproxima y porque?</label>
-                            <textarea class="form-control" id="preparado_competencia" name="preparado_competencia" rows="2"></textarea>
-                        </div>
-
-
-                         <div class="mb-3">
-                            <label for="entrenado_previo" class="form-label">¿Cómo has entrenado en las semanas previas a la competición?</label>
-                            <textarea class="form-control" id="entrenado_previo" name="entrenado_previo" rows="3"></textarea>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="estrategia_previa" class="form-label">¿Qué estrategias utilizas para asegurarte de estar en la mejor forma posible?</label>
-                            <textarea class="form-control" id="estrategia_previa" name="estrategia_previa" rows="3"></textarea>
-                        </div>
-
-                        <h3 class="h5">Preguntas sobre ansiedad y nervios</h3>
-
-                        <div class="mb-3">
-                            <label for="descripcion_nervios" class="form-label">¿Sientes nervios antes de una competición y porque?</label>
-                            <textarea class="form-control" id="descripcion_nervios" name="descripcion_nervios" rows="2"></textarea>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="antes_competir" class="form-label">¿Qué haces para calmarte cuando sientes ansiedad antes de competir?</label>
-                            <textarea class="form-control" id="antes_competir" name="antes_competir" rows="3"></textarea>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="experiencia_pasada" class="form-label">¿Has tenido alguna experiencia pasada que te haya hecho sentir más nervioso en competiciones?</label>
-                            <textarea class="form-control" id="experiencia_pasada" name="experiencia_pasada" rows="3"></textarea>
-                        </div>
-
-
-                        <h3 class="h5">Preguntas sobre motivacion</h3>
-
-                        <div class="mb-3">
-                            <label for="motivacion_competencia" class="form-label">¿Qué te motiva a dar lo mejor de ti en la competición?</label>
-                            <textarea class="form-control" id="motivacion_competencia" name="motivacion_competencia" rows="3"></textarea>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="esperar_competicion" class="form-label">¿Hay algo que esperas aprender o mejorar en esta próxima competición?</label>
-                            <textarea class="form-control" id="esperar_competicion" name="esperar_competicion" rows="3"></textarea>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="lograr_competencia" class="form-label">¿Qué te gustaría lograr en esta competencia?</label>
-                            <textarea class="form-control" id="lograr_competencia" name="lograr_competencia" rows="3"></textarea>
-                        </div>
-
-                        <h3 class="h5">Preguntas sobre enfoque mental</h3>
-
-                        <div class="mb-3">
-                            <label for="rutina_mental" class="form-label">¿Tienes alguna rutina mental que sigues antes de competir?</label>
-                            <textarea class="form-control" id="rutina_mental" name="rutina_mental" rows="3"></textarea>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="pensamiento_positivo" class="form-label">¿Qué pensamientos positivos te dices a ti mismo antes de una competición?</label>
-                            <textarea class="form-control" id="pensamiento_positivo" name="pensamiento_positivo" rows="3"></textarea>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="preparacion_mental" class="form-label">¿Cómo te preparas mentalmente para enfrentar desafíos durante la competición?</label>
-                            <textarea class="form-control" id="preparacion_mental" name="preparacion_mental" rows="3"></textarea>
-                        </div>
-
-                        <button type="submit" class="btn btn-primary">Guardar test</button>
-                    </form>
+                <div class="mb-3">
+                    <input type="text" id="buscartest" class="form-control" placeholder="Buscar test...">
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+
+                <h5 class="mb-3">Todos los test</h5>
+
+                <nav aria-label="Paginación de test (arriba)">
+                            <ul class="pagination justify-content-center" id="paginaciontestTop">
+                                </ul>
+                        </nav>
+
+                <table class="table table-striped">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Apellidos</th>
+                            <th>Cédula</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablatest">
+                    <?php
+                        // Verificar si hay productos antes de iterar
+                        if (isset($test) && !empty($test)):
+                            foreach ($test as $test): // Usar $persona para claridad
+                        ?>
+                            <tr>
+                                <td><?= htmlspecialchars($test['id']) ?></td>
+                                <td><?= htmlspecialchars($test['nombre']) ?></td>
+                                <td><?= htmlspecialchars($test['apellidos']) ?></td>
+                                <td><?= htmlspecialchars($test['cedula']) ?></td>
+                                
+                                <td>
+                                    <a href="index.php?accion=editar&id=<?= htmlspecialchars($test['id']) ?>" class="btn btn-warning btn-sm">Editar</a>
+                                    <a href="index.php?accion=eliminar&id=<?= htmlspecialchars($test['id']) ?>" class="btn btn-danger btn-sm" onclick="return confirm('¿Desea eliminar este test?');">Eliminar</a>
+                                    <button type="button" class="btn btn-info btn-sm"
+                                            data-bs-toggle="modal" data-bs-target="#modalConsulta">
+                                        Consultar 
+                                    </button>
+                                </td>
+                            </tr>
+                        <?php
+                            endforeach;
+                        else: // Si no hay productos
+                        ?>
+                            <tr><td colspan="6">Cargando test...</td></tr>
+                        <?php endif; ?>
+                    </tbody>
+                </table>
+
+                <nav aria-label="Paginación de test (abajo)">
+                            <ul class="pagination justify-content-center" id="paginaciontestBottom">
+                                </ul>
+                        </nav>
+
+                <div class="modal fade" id="registrotestModal" tabindex="-1" aria-labelledby="registrotestModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="registrotestModalLabel">Añadir Nuevo test</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="formularioRegistrotest" action="index.php?accion=guardarNuevotest" method="POST">
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <label for="nombre" class="form-label">Nombre</label>
+                                            <input type="text" class="form-control" id="nombre" name="nombre" required>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="apellidos" class="form-label">Apellidos</label>
+                                            <input type="text" class="form-control" id="apellidos" name="apellidos" required>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <label for="cedula" class="form-label">Cédula</label>
+                                            <input type="text" class="form-control" id="cedula" name="cedula">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="edad" class="form-label">Edad:</label>
+                                            <input type="text" class="form-control" id="edad" name="edad"> <br>
+                                        </div>
+                                    </div>
+
+                                        <h3 class="h5">Preguntas sobre la competencia</h3>
+
+                                    <div class="mb-3">
+                                        <label for="nombre_competencia" class="form-label">Nombre de la competencia</label>
+                                        <textarea class="form-control" id="nombre_competencia" name="nombre_competencia" rows="3"></textarea>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="ubicacion_competencia" class="form-label">Ubicacion de la competencia</label>
+                                        <textarea class="form-control" id="ubicacion_competencia" name="ubicacion_competencia" rows="3"></textarea>
+                                    </div>
+
+                                        <div class="md-3 col-md-6">
+                                            <label for="fecha_competencia" class="form-label">Fecha de la competencia:</label>
+                                            <input type="date" class="form-control" id="fecha_competencia" name="fecha_competencia">
+                                        </div> <br>
+
+                                    <h3 class="h5">Preguntas sobre preparación</h3>
+
+                                    <div class="mb-3">
+                                        <label for="preparado_competencia" class="form-label">¿Te sientes preparado para la competencia que se aproxima y porque?</label>
+                                        <textarea class="form-control" id="preparado_competencia" name="preparado_competencia" rows="2"></textarea>
+                                    </div>
+
+
+                                    <div class="mb-3">
+                                        <label for="entrenado_previo" class="form-label">¿Cómo has entrenado en las semanas previas a la competición?</label>
+                                        <textarea class="form-control" id="entrenado_previo" name="entrenado_previo" rows="3"></textarea>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="estrategia_previa" class="form-label">¿Qué estrategias utilizas para asegurarte de estar en la mejor forma posible?</label>
+                                        <textarea class="form-control" id="estrategia_previa" name="estrategia_previa" rows="3"></textarea>
+                                    </div>
+
+                                    <h3 class="h5">Preguntas sobre ansiedad y nervios</h3>
+
+                                    <div class="mb-3">
+                                        <label for="descripcion_nervios" class="form-label">¿Sientes nervios antes de una competición y porque?</label>
+                                        <textarea class="form-control" id="descripcion_nervios" name="descripcion_nervios" rows="2"></textarea>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="antes_competir" class="form-label">¿Qué haces para calmarte cuando sientes ansiedad antes de competir?</label>
+                                        <textarea class="form-control" id="antes_competir" name="antes_competir" rows="3"></textarea>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="experiencia_pasada" class="form-label">¿Has tenido alguna experiencia pasada que te haya hecho sentir más nervioso en competiciones?</label>
+                                        <textarea class="form-control" id="experiencia_pasada" name="experiencia_pasada" rows="3"></textarea>
+                                    </div>
+
+
+                                    <h3 class="h5">Preguntas sobre motivacion</h3>
+
+                                    <div class="mb-3">
+                                        <label for="motivacion_competencia" class="form-label">¿Qué te motiva a dar lo mejor de ti en la competición?</label>
+                                        <textarea class="form-control" id="motivacion_competencia" name="motivacion_competencia" rows="3"></textarea>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="esperar_competicion" class="form-label">¿Hay algo que esperas aprender o mejorar en esta próxima competición?</label>
+                                        <textarea class="form-control" id="esperar_competicion" name="esperar_competicion" rows="3"></textarea>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="lograr_competencia" class="form-label">¿Qué te gustaría lograr en esta competencia?</label>
+                                        <textarea class="form-control" id="lograr_competencia" name="lograr_competencia" rows="3"></textarea>
+                                    </div>
+
+                                    <h3 class="h5">Preguntas sobre enfoque mental</h3>
+
+                                    <div class="mb-3">
+                                        <label for="rutina_mental" class="form-label">¿Tienes alguna rutina mental que sigues antes de competir?</label>
+                                        <textarea class="form-control" id="rutina_mental" name="rutina_mental" rows="3"></textarea>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="pensamiento_positivo" class="form-label">¿Qué pensamientos positivos te dices a ti mismo antes de una competición?</label>
+                                        <textarea class="form-control" id="pensamiento_positivo" name="pensamiento_positivo" rows="3"></textarea>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="preparacion_mental" class="form-label">¿Cómo te preparas mentalmente para enfrentar desafíos durante la competición?</label>
+                                        <textarea class="form-control" id="preparacion_mental" name="preparacion_mental" rows="3"></textarea>
+                                    </div>
+
+                                    <button type="submit" class="btn btn-primary">Guardar test</button>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
+                <div class="modal fade" id="modificartestModal" tabindex="-1" aria-labelledby="modificartestModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modificartestModalLabel">Modificar test</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="formularioModificartest" action="index.php?accion=actualizartest" method="POST">
+                                    <input type="hidden" id="modificar_id" name="id">
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <label for="modificar_nombre" class="form-label">Nombre</label>
+                                            <input type="text" class="form-control" id="modificar_nombre" name="nombre" required>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="modificar_apellidos" class="form-label">Apellidos</label>
+                                            <input type="text" class="form-control" id="modificar_apellidos" name="apellidos" required>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <label for="modificar_cedula" class="form-label">Cédula</label>
+                                            <input type="text" class="form-control" id="modificar_cedula" name="cedula">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="modificar_edad" class="form-label">Edad:</label>
+                                            <input type="text" class="form-control" id="modificar_edad" name="edad" placeholder="Cédula ( Inicia con V o E )"> <br>
+                                    <h3 class="h5">Preguntas sobre la competencia</h3>
+
+                                        <div class="mb-3">
+                                            <label for="nombre_competencia" class="form-label">Nombre de la competencia</label>
+                                            <textarea class="form-control" id="nombre_competencia" name="nombre_competencia" rows="3"></textarea>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="modificar_ubicacion_competencia" class="form-label">Ubicacion de la competencia</label>
+                                            <textarea class="form-control" id="modificar_ubicacion_competencia" name="ubicacion_competencia" rows="3"></textarea>
+                                        </div>
+
+                                            <div class="md-3 col-md-6">
+                                                <label for="modificar_fecha_competencia" class="form-label">Fecha de la competencia:</label>
+                                                <input type="date" class="form-control" id="modificar_fecha_competencia" name="fecha_competencia">
+                                            </div> <br>
+
+                                        <h3 class="h5">Preguntas sobre preparación</h3>
+
+                                        <div class="mb-3">
+                                            <label for="modificar_preparado_competencia" class="form-label">¿Te sientes preparado para la competencia que se aproxima y porque?</label>
+                                            <textarea class="form-control" id="modificar_preparado_competencia" name="preparado_competencia" rows="2"></textarea>
+                                        </div>
+
+
+                                        <div class="mb-3">
+                                            <label for="modificar_entrenado_previo" class="form-label">¿Cómo has entrenado en las semanas previas a la competición?</label>
+                                            <textarea class="form-control" id="modificar_entrenado_previo" name="entrenado_previo" rows="3"></textarea>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="modificar_estrategia_previa" class="form-label">¿Qué estrategias utilizas para asegurarte de estar en la mejor forma posible?</label>
+                                            <textarea class="form-control" id="modificar_estrategia_previa" name="estrategia_previa" rows="3"></textarea>
+                                        </div>
+
+                                        <h3 class="h5">Preguntas sobre ansiedad y nervios</h3>
+
+                                        <div class="mb-3">
+                                            <label for="modificar_descripcion_nervios" class="form-label">¿Sientes nervios antes de una competición y porque?</label>
+                                            <textarea class="form-control" id="modificar_descripcion_nervios" name="descripcion_nervios" rows="2"></textarea>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="modificar_antes_competir" class="form-label">¿Qué haces para calmarte cuando sientes ansiedad antes de competir?</label>
+                                            <textarea class="form-control" id="modificar_antes_competir" name="antes_competir" rows="3"></textarea>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="modificar_experiencia_pasada" class="form-label">¿Has tenido alguna experiencia pasada que te haya hecho sentir más nervioso en competiciones?</label>
+                                            <textarea class="form-control" id="modificar_experiencia_pasada" name="experiencia_pasada" rows="3"></textarea>
+                                        </div>
+
+
+                                        <h3 class="h5">Preguntas sobre motivacion</h3>
+
+                                        <div class="mb-3">
+                                            <label for="modificar_motivacion_competencia" class="form-label">¿Qué te motiva a dar lo mejor de ti en la competición?</label>
+                                            <textarea class="form-control" id="modificar_motivacion_competencia" name="motivacion_competencia" rows="3"></textarea>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="modificar_esperar_competicion" class="form-label">¿Hay algo que esperas aprender o mejorar en esta próxima competición?</label>
+                                            <textarea class="form-control" id="modificar_esperar_competicion" name="esperar_competicion" rows="3"></textarea>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="modificar_lograr_competencia" class="form-label">¿Qué te gustaría lograr en esta competencia?</label>
+                                            <textarea class="form-control" id="modificar_lograr_competencia" name="lograr_competencia" rows="3"></textarea>
+                                        </div>
+
+                                        <h3 class="h5">Preguntas sobre enfoque mental</h3>
+
+                                        <div class="mb-3">
+                                            <label for="modificar_rutina_mental" class="form-label">¿Tienes alguna rutina mental que sigues antes de competir?</label>
+                                            <textarea class="form-control" id="modificar_rutina_mental" name="rutina_mental" rows="3"></textarea>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="modificar_pensamiento_positivo" class="form-label">¿Qué pensamientos positivos te dices a ti mismo antes de una competición?</label>
+                                            <textarea class="form-control" id="modificar_pensamiento_positivo" name="pensamiento_positivo" rows="3"></textarea>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="modificar_preparacion_mental" class="form-label">¿Cómo te preparas mentalmente para enfrentar desafíos durante la competición?</label>
+                                            <textarea class="form-control" id="modificar_preparacion_mental" name="preparacion_mental" rows="3"></textarea>
+                                        </div>
+
+                                        </div>
+                                    
+                                        <button type="submit" class="btn btn-warning">Guardar Cambios</button>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
-    </div>
 
-    <div class="modal fade" id="modificartestModal" tabindex="-1" aria-labelledby="modificartestModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modificartestModalLabel">Modificar test</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="formularioModificartest" action="index.php?accion=actualizartest" method="POST">
-                        <input type="hidden" id="modificar_id" name="id">
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <label for="modificar_nombre" class="form-label">Nombre</label>
-                                <input type="text" class="form-control" id="modificar_nombre" name="nombre" required>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="modificar_apellidos" class="form-label">Apellidos</label>
-                                <input type="text" class="form-control" id="modificar_apellidos" name="apellidos" required>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <label for="modificar_cedula" class="form-label">Cédula</label>
-                                <input type="text" class="form-control" id="modificar_cedula" name="cedula">
-                            </div>
-                            <div class="col-md-6">
-                                <label for="modificar_edad" class="form-label">Edad:</label>
-                                <input type="text" class="form-control" id="modificar_edad" name="edad" placeholder="Cédula ( Inicia con V o E )"> <br>
-                     <h3 class="h5">Preguntas sobre la competencia</h3>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const buscartestInput = document.getElementById('buscartest');
+                const tablatestBody = document.getElementById('tablatest');
+                // --- OBTENER AMBAS LISTAS DE PAGINACIÓN ---
+                const paginaciontestTop = document.getElementById('paginaciontestTop');
+                const paginaciontestBottom = document.getElementById('paginaciontestBottom');
+                // --- FIN OBTENER AMBAS LISTAS ---
+                let testData = [];
+                const testPorPagina = 15; // O el número que prefieras
+                let paginaActual = 1;
 
-                        <div class="mb-3">
-                            <label for="nombre_competencia" class="form-label">Nombre de la competencia</label>
-                            <textarea class="form-control" id="nombre_competencia" name="nombre_competencia" rows="3"></textarea>
-                        </div>
-                      <div class="mb-3">
-                            <label for="modificar_ubicacion_competencia" class="form-label">Ubicacion de la competencia</label>
-                            <textarea class="form-control" id="modificar_ubicacion_competencia" name="ubicacion_competencia" rows="3"></textarea>
-                        </div>
+                function cargartest(pagina = 1, filtro = '') {
+                    // Ajusta la URL si tu backend soporta paginación y filtro
+                    // Por ahora, asumimos que listartestAjax devuelve *todos* los test
+                    // y la paginación/filtrado se hace en el frontend (como está implementado ahora)
+                    fetch(`index.php?accion=listartestAjax&filtro=${filtro}`) // Quitamos pagina de la URL si el backend no la usa
+                        .then(response => response.json())
+                        .then(data => {
+                            testData = data.test || []; // Asegurar que sea un array
+                            paginaActual = 1; // Resetear a página 1 al cargar/filtrar
+                            aplicarFiltroYPaginacion(); // Llama a la función que actualiza tabla y paginación
+                        })
+                        .catch(error => {
+                            console.error('Error al cargar test:', error);
+                            tablatestBody.innerHTML = '<tr><td colspan="6">Error al cargar los test.</td></tr>';
+                            paginaciontestTop.innerHTML = ''; // Limpiar paginación en error
+                            paginaciontestBottom.innerHTML = ''; // Limpiar paginación en error
+                        });
+                }
 
-                            <div class="md-3 col-md-6">
-                                <label for="modificar_fecha_competencia" class="form-label">Fecha de la competencia:</label>
-                                <input type="date" class="form-control" id="modificar_fecha_competencia" name="fecha_competencia">
-                            </div> <br>
-
-                        <h3 class="h5">Preguntas sobre preparación</h3>
-
-                        <div class="mb-3">
-                            <label for="modificar_preparado_competencia" class="form-label">¿Te sientes preparado para la competencia que se aproxima y porque?</label>
-                            <textarea class="form-control" id="modificar_preparado_competencia" name="preparado_competencia" rows="2"></textarea>
-                        </div>
-
-
-                         <div class="mb-3">
-                            <label for="modificar_entrenado_previo" class="form-label">¿Cómo has entrenado en las semanas previas a la competición?</label>
-                            <textarea class="form-control" id="modificar_entrenado_previo" name="entrenado_previo" rows="3"></textarea>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="modificar_estrategia_previa" class="form-label">¿Qué estrategias utilizas para asegurarte de estar en la mejor forma posible?</label>
-                            <textarea class="form-control" id="modificar_estrategia_previa" name="estrategia_previa" rows="3"></textarea>
-                        </div>
-
-                        <h3 class="h5">Preguntas sobre ansiedad y nervios</h3>
-
-                        <div class="mb-3">
-                            <label for="modificar_descripcion_nervios" class="form-label">¿Sientes nervios antes de una competición y porque?</label>
-                            <textarea class="form-control" id="modificar_descripcion_nervios" name="descripcion_nervios" rows="2"></textarea>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="modificar_antes_competir" class="form-label">¿Qué haces para calmarte cuando sientes ansiedad antes de competir?</label>
-                            <textarea class="form-control" id="modificar_antes_competir" name="antes_competir" rows="3"></textarea>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="modificar_experiencia_pasada" class="form-label">¿Has tenido alguna experiencia pasada que te haya hecho sentir más nervioso en competiciones?</label>
-                            <textarea class="form-control" id="modificar_experiencia_pasada" name="experiencia_pasada" rows="3"></textarea>
-                        </div>
-
-
-                        <h3 class="h5">Preguntas sobre motivacion</h3>
-
-                        <div class="mb-3">
-                            <label for="modificar_motivacion_competencia" class="form-label">¿Qué te motiva a dar lo mejor de ti en la competición?</label>
-                            <textarea class="form-control" id="modificar_motivacion_competencia" name="motivacion_competencia" rows="3"></textarea>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="modificar_esperar_competicion" class="form-label">¿Hay algo que esperas aprender o mejorar en esta próxima competición?</label>
-                            <textarea class="form-control" id="modificar_esperar_competicion" name="esperar_competicion" rows="3"></textarea>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="modificar_lograr_competencia" class="form-label">¿Qué te gustaría lograr en esta competencia?</label>
-                            <textarea class="form-control" id="modificar_lograr_competencia" name="lograr_competencia" rows="3"></textarea>
-                        </div>
-
-                        <h3 class="h5">Preguntas sobre enfoque mental</h3>
-
-                        <div class="mb-3">
-                            <label for="modificar_rutina_mental" class="form-label">¿Tienes alguna rutina mental que sigues antes de competir?</label>
-                            <textarea class="form-control" id="modificar_rutina_mental" name="rutina_mental" rows="3"></textarea>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="modificar_pensamiento_positivo" class="form-label">¿Qué pensamientos positivos te dices a ti mismo antes de una competición?</label>
-                            <textarea class="form-control" id="modificar_pensamiento_positivo" name="pensamiento_positivo" rows="3"></textarea>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="modificar_preparacion_mental" class="form-label">¿Cómo te preparas mentalmente para enfrentar desafíos durante la competición?</label>
-                            <textarea class="form-control" id="modificar_preparacion_mental" name="preparacion_mental" rows="3"></textarea>
-                        </div>
-
-                        </div>
-                 
-                        <button type="submit" class="btn btn-warning">Guardar Cambios</button>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-</div>
-
-<link rel="stylesheet" href="css/bootstrap.min.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-<script src="js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-..." crossorigin="anonymous"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const buscartestInput = document.getElementById('buscartest');
-        const tablatestBody = document.getElementById('tablatest');
-        // --- OBTENER AMBAS LISTAS DE PAGINACIÓN ---
-        const paginaciontestTop = document.getElementById('paginaciontestTop');
-        const paginaciontestBottom = document.getElementById('paginaciontestBottom');
-        // --- FIN OBTENER AMBAS LISTAS ---
-        let testData = [];
-        const testPorPagina = 15; // O el número que prefieras
-        let paginaActual = 1;
-
-        function cargartest(pagina = 1, filtro = '') {
-            // Ajusta la URL si tu backend soporta paginación y filtro
-            // Por ahora, asumimos que listartestAjax devuelve *todos* los test
-            // y la paginación/filtrado se hace en el frontend (como está implementado ahora)
-            fetch(`index.php?accion=listartestAjax&filtro=${filtro}`) // Quitamos pagina de la URL si el backend no la usa
-                .then(response => response.json())
-                .then(data => {
-                    testData = data.test || []; // Asegurar que sea un array
-                    paginaActual = 1; // Resetear a página 1 al cargar/filtrar
-                    aplicarFiltroYPaginacion(); // Llama a la función que actualiza tabla y paginación
-                })
-                .catch(error => {
-                    console.error('Error al cargar test:', error);
-                    tablatestBody.innerHTML = '<tr><td colspan="6">Error al cargar los test.</td></tr>';
-                    paginaciontestTop.innerHTML = ''; // Limpiar paginación en error
-                    paginaciontestBottom.innerHTML = ''; // Limpiar paginación en error
-                });
-        }
-
-        // Función para actualizar la tabla (sin cambios, excepto la llamada a confirm en Eliminar)
-        function actualizarTabla(test) {
+                // Función para actualizar la tabla (sin cambios, excepto la llamada a confirm en Eliminar)
+                function actualizarTabla(test) {
             tablatestBody.innerHTML = '';
             if (test.length > 0) {
                 test.forEach(test => {

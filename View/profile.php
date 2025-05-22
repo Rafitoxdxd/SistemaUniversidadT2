@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="es">
     <head>
-        <title>Title</title>
+        <title>Perfil</title>
         <meta charset="utf-8" />
         <meta
             name="viewport"
@@ -94,7 +94,7 @@
                 font-weight: 700;
                 /* MODIFICACIÓN CLAVE: Padding superior e inferior para los links normales */
                 padding: 10px 12px; /* Aumentado de 7px a 10px en vertical */
-                margin: 6px 7px; /* Aumentado de 4px a 6px en vertical */
+                margin: 10px 7px; /* Aumentado de 4px a 6px en vertical */
                 border-radius: 18px;
                 transition: all 0.35s cubic-bezier(0.68, -0.55, 0.27, 1.55);
                 display: flex;
@@ -225,7 +225,7 @@
                     padding: 12px 0;
                 }
                 .sidebar .nav-link {
-                    margin: 5px;
+                    margin: 5px ;
                     padding: 10px 15px;
                     font-size: 0.95rem;
                     border-radius: 15px;
@@ -298,8 +298,11 @@
                     <li class="nav-item">
                         <a class="nav-link" href='?pagina=cita'>Citas</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href='?pagina=tratamiento'>Tratamiento</a>
+                    </li>
                     <li class="nav-item mt-auto"> 
-                        <a class="nav-link" href="?pagina=logout">¡ADIÓS POR AHORA!</a>
+                        <a class="nav-link" href="?pagina=logout">Cerrar sesión</a>
                     </li>
                 </ul>
             </div>
