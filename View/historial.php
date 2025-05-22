@@ -160,7 +160,7 @@
     </div>
 
     <div class="modal fade" id="incluirPacienteModal" tabindex="-1" aria-labelledby="incluirPacienteModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header bg-success text-white">
                 <h5 class="modal-title" id="incluirPacienteModalLabel">Incluir Nuevo Paciente</h5>
@@ -169,7 +169,6 @@
             <div class="modal-body py-4">
                 <form action="" method="POST">
 
-                   
                     <header class="mb-4 text-center">
                         <h2 class="">Historia de Vida</h2>
                     </header>

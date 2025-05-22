@@ -36,6 +36,8 @@
                             echo "<li class='nav-item'><a class='nav-link' href='?pagina=historial'>Historial</a></li>";
                             echo "<li class='nav-item'><a class='nav-link' href='?pagina=test'>Test</a></li>";
                             echo "<li class='nav-item'><a class='nav-link' href='?pagina=pacientes'>Registro de pacientes</a></li>";
+                            echo "<li class='nav-item'><a class='nav-link' href='?pagina=cita'>Citas</a></li>";
+
                         }
                     ?>
 
