@@ -68,7 +68,10 @@
                     <a class="nav-link" href="#">Documentos</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Citas</a>
+                    <a class="nav-link" href='?pagina=test'>Test</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href='?pagina=cita'>Citas</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="?pagina=logout">Cerrar Sesión</a>

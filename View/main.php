@@ -34,8 +34,8 @@
                     else
                     {
                         //muestra el menu de una sesión no iniciada
-                        echo "<li> <a href='?pagina=login'>INICIAR SESION</a></li>";
-                        echo "<li> <a href='?pagina=register'>REGISTRARSE</a></li>";
+                        header("Location: ?pagina=login");
+                        exit();
                     }
                 ?>
             </ul>

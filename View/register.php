@@ -100,6 +100,7 @@
                 -->
 
                 <input type="submit" name="register" class="btn btn-primary btn-block">
+                <p>Si ya te registraste ahora <a href="?pagina=login">inicia sesion</a></p>
             </form>
         </div>
     </div>
