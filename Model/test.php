@@ -40,7 +40,7 @@ class testModulo extends Conexion{
     public function getCedula(){
         return $this->cedula;
     }
-     public function getedad(){
+    public function getedad(){
         return $this->edad;
     }
     public function getNombre_competencia(){

@@ -427,7 +427,7 @@
                             <textarea class="form-control" id="preparacion_mental" name="preparacion_mental" rows="3"></textarea>
                         </div>
 
-                        <button type="submit" class="btn btn-primary" name="guardara" value="guardara">Guardar test</button>
+                        <button type="submit" class="btn btn-primary">Guardar test</button>
                     </form>
                 </div>
                 <div class="modal-footer">
