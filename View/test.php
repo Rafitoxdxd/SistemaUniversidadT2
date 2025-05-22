@@ -16,17 +16,235 @@
             integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
             crossorigin="anonymous"
         />
+         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+        
+        <style>
+            /* Paleta de colores para un estilo más elegante en tonos de gris y azul */
+            :root {
+                --sidebar-bg-start: #343a40; /* Gris oscuro para el inicio del degradado */
+                --sidebar-bg-end: #495057;    /* Gris medio para el final del degradado */
+                --link-color-normal: #e9ecef; /* Gris claro para el texto normal */
+                --link-color-hover: #ffffff;   /* Blanco puro para el texto al pasar el ratón */
+                --link-bg-hover: #6c757d;     /* Gris azulado para el fondo al pasar el ratón */
+                --link-color-active: #ffffff; /* Blanco puro para el texto activo */
+                --link-bg-active: #007bff;    /* Azul brillante para el fondo activo */
+                --header-color: #f8f9fa;      /* Blanco casi puro para el encabezado */
+                --font-family-playful: 'Quicksand', sans-serif; /* Mantiene la fuente lúdica, aunque ahora en tonos serios */
+                --main-content-bg: #f8f9fa; /* Un fondo general muy claro */
+            }
+
+            /* Importar fuente de Google Fonts (asegúrate de que el usuario tenga conexión) */
+            @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap');
+
+            body {
+                font-family: var(--font-family-playful);
+                background-color: var(--main-content-bg);
+                min-height: 100vh;
+            }
+
+            /* Estilos generales del sidebar */
+            .sidebar {
+                position: fixed;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                z-index: 1000;
+                width: 17%; /* Mantiene el ancho ajustado */
+                background: linear-gradient(180deg, var(--sidebar-bg-start) 0%, var(--sidebar-bg-end) 100%); /* Degradado vertical en grises */
+                box-shadow: 8px 0 20px rgba(0, 0, 0, 0.5); /* Sombra acentuada */
+                padding-top: 8px;
+                height: 100vh;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                overflow: hidden;
+            }
+
+            .sidebar-sticky {
+                padding: 0;
+                flex-grow: 1;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+            }
+
+            /* Estilos del título principal del sidebar (INICIO / MENU PRINCIPAL) */
+            .sidebar .nav-item:first-child .nav-link {
+                font-size: 1.2rem; /* Tamaño reducido */
+                font-weight: 700;
+                color: var(--header-color);
+                text-align: center;
+                margin-bottom: 20px;
+                padding: 7px 4px;
+                background-color: rgba(0, 0, 0, 0.25); /* Fondo más oscuro y sutil para el título */
+                border-radius: 10px;
+                letter-spacing: 1px;
+                text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5); /* Sombra de texto acentuada */
+                animation: bounceIn 0.9s ease-out;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            /* Animación para el título */
+            @keyframes bounceIn {
+                0% { transform: scale(0.05); opacity: 0; }
+                60% { transform: scale(1.25); opacity: 1; }
+                100% { transform: scale(1); }
+            }
+
+            /* Estilos de los enlaces de navegación */
+            .sidebar .nav-link {
+                color: var(--link-color-normal);
+                font-size: 0.85rem; /* Tamaño reducido */
+                font-weight: 700;
+                /* MODIFICACIÓN CLAVE: Padding superior e inferior para los links normales */
+                padding: 10px 12px; /* Aumentado de 7px a 10px en vertical */
+                margin: 6px 7px; /* Aumentado de 4px a 6px en vertical */
+                border-radius: 18px;
+                transition: all 0.35s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Sombra de los enlaces ligeramente más fuerte */
+                text-transform: uppercase;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            /* Estilos específicos para "Casa" (primer link de navegación principal después del título) */
+            .sidebar ul.nav.flex-column > li:nth-child(1) > .nav-link {
+                 padding: 7px 12px; /* Mantiene el padding original de los links principales */
+                 margin: 4px 7px; /* Mantiene el margen original de los links principales */
+            }
+
+            .sidebar .nav-link:hover {
+                background-color: var(--link-bg-hover);
+                color: var(--link-color-hover);
+                transform: translateX(8px) scale(1.03);
+                box-shadow: 0 6px 12px rgba(0, 0, 0, 0.35); /* Sombra al pasar el ratón acentuada */
+            }
+
+            .sidebar .nav-link.active {
+                background: linear-gradient(45deg, var(--link-bg-active), #0056b3);
+                color: var(--link-color-active);
+                transform: scale(1.05);
+                box-shadow: 0 7px 14px rgba(0, 0, 0, 0.5);
+                border: 1px solid var(--link-bg-active);
+            }
+            
+            /* Estilo específico para "Cerrar Sesión" para que esté al final y en una línea */
+            .sidebar .nav-item.mt-auto .nav-link {
+                background: linear-gradient(90deg, #dc3545, #c8232e); /* Tonos de rojo más discretos */
+                color: white;
+                font-weight: 700;
+                margin-top: auto;
+                margin-bottom: 8px;
+                padding: 10px 12px; /* Ajusta también el padding de este para consistencia */
+                box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+                transition: all 0.35s ease-out;
+            }
+
+            .sidebar .nav-item.mt-auto .nav-link:hover {
+                background: linear-gradient(90deg, #c8232e, #dc3545);
+                transform: translateY(-1.5px) scale(1.015);
+                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+            }
+
+            /* Separador visual */
+            .sidebar hr {
+                border-top: 1px dashed rgba(255, 255, 255, 0.4);
+                margin: 18px 0;
+            }
+
+            /* Ajuste para el contenido principal */
+            .main-content {
+                margin-left: 17%; /* Empuja el contenido para que el sidebar no lo cubra */
+                padding: 20px 40px; /* Ajusta el padding general */
+                background-color: var(--main-content-bg);
+                min-height: 100vh;
+            }
+
+            /* Estilo para los datos del perfil dentro del card (si se usan en el contenido principal) */
+            .card {
+                border: none;
+                box-shadow: 0 12px 25px rgba(0,0,0,0.15); /* Sombra del card */
+                border-radius: 20px;
+                overflow: hidden;
+                background: linear-gradient(160deg, #eaf2f8, #dee2e6); /* Degradado suave en grises muy claros */
+            }
+
+            .card-body {
+                padding: 30px;
+            }
+
+            .card-title {
+                color: #212529; /* Gris oscuro para el título del card */
+                font-weight: 700;
+                margin-bottom: 25px;
+                text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+            }
+
+            /* Media query para pantallas pequeñas (ajustes para la diversión móvil) */
+            @media (max-width: 767.98px) {
+                .sidebar {
+                    position: static;
+                    height: auto;
+                    padding-top: 0;
+                    width: 100%;
+                    box-shadow: none;
+                    background: var(--sidebar-bg-start);
+                }
+                .main-content {
+                    margin-left: 0; /* Elimina el margen en móviles */
+                    width: 100%;
+                    padding: 20px; /* Ajusta el padding para móviles */
+                }
+                .sidebar-sticky {
+                    flex-direction: row;
+                    flex-wrap: wrap;
+                    justify-content: center;
+                    padding: 12px 0;
+                }
+                .sidebar .nav-link {
+                    margin: 5px;
+                    padding: 10px 15px;
+                    font-size: 0.95rem;
+                    border-radius: 15px;
+                    white-space: normal;
+                    text-overflow: clip;
+                    overflow: visible;
+                }
+                .sidebar .nav-item:first-child .nav-link {
+                    font-size: 1.4rem;
+                    margin-bottom: 12px;
+                }
+                .sidebar hr {
+                    display: none;
+                }
+                .sidebar .nav-item.mt-auto {
+                    margin-top: 10px !important;
+                }
+                .sidebar .nav-item.mt-auto .nav-link {
+                    width: auto;
+                }
+            }
+        </style>
     </head>
 
     <body>
+
         <header>
             <!-- place navbar here -->
         </header>
         <main>
         <div class="container mt-4">
+
     
         <h2>test</h2>
     <div class="d-flex justify-content-end mb-3">
+        
         
     
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#registrotestModal">
