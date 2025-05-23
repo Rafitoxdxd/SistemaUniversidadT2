@@ -6,6 +6,7 @@
     <title>Tabla de Tratamientos Psicológicos</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         /* Paleta de colores para un estilo más elegante en tonos de gris y azul */
         :root {
@@ -16,7 +17,7 @@
             --link-bg-hover: #6c757d;      /* Gris azulado para el fondo al pasar el ratón */
             --link-color-active: #ffffff; /* Blanco puro para el texto activo */
             --link-bg-active: #007bff;    /* Azul brillante para el fondo activo */
-            --header-color: #f8f9fa;        /* Blanco casi puro para el encabezado */
+            --header-color: #f8f9fa;       /* Blanco casi puro para el encabezado */
             --font-family-playful: 'Quicksand', sans-serif; /* Mantiene la fuente lúdica, aunque ahora en tonos serios */
             --main-content-bg: #f8f9fa; /* Un fondo general muy claro */
         }
@@ -86,7 +87,6 @@
             color: var(--link-color-normal);
             font-size: 0.85rem; /* Tamaño reducido */
             font-weight: 700;
-            /* MODIFICACIÓN CLAVE: Padding superior e inferior para los links normales */
             padding: 5px 6px; /* Aumentado de 7px a 10px en vertical */
             margin: 10px 7px; /* Aumentado de 4px a 6px en vertical */
             border-radius: 18px;
@@ -147,8 +147,8 @@
         }
 
         /* Ajuste para el contenido principal */
-        .col-md-9.ml-sm-auto, .col-lg-10.px-4 {
-            margin-left: 17% !important; /* Asegura que el contenido principal se desplace a la derecha */
+        .main-content {
+            margin-left: 17%; /* Asegura que el contenido principal se desplace a la derecha */
             padding: 40px;
             background-color: var(--main-content-bg);
             min-height: 100vh;
@@ -260,7 +260,7 @@
                 box-shadow: none;
                 background: var(--sidebar-bg-start);
             }
-            .col-md-9.ml-sm-auto, .col-lg-10.px-4 {
+            .main-content { /* Cambiado de .col-md-9.ml-sm-auto, .col-lg-10.px-4 a .main-content */
                 margin-left: 0 !important; /* Restablece el margen izquierdo en móviles */
                 width: 100%;
             }
@@ -304,11 +304,6 @@
 </head>
 <body class="bg-light p-4">
 
-    <div class="profile-icon-container">
-        <a href='?pagina=profile' title="Mi Perfil">
-            <i class="bi bi-person" style="font-size: 40px; color: #6c757d;"></i>
-        </a>
-    </div>
     <div class="container-fluid">
         <div class="row">
             <nav class="col-md-2 d-none d-md-block sidebar">
@@ -355,7 +350,7 @@
                         <li class="nav-item">
                             <a class="nav-link" href='?pagina=cita'>Citas</a>
                         </li>
-                      <li class="nav-item">
+                        <li class="nav-item">
                             <a class="nav-link" href='?pagina=tratamiento'>Tratamientos</a>
                         </li>
                         <li class="nav-item mt-auto">
@@ -365,11 +360,12 @@
                 </div>
             </nav>
 
-            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                    <h1 class="h2">TRATAMIENTOS PSICOLÓGICOS</h1>
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4 main-content">
+                <div class="profile-icon-container">
+                    <a href='?pagina=profile' title="Mi Perfil">
+                        <i class="bi bi-person" style="font-size: 40px; color: #6c757d;"></i>
+                    </a>
                 </div>
-
                 <div class="container mt-4 mb-4">
                     <div class="row justify-content-center">
                         <div class="col-md-8">
@@ -377,11 +373,11 @@
                         </div>
                     </div>
                 </div>
-
+                
                 <div class="container-fluid mt-5">
                     <div class="card shadow-sm mx-auto" style="max-width: 1000px;">
                         <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center py-3">
-                            <h4 class="mb-0">Listado de Tratamientos</h4>
+                            <h4 class="mb-0">TRATAMIENTOS PSICOLÓGICOS</h4>
                             <div>
                                 <button type="button" class="btn btn-success me-2" data-bs-toggle="modal" data-bs-target="#incluirPacienteModal">Incluir Paciente</button>
                                 <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modificarPacienteModal">Modificar Paciente</button>
@@ -400,33 +396,32 @@
                                             </th>
                                             <th scope="col" class=" justify-content-between">
                                                 FECHA CREACIÓN
-                                            </th>
-                                            <th scope="col">Acciones</th>
-                                        </tr>
+                                            </th> 
+                                            <th></th> </tr>
                                     </thead>
                                     <tbody>
-                                        <tr data-nombre="Ana García" data-cedula="12.345.678" data-diagnostico="Trastorno de ansiedad generalizada, con ataques de pánico ocasionales. Se observa mejora en el manejo del estrés." data-tratamiento="Terapia Cognitivo-Conductual (TCC) semanal, técnicas de relajación, exposición gradual. Se redujo la frecuencia de sesiones a quincenal." data-estado="en_progreso">
+                                        <tr>
                                             <td>Ana García</td>
                                             <td>12.345.678</td>
                                             <td>15/01/2023</td>
-                                            <td>
-                                                <button class="btn btn-info btn-sm view-details-btn" data-bs-toggle="modal" data-bs-target="#verDetallesModal">Ver detalles</button>
+                                            <td> 
+                                                <button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#verDetallesModal">Ver detalles</button>
                                             </td>
                                         </tr>
-                                        <tr data-nombre="Carlos Ruiz" data-cedula="23.456.789" data-diagnostico="Depresión mayor recurrente. Se trabaja en activación conductual y reestructuración cognitiva." data-tratamiento="Terapia de activación conductual, medicación antidepresiva (con seguimiento médico), grupos de apoyo." data-estado="en_progreso">
+                                        <tr>
                                             <td>Carlos Ruiz</td>
                                             <td>23.456.789</td>
                                             <td>01/03/2024</td>
                                             <td>
-                                                <button class="btn btn-info btn-sm view-details-btn" data-bs-toggle="modal" data-bs-target="#verDetallesModal">Ver detalles</button>
+                                                <button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#verDetallesModal">Ver detalles</button>
                                             </td>
                                         </tr>
-                                        <tr data-nombre="Laura Fernández" data-cedula="34.567.890" data-diagnostico="Estrés postraumático (TEPT) debido a accidente. Se enfoca en reprocesamiento del trauma." data-tratamiento="Terapia EMDR (Desensibilización y Reprocesamiento por Movimientos Oculares), técnicas de regulación emocional." data-estado="inicial">
+                                        <tr>
                                             <td>Laura Fernández</td>
                                             <td>34.567.890</td>
                                             <td>20/06/2023</td>
                                             <td>
-                                                <button class="btn btn-info btn-sm view-details-btn" data-bs-toggle="modal" data-bs-target="#verDetallesModal">Ver detalles</button>
+                                                <button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#verDetallesModal">Ver detalles</button>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -537,7 +532,7 @@
                             <div class="modal-body">
                                 <dl class="row">
                                     <dt class="col-sm-4">Nombre del Paciente:</dt>
-                                    <dd class="col-sm-8" id="detalleNombre">Ana García</dd>
+                                    <dd class="col-sm-8" id="detalleNombre">Ana García</dd> 
 
                                     <dt class="col-sm-4">Cédula:</dt>
                                     <dd class="col-sm-8" id="detalleCedula">12.345.678</dd>
@@ -565,14 +560,14 @@
         </div>
     </div>
 
-    <script>
+    <script> 
     function buscarPacientesEnTiempoReal() {
         const searchTerm = document.getElementById('searchInput').value.toLowerCase();
         const tableRows = document.querySelectorAll('.table tbody tr'); // Selecciona las filas de la tabla
 
         tableRows.forEach(row => {
-            const nombre = row.querySelector('td:nth-child(1)').textContent.toLowerCase(); // Columna del nombre
-            const cedula = row.querySelector('td:nth-child(2)').textContent.toLowerCase(); // Columna de la cédula
+            const nombre = row.cells[0].textContent.toLowerCase(); // Columna del nombre
+            const cedula = row.cells[1].textContent.toLowerCase(); // Columna de la cédula
 
             if (nombre.includes(searchTerm) || cedula.includes(searchTerm)) {
                 row.style.display = ''; // Muestra la fila
@@ -581,94 +576,6 @@
             }
         });
     }
-
-    // Script para cargar dinámicamente los detalles en el modal "Ver detalles"
-    document.addEventListener('DOMContentLoaded', function() {
-        const viewDetailButtons = document.querySelectorAll('.view-details-btn');
-        const detalleNombre = document.getElementById('detalleNombre');
-        const detalleCedula = document.getElementById('detalleCedula');
-        const detalleFechaCreacion = document.getElementById('detalleFechaCreacion');
-        const detalleDiagnostico = document.getElementById('detalleDiagnostico');
-        const detalleTratamiento = document.getElementById('detalleTratamiento');
-        const detalleEstado = document.getElementById('detalleEstado');
-
-        viewDetailButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                const row = this.closest('tr');
-                detalleNombre.textContent = row.dataset.nombre;
-                detalleCedula.textContent = row.dataset.cedula;
-                detalleFechaCreacion.textContent = row.querySelector('td:nth-child(3)').textContent; // Asume que la fecha está en la 3ra columna
-                detalleDiagnostico.textContent = row.dataset.diagnostico;
-                detalleTratamiento.textContent = row.dataset.tratamiento;
-
-                // Actualizar el badge de estado
-                let estadoText = '';
-                let badgeClass = '';
-                switch (row.dataset.estado) {
-                    case 'inicial':
-                        estadoText = 'Fase Inicial';
-                        badgeClass = 'bg-primary';
-                        break;
-                    case 'en_progreso':
-                        estadoText = 'En Progreso';
-                        badgeClass = 'bg-warning';
-                        break;
-                    case 'finalizado':
-                        estadoText = 'Finalizado';
-                        badgeClass = 'bg-success';
-                        break;
-                    case 'pausado':
-                        estadoText = 'Pausado Temporalmente';
-                        badgeClass = 'bg-secondary';
-                        break;
-                    case 'seguimiento':
-                        estadoText = 'Seguimiento';
-                        badgeClass = 'bg-info';
-                        break;
-                    default:
-                        estadoText = 'Desconocido';
-                        badgeClass = 'bg-light text-dark';
-                }
-                detalleEstado.innerHTML = `<span class="badge ${badgeClass}">${estadoText}</span>`;
-
-                // Cargar datos en el modal de modificar si el botón de modificar se hace clic en la misma fila
-                const modificarModal = document.getElementById('modificarPacienteModal');
-                modificarModal.addEventListener('show.bs.modal', function (event) {
-                    document.getElementById('modificarNombrePaciente').value = row.dataset.nombre;
-                    document.getElementById('modificarCedulaPaciente').value = row.dataset.cedula;
-                    document.getElementById('diagnosticoModificar').value = row.dataset.diagnostico;
-                    document.getElementById('tratamientoModificar').value = row.dataset.tratamiento;
-                    document.getElementById('estadoModificar').value = row.dataset.estado;
-                }, { once: true }); // Usar { once: true } para que el evento se dispare una sola vez
-            });
-        });
-
-        // Asegúrate de actualizar los valores en el modal de modificar cuando se abre
-        const modificarPacienteModal = document.getElementById('modificarPacienteModal');
-        modificarPacienteModal.addEventListener('show.bs.modal', function (event) {
-            // Este es el botón que abrió el modal
-            const button = event.relatedTarget;
-            // Si el botón no está asociado a una fila de la tabla, no hacemos nada (ej. si se abre desde el encabezado)
-            if (!button || !button.closest('tr')) {
-                // Aquí podrías cargar valores por defecto o dejar los campos vacíos
-                document.getElementById('modificarNombrePaciente').value = '';
-                document.getElementById('modificarCedulaPaciente').value = '';
-                document.getElementById('diagnosticoModificar').value = '';
-                document.getElementById('tratamientoModificar').value = '';
-                document.getElementById('estadoModificar').value = 'inicial'; // O la opción por defecto
-                return;
-            }
-
-            const row = button.closest('tr');
-            document.getElementById('modificarNombrePaciente').value = row.dataset.nombre;
-            document.getElementById('modificarCedulaPaciente').value = row.dataset.cedula;
-            document.getElementById('diagnosticoModificar').value = row.dataset.diagnostico;
-            document.getElementById('tratamientoModificar').value = row.dataset.tratamiento;
-            document.getElementById('estadoModificar').value = row.dataset.estado;
-        });
-
-    });
-
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

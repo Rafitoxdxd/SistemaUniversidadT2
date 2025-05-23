@@ -1,6 +1,8 @@
 <?php
 
-require_once BASE_PATH . 'config/conexion.php';
+require_once BASE_PATH . 'Config/conexion.php';
+
+
 
 class pacienteModulo extends Conexion{
 
@@ -18,7 +20,19 @@ class pacienteModulo extends Conexion{
     private $password;
 
     public function __construct(){
-        parent::__construct();
+        // parent::__construct(); // Eliminar esta línea: Conexion no tiene un método __construct().
+
+        // Aseguro que la conexión estática de la clase padre (Conexion) esté disponible.
+        // Si no hay conexión, se intenta conectar.
+        if (Conexion::getConexion() == null) {
+            Conexion::conectar(); // Llama al método estático para establecer la conexión.
+        }
+        // Asignao la conexión PDO obtenida a la propiedad $this->pdo de esta instancia.
+        $this->pdo = Conexion::getConexion(); 
+
+        if (!$this->pdo) {
+            // throw new \RuntimeException("Error: No se pudo obtener la conexión PDO en pacienteModulo.");
+        }
     }
     public function getId(){
         return $this->id;

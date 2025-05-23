@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="es">
     <head>
-        <title>Pacientes</title>
+        <title>pacientes</title>
         <meta charset="utf-8" />
         <meta
             name="viewport"
@@ -278,7 +278,7 @@
                             // Asegúrate de iniciar la sesión al principio de tu script si aún no lo has hecho.
                             // session_start(); 
                             if (isset($_SESSION["usuario"])) {
-                                     $v_usuario = $_SESSION["usuario"];
+                                $v_usuario = $_SESSION["usuario"];
                             } else {
                                 // Opcional: Redirigir o manejar si no hay sesión
                                 // header("Location: ?pagina=login"); 
@@ -305,7 +305,7 @@
                                 <a class="nav-link" href='?pagina=test'>Test</a>
                             </li>
                             <li class="nav-item">
-                        <a class="nav-link" href='?pagina=pacientes'>Pacientes</a>
+                        <a class="nav-link" href='?pagina=pacientes'>pacientes</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href='?pagina=cita'>Citas</a>
@@ -322,23 +322,23 @@
 
                 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4 main-content">
                     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                        <h1 class="h2">Pacientes</h1>
+                        <h1 class="h2">pacientes</h1>
                     </div> 
 
                     <div class="d-flex justify-content-end mb-3">
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#registroPacienteModal">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#registropacienteModal">
                             <i class="bi bi-plus-circle me-2"></i> Añadir paciente
                         </button>
                     </div>
 
                     <div class="mb-3">
-                        <input type="text" id="buscarPaciente" class="form-control" placeholder="Buscar pacientes...">
+                        <input type="text" id="buscarpaciente" class="form-control" placeholder="Buscar pacientes...">
                     </div>
 
                     <h5 class="mb-3">Todos los pacientes</h5>
 
                     <nav aria-label="Paginación de pacientes (arriba)">
-                        <ul class="pagination justify-content-center" id="paginacionPacientesTop">
+                        <ul class="pagination justify-content-center" id="paginacionpacientesTop">
                             </ul>
                     </nav>
 
@@ -353,7 +353,7 @@
                                 <th>Acciones</th>
                             </tr>
                         </thead>
-                        <tbody id="tablaPacientes">
+                        <tbody id="tablapacientes">
                         <?php
                             // Verificar si hay productos antes de iterar
                             if (isset($pacientes) && !empty($pacientes)):
@@ -367,8 +367,8 @@
                                     <td><?= htmlspecialchars($paciente['telefono']) ?></td>
                                     
                                     <td>
-                                        <button class="btn btn-warning btn-sm btn-editar-paciente" data-bs-toggle="modal" data-bs-target="#modificarPacienteModal" data-id="<?= htmlspecialchars($paciente['id']) ?>">Editar</button>
-                                        <a href="index.php?accion=eliminarPaciente&id=<?= htmlspecialchars($paciente['id']) ?>"
+                                        <button class="btn btn-warning btn-sm btn-editar-paciente" data-bs-toggle="modal" data-bs-target="#modificarpacienteModal" data-id="<?= htmlspecialchars($paciente['id']) ?>">Editar</button>
+                                        <a href="index.php?accion=eliminarpaciente&id=<?= htmlspecialchars($paciente['id']) ?>"
                                         class="btn btn-danger btn-sm"
                                         onclick="return confirm('¿Desea eliminar este paciente?');">Eliminar</a>
                                         <a href="index.php?accion=verHistorial&paciente_id=<?= htmlspecialchars($paciente['id']) ?>" class="btn btn-info btn-sm">Historial</a>
@@ -385,19 +385,19 @@
                     </table>
 
                     <nav aria-label="Paginación de pacientes (abajo)">
-                        <ul class="pagination justify-content-center" id="paginacionPacientesBottom">
+                        <ul class="pagination justify-content-center" id="paginacionpacientesBottom">
                             </ul>
                     </nav>
 
-                    <div class="modal fade" id="registroPacienteModal" tabindex="-1" aria-labelledby="registroPacienteModalLabel" aria-hidden="true">
+                    <div class="modal fade" id="registropacienteModal" tabindex="-1" aria-labelledby="registropacienteModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-lg">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="registroPacienteModalLabel">Añadir Nuevo Paciente</h5>
+                                    <h5 class="modal-title" id="registropacienteModalLabel">Añadir Nuevo paciente</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <form id="formularioRegistroPaciente" action="index.php?accion=guardarNuevoPaciente" method="POST">
+                                    <form id="formularioRegistropaciente" action="?pagina=pacientes" method="POST">
                                         <div class="row mb-3">
                                             <div class="col-md-6">
                                                 <label for="nombre" class="form-label">Nombre</label>
@@ -457,7 +457,7 @@
                                                 <input type="password" class="form-control" id="password" name="password" required>
                                             </div>
                                         </div>
-                                        <button type="submit" class="btn btn-primary" name="guardara" value="guardara">Guardar Paciente</button>
+                                        <button type="submit" class="btn btn-primary" name="guardara" value="guardara">Guardar paciente</button>
                                     </form>
                                 </div>
                                 <div class="modal-footer">
@@ -467,15 +467,15 @@
                         </div>
                     </div>
 
-                    <div class="modal fade" id="modificarPacienteModal" tabindex="-1" aria-labelledby="modificarPacienteModalLabel" aria-hidden="true">
+                    <div class="modal fade" id="modificarpacienteModal" tabindex="-1" aria-labelledby="modificarpacienteModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-lg">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="modificarPacienteModalLabel">Modificar Paciente</h5>
+                                    <h5 class="modal-title" id="modificarpacienteModalLabel">Modificar paciente</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <form id="formularioModificarPaciente" action="index.php?accion=actualizarPaciente" method="POST">
+                                    <form id="formularioModificarpaciente" action="?pagina=pacientes" method="POST">
                                         <input type="hidden" id="modificar_id" name="id">
                                         <div class="row mb-3">
                                             <div class="col-md-6">
@@ -528,7 +528,7 @@
                                                 <input type="text" class="form-control" id="modificar_pais" name="pais">
                                             </div>
                                         </div>
-                                        <button type="submit" class="btn btn-warning">Guardar Cambios</button>
+                                        <button type="submit" class="btn btn-warning" name="actualizar_paciente_submit">Guardar Cambios</button>
                                     </form>
                                 </div>
                                 <div class="modal-footer">
@@ -546,18 +546,18 @@
 
         <script>
             document.addEventListener('DOMContentLoaded', function() {
-                const buscarPacienteInput = document.getElementById('buscarPaciente');
-                const tablaPacientesBody = document.getElementById('tablaPacientes');
+                const buscarpacienteInput = document.getElementById('buscarpaciente');
+                const tablapacientesBody = document.getElementById('tablapacientes');
                 // --- OBTENER AMBAS LISTAS DE PAGINACIÓN ---
-                const paginacionPacientesTop = document.getElementById('paginacionPacientesTop');
-                const paginacionPacientesBottom = document.getElementById('paginacionPacientesBottom');
+                const paginacionpacientesTop = document.getElementById('paginacionpacientesTop');
+                const paginacionpacientesBottom = document.getElementById('paginacionpacientesBottom');
                 // --- FIN OBTENER AMBAS LISTAS ---
                 let pacientesData = [];
                 const pacientesPorPagina = 15; // O el número que prefieras
                 let paginaActual = 1;
 
-                function cargarPacientes(pagina = 1, filtro = '') {
-                    fetch(`index.php?accion=listarPacientesAjax&filtro=${filtro}`) // Quitamos pagina de la URL si el backend no la usa
+                function cargarpacientes(pagina = 1, filtro = '') {
+                    fetch(`index.php?accion=listarpacientesAjax&filtro=${filtro}`) // Quitamos pagina de la URL si el backend no la usa
                         .then(response => response.json())
                         .then(data => {
                             pacientesData = data.pacientes || []; // Asegurar que sea un array
@@ -566,17 +566,17 @@
                         })
                         .catch(error => {
                             console.error('Error al cargar pacientes:', error);
-                            tablaPacientesBody.innerHTML = '<tr><td colspan="6">Error al cargar los pacientes.</td></tr>';
-                            paginacionPacientesTop.innerHTML = ''; // Limpiar paginación en error
-                            paginacionPacientesBottom.innerHTML = ''; // Limpiar paginación en error
+                            tablapacientesBody.innerHTML = '<tr><td colspan="6">Error al cargar los pacientes.</td></tr>';
+                            paginacionpacientesTop.innerHTML = ''; // Limpiar paginación en error
+                            paginacionpacientesBottom.innerHTML = ''; // Limpiar paginación en error
                         });
                 }
 
                 function actualizarTabla(pacientes) {
-                    tablaPacientesBody.innerHTML = '';
+                    tablapacientesBody.innerHTML = '';
                     if (pacientes.length > 0) {
                         pacientes.forEach(paciente => {
-                            const row = tablaPacientesBody.insertRow();
+                            const row = tablapacientesBody.insertRow();
                             row.insertCell().textContent = paciente.id;
                             row.insertCell().textContent = paciente.nombre;
                             row.insertCell().textContent = paciente.apellido;
@@ -584,8 +584,8 @@
                             row.insertCell().textContent = paciente.telefono || '-';
                             const accionesCell = row.insertCell();
                             accionesCell.innerHTML = `
-                                <button class="btn btn-warning btn-sm btn-editar-paciente" data-bs-toggle="modal" data-bs-target="#modificarPacienteModal" data-id="${paciente.id}">Editar</button>
-                                <a href="index.php?accion=eliminarPaciente&id=${paciente.id}"
+                                <button class="btn btn-warning btn-sm btn-editar-paciente" data-bs-toggle="modal" data-bs-target="#modificarpacienteModal" data-id="${paciente.id}">Editar</button>
+                                <a href="?pagina=pacientes&accion=eliminarpaciente&id=${paciente.id}"
                                 class="btn btn-danger btn-sm"
                                 onclick="return confirm('¿Desea eliminar este paciente?');">Eliminar</a>
                                 <a href="index.php?accion=verHistorial&paciente_id=${paciente.id}" class="btn btn-info btn-sm">Historial</a>
@@ -593,17 +593,17 @@
                             `;
                         });
                     } else {
-                        const filtro = buscarPacienteInput.value;
-                        tablaPacientesBody.innerHTML = `<tr><td colspan="6">${filtro ? 'No se encontraron pacientes con ese filtro.' : 'No hay pacientes registrados.'}</td></tr>`;
+                        const filtro = buscarpacienteInput.value;
+                        tablapacientesBody.innerHTML = `<tr><td colspan="6">${filtro ? 'No se encontraron pacientes con ese filtro.' : 'No hay pacientes registrados.'}</td></tr>`;
                     }
                 }
 
                 // --- FUNCIÓN MODIFICADA PARA GENERAR AMBAS PAGINACIONES ---
-                function generarPaginacion(totalPacientesFiltrados, pacientesPorPagina) {
-                    const totalPaginas = Math.ceil(totalPacientesFiltrados / pacientesPorPagina);
+                function generarPaginacion(totalpacientesFiltrados, pacientesPorPagina) {
+                    const totalPaginas = Math.ceil(totalpacientesFiltrados / pacientesPorPagina);
                     // Limpiar ambas listas
-                    paginacionPacientesTop.innerHTML = '';
-                    paginacionPacientesBottom.innerHTML = '';
+                    paginacionpacientesTop.innerHTML = '';
+                    paginacionpacientesBottom.innerHTML = '';
 
                     if (totalPaginas > 1) {
                         for (let i = 1; i <= totalPaginas; i++) {
@@ -633,9 +633,9 @@
                             liClone.querySelector('a').addEventListener('click', handlePaginacionClick);
 
                             // Añadir el LI original a la paginación superior
-                            paginacionPacientesTop.appendChild(li);
+                            paginacionpacientesTop.appendChild(li);
                             // Añadir el LI clonado a la paginación inferior
-                            paginacionPacientesBottom.appendChild(liClone);
+                            paginacionpacientesBottom.appendChild(liClone);
                         }
                     }
                 }
@@ -652,7 +652,7 @@
 
                 // --- NUEVA FUNCIÓN PARA CENTRALIZAR FILTRADO Y PAGINACIÓN ---
                 function aplicarFiltroYPaginacion() {
-                    const filtro = buscarPacienteInput.value.toLowerCase();
+                    const filtro = buscarpacienteInput.value.toLowerCase();
                     const pacientesFiltrados = pacientesData.filter(paciente =>
                         paciente.nombre.toLowerCase().includes(filtro) ||
                         paciente.apellido.toLowerCase().includes(filtro) ||
@@ -660,27 +660,27 @@
                         (paciente.telefono && paciente.telefono.toLowerCase().includes(filtro))
                     );
 
-                    const totalPacientesFiltrados = pacientesFiltrados.length;
+                    const totalpacientesFiltrados = pacientesFiltrados.length;
                     const inicio = (paginaActual - 1) * pacientesPorPagina;
                     const fin = inicio + pacientesPorPagina;
                     const pacientesPagina = pacientesFiltrados.slice(inicio, fin);
 
                     actualizarTabla(pacientesPagina);
-                    generarPaginacion(totalPacientesFiltrados, pacientesPorPagina);
+                    generarPaginacion(totalpacientesFiltrados, pacientesPorPagina);
                 }
 
                 // Cargar los pacientes iniciales
-                cargarPacientes();
+                cargarpacientes();
 
                 // Evento para la búsqueda en tiempo real
-                buscarPacienteInput.addEventListener('input', function() {
+                buscarpacienteInput.addEventListener('input', function() {
                     paginaActual = 1; // Resetear la página al buscar
                     aplicarFiltroYPaginacion(); // Aplica filtro y actualiza tabla/paginación
                 });
 
                 // Evento para cargar los detalles del paciente en el modal de modificación (sin cambios)
-                const modificarPacienteModal = document.getElementById('modificarPacienteModal');
-                modificarPacienteModal.addEventListener('show.bs.modal', function (event) {
+                const modificarpacienteModal = document.getElementById('modificarpacienteModal');
+                modificarpacienteModal.addEventListener('show.bs.modal', function (event) {
                     const button = event.relatedTarget;
                     const pacienteId = button.getAttribute('data-id');
                     const paciente = pacientesData.find(p => p.id === parseInt(pacienteId));
