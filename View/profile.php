@@ -258,7 +258,7 @@
             <div class="sidebar-sticky">
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a class="nav-link active" href="?pagina=main">¡EXPLORA AQUÍ!</a>
+                        <a class="nav-link active" href="?pagina=main">¡Aqui ira el Logo!</a>
                     </li>
                 </ul>
                 
@@ -266,7 +266,7 @@
                     // Asegúrate de iniciar la sesión al principio de tu script si aún no lo has hecho.
                     // session_start(); 
                     if (isset($_SESSION["usuario"])) {
-                             $v_usuario = $_SESSION["usuario"];
+                        $v_usuario = $_SESSION["usuario"];
                     } else {
                         // Opcional: Redirigir o manejar si no hay sesión
                         // header("Location: ?pagina=login"); 
@@ -278,7 +278,7 @@
 
                 <ul class="nav flex-column flex-grow-1">
                     <li class="nav-item">
-                        <a class="nav-link" href="?pagina=main">Casa</a>
+                        <a class="nav-link" href="?pagina=main">Inicio</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href='?pagina=historial'>Historial</a>
@@ -302,7 +302,11 @@
                         <a class="nav-link" href='?pagina=tratamiento'>Tratamiento</a>
                     </li>
                     <li class="nav-item mt-auto"> 
+
                         <a class="nav-link" href="?pagina=logout">Cerrar sesión</a>
+
+                        <a class="nav-link" href="?pagina=logout">¡Cerrar Sesion!</a>
+
                     </li>
                 </ul>
             </div>

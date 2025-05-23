@@ -239,7 +239,7 @@
                 // Asegúrate de iniciar la sesión al principio de tu script si aún no lo has hecho.
                 // session_start(); 
                 if (isset($_SESSION["usuario"])) {
-                     $v_usuario = $_SESSION["usuario"];
+                    $v_usuario = $_SESSION["usuario"];
                 } else {
                     // Opcional: Redirigir o manejar si no hay sesión
                     // header("Location: ?pagina=login"); 
@@ -272,7 +272,7 @@
                     <a class="nav-link" href='?pagina=cita'>Citas</a>
                 </li>
                 <li class="nav-item">
-                     <a class="nav-link" href='?pagina=tratamiento'>Tratamiento</a>
+                    <a class="nav-link" href='?pagina=tratamiento'>Tratamiento</a>
                 </li>
                 <li class="nav-item mt-auto"> 
                     <a class="nav-link" href="?pagina=logout">Cerrar sesión</a>
@@ -349,14 +349,47 @@
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Cerrar">
                             <i class="bi bi-x-lg"></i> Cerrar
                         </button>
+
+        <div class="modal-body">
+        
+            <form id="formEvento" method="POST" action="?pagina=cita">
+                <div class="row mb-3">
+                    <label for="title" class="col-sm-2 col-form-label">Titulo</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="title" name="title" placeholder="Titulo del evento">
+
                     </div>
                 </div>
             </div>
         </div>
+
     </main>
     
     <footer>
     </footer>
+
+        <div class="modal-footer">
+            <!-- Botón para CREAR/GUARDAR -->
+            <button type="submit" id="btnGuardarCita" name="guardar_cita" class="btn btn-success" aria-label="Guardar">
+                <i class="bi bi-save-fill"></i>
+            </button>
+            <!-- Botón para MODIFICAR (inicialmente oculto) -->
+            <button type="button" id="btnModificarCita" class="btn btn-warning"  aria-label="Modificar">
+                <i class="bi bi-pencil-square"></i>
+            </button>
+            <!-- Botón para ELIMINAR (inicialmente oculto) -->
+            <button type="button" id="btnEliminarCita" class="btn btn-danger"  aria-label="Eliminar">
+                <i class="bi bi-trash-fill"></i>
+            </button>
+            <!-- Botón para CERRAR -->
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Cerrar">
+                <i class="bi bi-x-lg"></i>
+            </button>
+        </div>
+        </div>
+    </div>
+    </div>
+        </main>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <script src='js/index.global.min.js'></script>
