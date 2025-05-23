@@ -31,8 +31,7 @@
                 --main-content-bg: #f8f9fa; /* Un fondo general muy claro */
             }
 
-            /* Importar fuente de Google Fonts (asegúrate de que el usuario tenga conexión) */
-            @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap');
+ 
 
             body {
                 font-family: var(--font-family-playful);
@@ -97,7 +96,7 @@
                 font-size: 0.85rem; /* Tamaño reducido */
                 font-weight: 700;
                 /* MODIFICACIÓN CLAVE: Padding superior e inferior para los links normales */
-                padding: 10px 12px; /* Aumentado de 7px a 10px en vertical */
+                padding: 5px 6px; /* Aumentado de 7px a 10px en vertical */
                 margin: 10px 7px; /* Aumentado de 4px a 6px en vertical */
                 border-radius: 18px;
                 transition: all 0.35s cubic-bezier(0.68, -0.55, 0.27, 1.55);
@@ -227,11 +226,44 @@
                 .sidebar .nav-item.mt-auto .nav-link {
                     width: auto;
                 }
+                
+            
             }
-        </style>
-    </head>
+            
+                .profile-icon-container a {
+                    display: block; /* Para que el enlace envuelva bien la imagen */
+                    width: 40px; /* Tamaño del contenedor del icono */
+                    height: 40px;
+                    border-radius: 50%; /* Para hacerlo redondo */
+                    overflow: hidden; /* Oculta cualquier parte de la imagen que sobresalga */
+                    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Sombra sutil */
+                    transition: transform 0.2s ease-in-out; /* Animación al pasar el ratón */
+                    background-color: #f0f0f0; /* Fondo por si la imagen no carga o es transparente */
+                    border: 2px solid var(--link-bg-active);
+                }
 
-    <body>
+            .profile-icon-container {
+                    position: absolute;
+                    top: 10px; /* Distancia desde la parte superior */
+                    right: 20px; /* Distancia desde la parte derecha */
+                    z-index: 10; /* Asegura que esté por encima de otros elementos */
+                }
+            .profile-icon-container a:hover {
+                    transform: scale(1.05); /* Ligeramente más grande al pasar el ratón */
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); /* Sombra más pronunciada al pasar el ratón */
+                }
+
+                
+
+    </style>
+</head>
+<body>
+    <div class="profile-icon-container">
+        <a href='?pagina=profile' title="Mi Perfil">
+            <i class="bi bi-person" style="font-size: 40px; color: #6c757d;"></i>
+        </a>
+    </div>
+
         <div class="container-fluid">
             <div class="row">
                 <nav class="col-md-2 d-none d-md-block sidebar">

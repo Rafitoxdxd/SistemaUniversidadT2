@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tabla de Tratamientos Psicológicos</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
     <style>
         /* Paleta de colores para un estilo más elegante en tonos de gris y azul */
         :root {
@@ -15,7 +16,7 @@
             --link-bg-hover: #6c757d;      /* Gris azulado para el fondo al pasar el ratón */
             --link-color-active: #ffffff; /* Blanco puro para el texto activo */
             --link-bg-active: #007bff;    /* Azul brillante para el fondo activo */
-            --header-color: #f8f9fa;       /* Blanco casi puro para el encabezado */
+            --header-color: #f8f9fa;        /* Blanco casi puro para el encabezado */
             --font-family-playful: 'Quicksand', sans-serif; /* Mantiene la fuente lúdica, aunque ahora en tonos serios */
             --main-content-bg: #f8f9fa; /* Un fondo general muy claro */
         }
@@ -86,7 +87,7 @@
             font-size: 0.85rem; /* Tamaño reducido */
             font-weight: 700;
             /* MODIFICACIÓN CLAVE: Padding superior e inferior para los links normales */
-            padding: 10px 12px; /* Aumentado de 7px a 10px en vertical */
+            padding: 5px 6px; /* Aumentado de 7px a 10px en vertical */
             margin: 10px 7px; /* Aumentado de 4px a 6px en vertical */
             border-radius: 18px;
             transition: all 0.35s cubic-bezier(0.68, -0.55, 0.27, 1.55);
@@ -102,8 +103,8 @@
 
         /* Estilos específicos para "Casa" (primer link de navegación principal después del título) */
         .sidebar ul.nav.flex-column > li:nth-child(1) > .nav-link {
-             padding: 7px 12px; /* Mantiene el padding original */
-             margin: 4px 7px; /* Mantiene el margen original */
+            padding: 7px 12px; /* Mantiene el padding original */
+            margin: 4px 7px; /* Mantiene el margen original */
         }
 
         .sidebar .nav-link:hover {
@@ -217,6 +218,37 @@
             box-shadow: 0 4dpx 8px rgba(0, 0, 0, 0.2);
         }
 
+        /* --- Estilos para el icono de perfil --- */
+        .profile-icon-container a {
+            display: block; /* Para que el enlace envuelva bien la imagen */
+            width: 40px; /* Tamaño del contenedor del icono */
+            height: 40px;
+            border-radius: 50%; /* Para hacerlo redondo */
+            overflow: hidden; /* Oculta cualquier parte de la imagen que sobresalga */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Sombra sutil */
+            transition: transform 0.2s ease-in-out; /* Animación al pasar el ratón */
+            background-color: #f0f0f0; /* Fondo por si la imagen no carga o es transparente */
+            border: 2px solid var(--link-bg-active);
+            /* Centrar el icono dentro de su contenedor circular */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .profile-icon-container {
+            position: absolute;
+            top: 10px; /* Distancia desde la parte superior */
+            right: 20px; /* Distancia desde la parte derecha */
+            z-index: 10; /* Asegura que esté por encima de otros elementos */
+        }
+
+        .profile-icon-container a:hover {
+            transform: scale(1.05); /* Ligeramente más grande al pasar el ratón */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); /* Sombra más pronunciada al pasar el ratón */
+        }
+        /* Fin de estilos del icono de perfil */
+        /* --- Fin de estilos para el icono de perfil --- */
+
 
         /* Media query para pantallas pequeñas (ajustes para la diversión móvil) */
         @media (max-width: 767.98px) {
@@ -260,11 +292,23 @@
             .sidebar .nav-item.mt-auto .nav-link {
                 width: auto;
             }
+            /* Ajustes para el icono de perfil en móviles */
+            .profile-icon-container {
+                position: static; /* Cambia a posición estática para fluir con el contenido */
+                margin: 10px auto; /* Centra el icono */
+                text-align: center;
+                width: fit-content; /* Ajusta el ancho al contenido */
+            }
         }
     </style>
 </head>
 <body class="bg-light p-4">
 
+    <div class="profile-icon-container">
+        <a href='?pagina=profile' title="Mi Perfil">
+            <i class="bi bi-person" style="font-size: 40px; color: #6c757d;"></i>
+        </a>
+    </div>
     <div class="container-fluid">
         <div class="row">
             <nav class="col-md-2 d-none d-md-block sidebar">

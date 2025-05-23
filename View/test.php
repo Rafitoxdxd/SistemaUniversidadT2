@@ -14,8 +14,8 @@
             integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
             crossorigin="anonymous"
         />
-         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+       
         <style>
             /* Paleta de colores para un estilo más elegante en tonos de gris y azul */
             :root {
@@ -25,7 +25,7 @@
                 --link-color-hover: #ffffff;   /* Blanco puro para el texto al pasar el ratón */
                 --link-bg-hover: #6c757d;      /* Gris azulado para el fondo al pasar el ratón */
                 --link-color-active: #ffffff; /* Blanco puro para el texto activo */
-                --link-bg-active: #007bff;    /* Azul brillante para el fondo activo */
+                --link-bg-active: #007bff;     /* Azul brillante para el fondo activo */
                 --header-color: #f8f9fa;        /* Blanco casi puro para el encabezado */
                 --font-family-playful: 'Quicksand', sans-serif; /* Mantiene la fuente lúdica, aunque ahora en tonos serios */
                 --main-content-bg: #f8f9fa; /* Un fondo general muy claro */
@@ -38,6 +38,36 @@
                 font-family: var(--font-family-playful);
                 background-color: var(--main-content-bg);
                 min-height: 100vh;
+            }
+
+            /* Estilos del icono de perfil */
+            .profile-icon-container {
+                position: absolute;
+                top: 10px; /* Distancia desde la parte superior */
+                right: 20px; /* Distancia desde la parte derecha */
+                z-index: 10; /* Asegura que esté por encima de otros elementos */
+            }
+            .profile-icon-container a {
+                display: block; /* Para que el enlace envuelva bien la imagen */
+                width: 40px; /* Tamaño del contenedor del icono */
+                height: 40px;
+                border-radius: 50%; /* Para hacerlo redondo */
+                overflow: hidden; /* Oculta cualquier parte de la imagen que sobresalga */
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Sombra sutil */
+                transition: transform 0.2s ease-in-out; /* Animación al pasar el ratón */
+                background-color: #f0f0f0; /* Fondo por si la imagen no carga o es transparente */
+                border: 2px solid var(--link-bg-active);
+                display: flex; /* Para centrar el icono */
+                justify-content: center; /* Centrado horizontal */
+                align-items: center; /* Centrado vertical */
+            }
+            .profile-icon-container a:hover {
+                transform: scale(1.05); /* Ligeramente más grande al pasar el ratón */
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); /* Sombra más pronunciada al pasar el ratón */
+            }
+            .profile-icon-container .bi {
+                font-size: 24px; /* Ajusta el tamaño del icono de Bootstrap Icons */
+                color: #6c757d; /* Color del icono */
             }
 
             /* Estilos generales del sidebar */
@@ -97,7 +127,7 @@
                 font-size: 0.85rem; /* Tamaño reducido */
                 font-weight: 700;
                 /* MODIFICACIÓN CLAVE: Padding superior e inferior para los links normales */
-                padding: 10px 12px; /* Aumentado de 7px a 10px en vertical */
+                padding: 5px 6px; /* Aumentado de 7px a 10px en vertical */
                 margin: 10px 7px; /* Aumentado de 4px a 6px en vertical */
                 border-radius: 18px;
                 transition: all 0.35s cubic-bezier(0.68, -0.55, 0.27, 1.55);
@@ -113,8 +143,8 @@
 
             /* Estilos específicos para "Casa" (primer link de navegación principal después del título) */
             .sidebar ul.nav.flex-column > li:nth-child(1) > .nav-link {
-                 padding: 7px 12px; /* Mantiene el padding original de los links principales */
-                 margin: 4px 7px; /* Mantiene el margen original de los links principales */
+                    padding: 7px 12px; /* Mantiene el padding original de los links principales */
+                    margin: 4px 7px; /* Mantiene el margen original de los links principales */
             }
 
             .sidebar .nav-link:hover {
@@ -131,7 +161,7 @@
                 box-shadow: 0 7px 14px rgba(0, 0, 0, 0.5);
                 border: 1px solid var(--link-bg-active);
             }
-            
+           
             /* Estilo específico para "Cerrar Sesión" para que esté al final y en una línea */
             .sidebar .nav-item.mt-auto .nav-link {
                 background: linear-gradient(90deg, #dc3545, #c8232e); /* Tonos de rojo más discretos */
@@ -227,6 +257,12 @@
                 .sidebar .nav-item.mt-auto .nav-link {
                     width: auto;
                 }
+                .profile-icon-container {
+                    position: static; /* Ajusta la posición para móviles si es necesario */
+                    margin-bottom: 10px;
+                    display: flex;
+                    justify-content: center;
+                }
             }
         </style>
     </head>
@@ -289,13 +325,18 @@
                 </nav>
 
                 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4 main-content">
+                    <div class="profile-icon-container">   
+                        <a href='?pagina=profile' title="Mi Perfil">   
+                            <i class="bi bi-person"></i>   
+                        </a>   
+                    </div> 
                     <div class="container mt-4">
 
-            
+                   
                     <h2>test</h2>
                 <div class="d-flex justify-content-end mb-3">
-                    
-                    
+                   
+                   
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#registrotestModal">
                         <i class="bi bi-plus-circle me-2"></i> Añadir test
                     </button>
@@ -308,9 +349,9 @@
                 <h5 class="mb-3">Todos los test</h5>
 
                 <nav aria-label="Paginación de test (arriba)">
-                            <ul class="pagination justify-content-center" id="paginaciontestTop">
-                                </ul>
-                        </nav>
+                                <ul class="pagination justify-content-center" id="paginaciontestTop">
+                                    </ul>
+                                </nav>
 
                 <table class="table table-striped">
                     <thead class="table-dark">
@@ -328,34 +369,34 @@
                         if (isset($test) && !empty($test)):
                             foreach ($test as $test): // Usar $persona para claridad
                         ?>
-                            <tr>
-                                <td><?= htmlspecialchars($test['id']) ?></td>
-                                <td><?= htmlspecialchars($test['nombre']) ?></td>
-                                <td><?= htmlspecialchars($test['apellidos']) ?></td>
-                                <td><?= htmlspecialchars($test['cedula']) ?></td>
-                                
-                                <td>
-                                    <a href="index.php?accion=editar&id=<?= htmlspecialchars($test['id']) ?>" class="btn btn-warning btn-sm">Editar</a>
-                                    <a href="index.php?accion=eliminar&id=<?= htmlspecialchars($test['id']) ?>" class="btn btn-danger btn-sm" onclick="return confirm('¿Desea eliminar este test?');">Eliminar</a>
-                                    <button type="button" class="btn btn-info btn-sm"
-                                            data-bs-toggle="modal" data-bs-target="#modalConsulta">
-                                        Consultar 
-                                    </button>
-                                </td>
-                            </tr>
+                                <tr>
+                                    <td><?= htmlspecialchars($test['id']) ?></td>
+                                    <td><?= htmlspecialchars($test['nombre']) ?></td>
+                                    <td><?= htmlspecialchars($test['apellidos']) ?></td>
+                                    <td><?= htmlspecialchars($test['cedula']) ?></td>
+                                   
+                                    <td>
+                                        <a href="index.php?accion=editar&id=<?= htmlspecialchars($test['id']) ?>" class="btn btn-warning btn-sm">Editar</a>
+                                        <a href="index.php?accion=eliminar&id=<?= htmlspecialchars($test['id']) ?>" class="btn btn-danger btn-sm" onclick="return confirm('¿Desea eliminar este test?');">Eliminar</a>
+                                        <button type="button" class="btn btn-info btn-sm"
+                                                data-bs-toggle="modal" data-bs-target="#modalConsulta">
+                                            Consultar 
+                                        </button>
+                                    </td>
+                                </tr>
                         <?php
                             endforeach;
                         else: // Si no hay productos
                         ?>
-                            <tr><td colspan="6">Cargando test...</td></tr>
+                                <tr><td colspan="6">Cargando test...</td></tr>
                         <?php endif; ?>
                     </tbody>
                 </table>
 
                 <nav aria-label="Paginación de test (abajo)">
-                            <ul class="pagination justify-content-center" id="paginaciontestBottom">
-                                </ul>
-                        </nav>
+                                <ul class="pagination justify-content-center" id="paginaciontestBottom">
+                                    </ul>
+                                </nav>
 
                 <div class="modal fade" id="registrotestModal" tabindex="-1" aria-labelledby="registrotestModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-lg">
@@ -511,7 +552,7 @@
                                         <div class="col-md-6">
                                             <label for="modificar_edad" class="form-label">Edad:</label>
                                             <input type="text" class="form-control" id="modificar_edad" name="edad" placeholder="Cédula ( Inicia con V o E )"> <br>
-                                    <h3 class="h5">Preguntas sobre la competencia</h3>
+                                        <h3 class="h5">Preguntas sobre la competencia</h3>
 
                                         <div class="mb-3">
                                             <label for="nombre_competencia" class="form-label">Nombre de la competencia</label>

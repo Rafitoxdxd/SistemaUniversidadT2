@@ -93,7 +93,7 @@
                 font-size: 0.85rem; /* Tamaño reducido */
                 font-weight: 700;
                 /* MODIFICACIÓN CLAVE: Padding superior e inferior para los links normales */
-                padding: 10px 12px; /* Aumentado de 7px a 10px en vertical */
+                padding: 5px 6px; /* Aumentado de 7px a 10px en vertical */
                 margin: 10px 7px; /* Aumentado de 4px a 6px en vertical */
                 border-radius: 18px;
                 transition: all 0.35s cubic-bezier(0.68, -0.55, 0.27, 1.55);
