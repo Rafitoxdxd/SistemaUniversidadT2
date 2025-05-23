@@ -100,7 +100,6 @@
             color: var(--link-color-normal);
             font-size: 0.85rem;
             font-weight: 700;
-             padding: 5px 6px;
             margin: 10px 7px;
             border-radius: 18px;
             transition: all 0.35s cubic-bezier(0.68, -0.55, 0.27, 1.55);
