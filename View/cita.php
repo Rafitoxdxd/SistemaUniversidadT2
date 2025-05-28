@@ -173,38 +173,7 @@
         header {
             display: none;
         }
-
-        /* NUEVOS ESTILOS PARA EL ICONO DE USUARIO */
-        .profile-icon-container {
-            position: absolute;
-            top: 20px; /* Distancia desde la parte superior */
-            right: 20px; /* Distancia desde la parte derecha */
-            z-index: 10; /* Asegura que esté por encima de otros elementos */
-        }
-
-        .profile-icon-container a {
-            display: block; /* Para que el enlace envuelva bien la imagen */
-            width: 40px; /* Tamaño del contenedor del icono */
-            height: 40px;
-            border-radius: 50%; /* Para hacerlo redondo */
-            overflow: hidden; /* Oculta cualquier parte de la imagen que sobresalga */
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Sombra sutil */
-            transition: transform 0.2s ease-in-out; /* Animación al pasar el ratón */
-            background-color: #f0f0f0; /* Fondo por si la imagen no carga o es transparente */
-            border: 2px solid var(--link-bg-active); /* Borde que coincide con el color activo del sidebar */
-        }
-
-        .profile-icon-container a:hover {
-            transform: scale(1.05); /* Ligeramente más grande al pasar el ratón */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); /* Sombra más pronunciada al pasar el ratón */
-        }
-
-        .profile-icon-container img {
-            width: 100%; /* La imagen ocupa todo el ancho del contenedor */
-            height: 100%; /* La imagen ocupa toda la altura del contenedor */
-            object-fit: cover; /* Asegura que la imagen cubra el área sin distorsionarse */
-            display: block; /* Elimina espacio extra debajo de la imagen */
-        }
+        
 
         /* Media query para pantallas pequeñas (ajustes para la diversión móvil) */
         @media (max-width: 767.98px) {
@@ -255,47 +224,15 @@
             .sidebar .nav-item.mt-auto .nav-link {
                 width: auto;
             }
-
-            /* Ajustes del icono de usuario para móviles */
-            .profile-icon-container {
-                position: relative; /* O puedes ajustarlo a 'absolute' si quieres que flote */
-                top: 0; /* Reinicia la posición */
-                right: 0;
-                width: 100%; /* Ocupa el ancho completo */
-                text-align: right; /* Centra el icono en móviles */
-                padding: 10px 20px; /* Añade un poco de padding */
-                box-sizing: border-box; /* Incluye padding en el ancho */
-            }
-            .profile-icon-container a {
-                width: 35px; /* Un poco más pequeño en móviles */
-                height: 35px;
-            }
-            .profile-icon-container img {
-                width: 100%; /* La imagen ocupa todo el ancho del contenedor */
-                height: 100%; /* La imagen ocupa toda la altura del contenedor */
-                object-fit: cover; /* Asegura que la imagen cubra el área sin distorsionarse */
-                display: block; /* Elimina espacio extra debajo de la imagen */
-            }
-
         }
-            .profile-icon-container {
-             position: absolute;
-            top: 5px; /* Distancia desde la parte superior */
-            right: 20px; /* Distancia desde la parte derecha */
-            z-index: 20; /* Asegura que esté por encima de otros elementos */
-            margin-bottom: 60px;
 
-}
+            
 
 
     </style>
 </head>
 <body>
-    <div class="profile-icon-container">
-        <a href='?pagina=profile' title="Mi Perfil">
-            <i class="bi bi-person" style="font-size: 40px; color: #6c757d;"></i>
-        </a>
-    </div>
+    
 
     <nav class="sidebar">
         <div class="sidebar-sticky">
@@ -355,7 +292,7 @@
         </div>
     </nav>
 
-    <main class="main-content mt-5 bg-light border">
+    <main class="main-content mt-8 bg-light border">
         <div class="container-fluid mt-4">
             <div class="row">
                 <div class="col-12"> <div id='calendar'></div>
@@ -424,7 +361,7 @@
                             <i class="bi bi-x-lg"></i> Cerrar
                         </button>
 
-        <div class="modal-body">
+        <div class="modal">
         
             <form id="formEvento" method="POST" action="?pagina=cita">
                 <div class="row mb-3">
@@ -442,7 +379,7 @@
     <footer>
     </footer>
 
-        <div class="modal-footer">
+        <div class="modal-body">
             <!-- Botón para CREAR/GUARDAR -->
             <button type="submit" id="btnGuardarCita" name="guardar_cita" class="btn btn-success" aria-label="Guardar">
                 <i class="bi bi-save-fill"></i>

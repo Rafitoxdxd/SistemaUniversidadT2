@@ -406,7 +406,7 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
                             </div>
                             <div class="modal-body">
-                                <form id="formularioRegistrotest" action="index.php?accion=guardarNuevotest" method="POST">
+                                <form id="formularioRegistropaciente" action="?pagina=pacientes" method="POST">
                                     <div class="row mb-3">
                                         <div class="col-md-6">
                                             <label for="nombre" class="form-label">Nombre</label>
@@ -514,7 +514,7 @@
                                         <textarea class="form-control" id="preparacion_mental" name="preparacion_mental" rows="3"></textarea>
                                     </div>
 
-                                    <button type="submit" class="btn btn-primary">Guardar test</button>
+                                    <button type="submit" class="btn btn-primary" name="guardara" value="guardara">Guardar test</button>
                                 </form>
                             </div>
                             <div class="modal-footer">
@@ -552,7 +552,7 @@
                                         <div class="col-md-6">
                                             <label for="modificar_edad" class="form-label">Edad:</label>
                                             <input type="text" class="form-control" id="modificar_edad" name="edad" placeholder="Cédula ( Inicia con V o E )"> <br>
-                                        <h3 class="h5">Preguntas sobre la competencia</h3>
+                                      
 
                                         <div class="mb-3">
                                             <label for="nombre_competencia" class="form-label">Nombre de la competencia</label>
@@ -568,7 +568,7 @@
                                                 <input type="date" class="form-control" id="modificar_fecha_competencia" name="fecha_competencia">
                                             </div> <br>
 
-                                        <h3 class="h5">Preguntas sobre preparación</h3>
+                                        
 
                                         <div class="mb-3">
                                             <label for="modificar_preparado_competencia" class="form-label">¿Te sientes preparado para la competencia que se aproxima y porque?</label>
@@ -586,7 +586,7 @@
                                             <textarea class="form-control" id="modificar_estrategia_previa" name="estrategia_previa" rows="3"></textarea>
                                         </div>
 
-                                        <h3 class="h5">Preguntas sobre ansiedad y nervios</h3>
+                                        
 
                                         <div class="mb-3">
                                             <label for="modificar_descripcion_nervios" class="form-label">¿Sientes nervios antes de una competición y porque?</label>
@@ -604,7 +604,7 @@
                                         </div>
 
 
-                                        <h3 class="h5">Preguntas sobre motivacion</h3>
+                                      
 
                                         <div class="mb-3">
                                             <label for="modificar_motivacion_competencia" class="form-label">¿Qué te motiva a dar lo mejor de ti en la competición?</label>
@@ -621,7 +621,7 @@
                                             <textarea class="form-control" id="modificar_lograr_competencia" name="lograr_competencia" rows="3"></textarea>
                                         </div>
 
-                                        <h3 class="h5">Preguntas sobre enfoque mental</h3>
+                                  
 
                                         <div class="mb-3">
                                             <label for="modificar_rutina_mental" class="form-label">¿Tienes alguna rutina mental que sigues antes de competir?</label>
@@ -640,7 +640,7 @@
 
                                         </div>
                                     
-                                        <button type="submit" class="btn btn-warning">Guardar Cambios</button>
+                                        <button type="submit" class="btn btn-warning" name="actualizar_test_submit">Guardar Cambios</button>
                                 </form>
                             </div>
                             <div class="modal-footer">
@@ -695,7 +695,7 @@
                     row.insertCell().textContent = test.nombre;
                     row.insertCell().textContent = test.apellidos;
                     row.insertCell().textContent = test.cedula || '-';
-                    row.insertCell().textContent = test.edad;
+                    row.insertCell().textContent = test.edad || '-';
                     row.insertCell().textContent = test.nombre_competencia;
                     row.insertCell().textContent = test.ubicacion_competencia;
                     row.insertCell().textContent = test.fecha_competencia;
@@ -839,7 +839,7 @@
                 document.getElementById('modificar_nombre').value = test.nombre;
                 document.getElementById('modificar_apellidos').value = test.apellidos;
                 document.getElementById('modificar_cedula').value = test.cedula || '';
-                document.getElementById('modificar_edad').value = test.edad;
+                document.getElementById('modificar_edad').value = test.edad || '';
                 document.getElementById('modificar_nombre_competencia').value = test.nombre_competencia;
                 document.getElementById('modificar_ubicacion_competencia').value = test.ubicacion_competencia;
                 document.getElementById('modificar_fecha_competencia').value = test.fecha_competencia;

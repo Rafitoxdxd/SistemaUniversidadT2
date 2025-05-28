@@ -25,9 +25,24 @@ class testModulo extends Conexion{
     private $pensamiento_positivo;
     private $preparacion_mental;
 
+    
     public function __construct(){
-        parent::__construct();
+        // parent::__construct(); // Eliminar esta línea: Conexion no tiene un método __construct().
+
+        // Aseguro que la conexión estática de la clase padre (Conexion) esté disponible.
+        // Si no hay conexión, se intenta conectar.
+        if (Conexion::getConexion() == null) {
+            Conexion::conectar(); // Llama al método estático para establecer la conexión.
+        }
+        // Asignao la conexión PDO obtenida a la propiedad $this->pdo de esta instancia.
+        $this->pdo = Conexion::getConexion(); 
+
+        if (!$this->pdo) {
+            // throw new \RuntimeException("Error: No se pudo obtener la conexión PDO en pacienteModulo.");
+        }
+
     }
+
     public function getId(){
         return $this->id;
     }
@@ -165,6 +180,7 @@ class testModulo extends Conexion{
     }
     public function creartest(){
         $stmt=$this->pdo->prepare("INSERT INTO test (nombre,apellidos,cedula,edad,nombre_competencia,ubicacion_competencia,fecha_competencia,preparado_competencia,entrenado_previo,estrategia_previa,descripcion_nervios,antes_competir,experiencia_pasada,motivacion_competencia,esperar_competicion,lograr_competencia,rutina_mental,pensamiento_positivo,preparacion_mental) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+
         $stmt->execute([$this->nombre,$this->apellidos,$this->cedula,$this->edad,$this->nombre_competencia,$this->ubicacion_competencia,$this->fecha_competencia,$this->preparado_competencia,$this->entrenado_previo,$this->estrategia_previa,$this->descripcion_nervios,$this->antes_competir,$this->experiencia_pasada,$this->motivacion_competencia,$this->esperar_competicion,$this->lograr_competencia,$this->rutina_mental,$this->pensamiento_positivo,$this->preparacion_mental]);
     }
     public function actualizartest(){
