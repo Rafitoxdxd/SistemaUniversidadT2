@@ -304,7 +304,7 @@
                     // Asegúrate de iniciar la sesión al principio de tu script si aún no lo has hecho.
                     // session_start(); 
                     if (isset($_SESSION["usuario"])) {
-                             $v_usuario = $_SESSION["usuario"];
+                            $v_usuario = $_SESSION["usuario"];
                     } else {
                         // Opcional: Redirigir o manejar si no hay sesión
                         // header("Location: ?pagina=login"); 
@@ -321,12 +321,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href='?pagina=historial'>Historial</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Exámenes</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Documentos</a>
-                    </li>
+    
                     <li class="nav-item">
                         <a class="nav-link" href='?pagina=test'>Test</a>
                     </li>
@@ -363,33 +358,30 @@
             </header>
             
             <div class="cont" id="pacientesContainer">
-                <?php
-                    //$pacientes = array();
-                    
+                <div class="row">
+                    <?php
                     $pacientes = Historial::cargarHistoriales();
-
                     foreach ($pacientes as $paciente) {
                         $datosPaciente = json_decode($paciente->getDatos(), true);
-
-                        echo '<article class="col mb-4 paciente-card " data-nombre="' . $datosPaciente['nombre'] . '" data-cedula="' . $datosPaciente['cedula'] . '" data-paciente-id="' . $paciente->getId() . '">';
-                        echo '      <div class="card" style="width: 30rem;" >';
-                        echo '           <div class="card-body">';
-                        echo '               <h5 class="card-title">' . htmlspecialchars($datosPaciente['nombre']) . '</h5>';
-                        echo '               <p class="card-text">Cédula: ' . htmlspecialchars($datosPaciente['cedula']) . '</p>';
-                        echo '               <p class="card-text">Fecha de Nacimiento: ' . htmlspecialchars($datosPaciente['fecha_nacimiento']) . '</p>';
-                        echo '               <div class="d-flex justify-content-between align-items-center">';
-                        echo '                   <button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#verDetallesModal"';
-                        echo '                               data-nombre-paciente="' . htmlspecialchars($datosPaciente['nombre']) . '"';
-                        echo '                               data-cedula-paciente="' . htmlspecialchars($datosPaciente['cedula']) . '"';
-                        echo '                               data-fecha-nacimiento="' . htmlspecialchars($datosPaciente['fecha_nacimiento']) . '">';
-                        echo '                       Ver Detalles';
-                        echo '                   </button>';
-                        echo '                   <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#eliminarPacienteModal-' . $paciente->getId() . '">';
-                        echo '                       <i class="bi bi-trash3-fill eliminar-icono-tarjeta"></i> Eliminar';
-                        echo '                   </button>';
-                        echo '               </div>';
-                        echo '           </div>';
+                        echo '<div class="col-12 col-md-6 mb-4 paciente-card" data-nombre="' . $datosPaciente['nombre'] . '" data-cedula="' . $datosPaciente['cedula'] . '" data-paciente-id="' . $paciente->getId() . '">';
+                        echo '  <div class="card" style="width: 100%;">';
+                        echo '      <div class="card-body">';
+                        echo '          <h5 class="card-title">' . htmlspecialchars($datosPaciente['nombre']) . '</h5>';
+                        echo '          <p class="card-text">Cédula: ' . htmlspecialchars($datosPaciente['cedula']) . '</p>';
+                        echo '          <p class="card-text">Fecha de Nacimiento: ' . htmlspecialchars($datosPaciente['fecha_nacimiento']) . '</p>';
+                        echo '          <div class="d-flex justify-content-between align-items-center">';
+                        echo '              <button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#verDetallesModal"';
+                        echo '                  data-nombre-paciente="' . htmlspecialchars($datosPaciente['nombre']) . '"';
+                        echo '                  data-cedula-paciente="' . htmlspecialchars($datosPaciente['cedula']) . '"';
+                        echo '                  data-fecha-nacimiento="' . htmlspecialchars($datosPaciente['fecha_nacimiento']) . '">';
+                        echo '                  Ver Detalles';
+                        echo '              </button>';
+                        echo '              <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#eliminarPacienteModal-' . $paciente->getId() . '">';
+                        echo '                  <i class="bi bi-trash3-fill eliminar-icono-tarjeta"></i> Eliminar';
+                        echo '              </button>';
+                        echo '          </div>';
                         echo '      </div>';
+                        echo '  </div>';
 
                         // Modal de Eliminar Paciente para cada tarjeta
                         echo '<div class="modal fade" id="eliminarPacienteModal-' . $paciente->getId() . '" tabindex="-1" aria-labelledby="eliminarPacienteModalLabel-' . $paciente->getId() . '" aria-hidden="true">';
@@ -419,9 +411,10 @@
                         echo '    </div>';
                         echo '</div>';
 
-                        echo '</article>';
+                        echo '</div>';
                     }
                     ?>
+                </div>
             </div>
         </main>
     </div>

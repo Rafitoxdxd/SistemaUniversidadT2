@@ -299,12 +299,7 @@
                             <li class="nav-item">
                                 <a class="nav-link" href='?pagina=historial'>Historial</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Exámenes</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Documentos</a>
-                            </li>
+    
                             <li class="nav-item">
                                 <a class="nav-link" href='?pagina=test'>Test</a>
                             </li>
@@ -314,7 +309,7 @@
                             <li class="nav-item">
                                 <a class="nav-link" href='?pagina=cita'>Citas</a>
                             </li>
-                          <li class="nav-item">
+                            <li class="nav-item">
                                 <a class="nav-link" href='?pagina=tratamiento'>Tratamientos</a>
                             </li>
                             <li class="nav-item mt-auto">

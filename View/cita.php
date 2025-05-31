@@ -247,7 +247,7 @@
                 // session_start(); 
                 if (isset($_SESSION["usuario"])) {
 
-                             $v_usuario = $_SESSION["usuario"];
+                            $v_usuario = $_SESSION["usuario"];
 
                     $v_usuario = $_SESSION["usuario"];
 
@@ -266,12 +266,6 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href='?pagina=historial'>Historial</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Exámenes</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Documentos</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href='?pagina=test'>Test</a>

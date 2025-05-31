@@ -1,99 +1,156 @@
 <!doctype html>
 <html lang="es">
-    <head>
-        <title>Iniciar secion</title>
-        <!-- Required meta tags -->
-        <meta charset="utf-8" />
-        <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1, shrink-to-fit=no"
-        />
+<head>
+    <title>Iniciar sesión</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
-        <!-- Bootstrap CSS v5.2.1 -->
-        <link href='css/bootstrap.v5.1.3.min.css' rel='stylesheet'>
-         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Bootstrap CSS -->
+    <link href='css/bootstrap.v5.1.3.min.css' rel='stylesheet'>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
 
-        <style>
-            body {
-                background-color: #f8f9fa;
-            }
-            .login-container {
-                width: 400px;
-                margin: 100px auto;
-                padding: 20px;
-                background-color: #ffffff;
-                border-radius: 8px;
-                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-                animation: fadeIn 1s ease-in-out; 
-            }
-            @keyframes fadeIn {
-                from { opacity: 0; transform: translateY(-20px); }
-                to { opacity: 1; transform: translateY(0); }
-            }
-            .form-control:focus {
-                border-color: #007bff;
-                box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-                animation: inputFocus 0.3s ease-in-out;
-            }
-            @keyframes inputFocus {
-                from { transform: scale(1); }
-                to { transform: scale(1.05); }
-            }
-            .btn-primary {
-                transition: background-color 0.3s ease-in-out;
-            }
-            .btn-primary:hover {
-                background-color: #0069d9;
-            }
-        </style>
-    </head>
-
-    <body>
-        <header>
-            <a href="?pagina=main">HOME</a>
-        </header>
-
-        <main>
+    <style>
+        :root {
+            --color1: #DBE1F0;
+            --color2: #A7D0D8;
+            --color3: #ABCDDD;
+            --color4: #E0C323;
+            --color5: #75A5B8;
+        }
+        body {
+            background: linear-gradient(135deg, var(--color1) 0%, var(--color2) 40%, var(--color3) 100%);
+            min-height: 100vh;
+        }
+        .login-container {
+            width: 370px;
+            margin: 70px auto;
+            padding: 35px 28px 28px 28px;
+            background-color: #fff;
+            border-radius: 22px;
+            box-shadow: 0 0 24px rgba(117, 165, 184, 0.12);
+            border: 1.5px solid var(--color1);
+        }
+        .login-container h2 {
+            color: #222;
+            font-weight: bold;
+            margin-bottom: 2rem;
+            font-size: 1.7rem;
+        }
+        .form-label {
+            color: #888;
+            font-weight: 500;
+            font-size: 0.97rem;
+            margin-bottom: 0.3rem;
+        }
+        .input-group-text {
+            background: var(--color1);
+            border: none;
+            color: var(--color5);
+            font-size: 1.2rem;
+        }
+        .form-control {
+            background: var(--color1);
+            border: none;
+            border-radius: 16px;
+            font-size: 1rem;
+            color: #222;
+            padding-left: 0.5rem;
+            transition: box-shadow 0.2s, border 0.2s;
+        }
+        .form-control:focus {
+            border: 2px solid var(--color4);
+            box-shadow: 0 0 0 0.1rem rgba(224, 195, 35, 0.18);
+            background: #fff;
+        }
+        .input-group:focus-within .input-group-text {
+            border: 2px solid var(--color4);
+            background: #fff;
+            color: var(--color4);
+        }
+        .change-link {
+            color: var(--color4);
+            font-size: 0.93rem;
+            cursor: pointer;
+            float: right;
+            text-decoration: underline;
+        }
+        .btn-yellow {
+            background: var(--color4);
+            border: none;
+            color: #fff;
+            font-weight: bold;
+            border-radius: 20px;
+            font-size: 1.09rem;
+            letter-spacing: 0.5px;
+            width: 100%;
+            margin-top: 0.7rem;
+            margin-bottom: 0.5rem;
+            padding: 0.7rem;
+            transition: background 0.2s;
+        }
+        .btn-yellow:hover {
+            background: #c7a91e;
+        }
+        .form-link {
+            color: var(--color5);
+            text-align: center;
+            display: block;
+            margin-top: 1rem;
+            font-size: 0.98rem;
+        }
+        .form-link a {
+            color: var(--color2);
+            text-decoration: underline;
+        }
+        .form-link a:hover {
+            color: var(--color4);
+        }
+    </style>
+</head>
+<body>
+    <main>
         <form action="" method="POST">
-
-        <div class="container">
-        <div class="login-container">
-
-            <h2 class="text-center mb-4">Iniciar sesión</h2>
-
-            <div class="form-group">
-                <label for="cedula">Usuario:</label>
-                <input type="text" class="form-control" name="cedula" id="cedula" placeholder="Ingresa su Cédula">
+            <div class="login-container">
+                <h2 class="text-center">Iniciar sesión</h2>
+                <div class="mb-3">
+                    <label for="cedula" class="form-label">Usuario</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-person"></i></span>
+                        <input type="text" class="form-control" name="cedula" id="cedula" placeholder="Ingresa tu cédula">
+                    </div>
+                </div>
+                <div class="mb-2">
+                    <label for="contra" class="form-label">Contraseña</label>
+                    <span class="change-link" onclick="document.getElementById('contra').focus()">Cambiar</span>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                        <input type="password" class="form-control" name="contra" id="contra" placeholder="Ingresa tu contraseña">
+                        <span class="input-group-text" style="cursor:pointer" onclick="togglePassword()"><i class="bi bi-eye" id="eye"></i></span>
+                    </div>
+                </div>
+                <button type="submit" name="login" class="btn btn-yellow">Iniciar sesión</button>
+                <div class="form-link">
+                    ¿No tienes cuenta? <a href="?pagina=register">Regístrate</a>
+                </div>
             </div>
-
-            <div class="form-group">
-                <label for="contra">Contraseña:</label>
-                <input type="password" class="form-control" name="contra" id="contra" placeholder="Ingresa tu contraseña">
-            </div>
-            
-            <input  type="submit" name="login" class="btn btn-primary btn-block" value="Iniciar sesión" >
-            
-            <p>Ya tienes cuenta? <a href="?pagina=register">registrate</a></p>
-            
-        </div>
-        </div>
-
         </form>
-        </main>
-
-        <script
-            src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-            integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-            crossorigin="anonymous"
-        ></script>
-
-        <script
-            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
-            integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
-            crossorigin="anonymous"
-        ></script>
-
-    </body>
+    </main>
+    <script>
+        function togglePassword() {
+            const input = document.getElementById('contra');
+            const icon = document.getElementById('eye');
+            if (input.type === "password") {
+                input.type = "text";
+                icon.classList.remove('bi-eye');
+                icon.classList.add('bi-eye-slash');
+            } else {
+                input.type = "password";
+                icon.classList.remove('bi-eye-slash');
+                icon.classList.add('bi-eye');
+            }
+        }
+    </script>
+</body>
 </html>

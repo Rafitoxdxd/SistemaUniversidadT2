@@ -7,7 +7,26 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 
 require_once BASE_PATH . 'Model/pacientes.php';
-// NO incluir la Vista aquí al principio.
+
+// --- BLOQUE AJAX PARA RESPONDER JSON ---
+if (isset($_GET['ajax']) && $_GET['ajax'] == 1) {
+    header('Content-Type: application/json');
+    $filtro = strtolower($_GET['filtro'] ?? '');
+    $todosLosPacientes = listarpaciente();
+    $pacientesFiltrados = $todosLosPacientes;
+
+    if (!empty($filtro)) {
+        $pacientesFiltrados = array_filter($todosLosPacientes, function ($paciente) use ($filtro) {
+            return (stripos($paciente['nombre'], $filtro) !== false) ||
+                (stripos($paciente['apellido'], $filtro) !== false) ||
+                (isset($paciente['cedula']) && stripos($paciente['cedula'], $filtro) !== false) ||
+                (isset($paciente['telefono']) && stripos($paciente['telefono'], $filtro) !== false);
+        });
+    }
+    echo json_encode(['pacientes' => array_values($pacientesFiltrados)]);
+    exit;
+}
+// --- FIN BLOQUE AJAX ---
 
 // MANEJO DE ACCIÓN AJAX PARA LISTAR PACIENTES 
 if (isset($_GET['accion']) && $_GET['accion'] === 'listarPacientesAjax') {
