@@ -3,19 +3,12 @@
     <head>
         <title>pacientes</title>
         <meta charset="utf-8" />
-        <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1, shrink-to-fit=no"
-        />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
 
-        <link
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-            rel="stylesheet"
-            integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
-            crossorigin="anonymous"
-        />
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous"/>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-        
+        <script src="js/paciente.js"></script>
+
         <style>
             :root {
                 --color1: #DBE1F0;
@@ -218,11 +211,37 @@
     </head>
     <body>
         
-        </div>
+        <!-- Menú de navegación responsive -->
+            <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm mb-4 d-lg-none">
+                <div class="container-fluid">
+                <a class="navbar-brand fw-bold" href="?pagina=main" style="color: var(--color5);">Sistema</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Menú">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <div class="w-100 d-flex justify-content-center my-2">
+    <img src="img/Logo3.png" alt="Logo Stephanie Quintero" style="max-width:90px; max-height:90px;">
+</div>
+                    <li class="nav-item"><a class="nav-link<?= ($_GET['pagina'] ?? '') === 'main' ? ' active' : '' ?>" href="?pagina=main"><i class="bi bi-house-door me-2"></i>Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link<?= ($_GET['pagina'] ?? '') === 'historial' ? ' active' : '' ?>" href="?pagina=historial"><i class="bi bi-clock-history me-2"></i>Historial</a></li>
+                    <li class="nav-item"><a class="nav-link<?= ($_GET['pagina'] ?? '') === 'test' ? ' active' : '' ?>" href="?pagina=test"><i class="bi bi-clipboard-check me-2"></i>Test</a></li>
+                    <li class="nav-item"><a class="nav-link<?= ($_GET['pagina'] ?? '') === 'pacientes' ? ' active' : '' ?>" href="?pagina=pacientes"><i class="bi bi-people me-2"></i>Pacientes</a></li>
+                    <li class="nav-item"><a class="nav-link<?= ($_GET['pagina'] ?? '') === 'cita' ? ' active' : '' ?>" href="?pagina=cita"><i class="bi bi-calendar2-plus me-2"></i>Citas</a></li>
+                    <li class="nav-item"><a class="nav-link<?= ($_GET['pagina'] ?? '') === 'tratamiento' ? ' active' : '' ?>" href="?pagina=tratamiento"><i class="bi bi-capsule-pill me-2"></i>Tratamiento</a></li>
+                    <li class="nav-item"><a class="nav-link" href="?pagina=logout"><i class="bi bi-box-arrow-right me-2"></i>Cerrar sesión</a></li>
+                </ul>
+            </div>
+            </div>
+            </nav>
+
         <div class="container-fluid">
             <div class="row">
-                <nav class="col-md-2 d-none d-md-block sidebar">
+                <nav class="col-md-2 d-none d-lg-block sidebar">
                     <div class="sidebar-sticky">
+                        <div class="w-100 d-flex justify-content-center my-3">
+                        <img src="img/Logo3.png" alt="Logo Stephanie Quintero" style="max-width:120px; max-height:120px;">
+                        </div>
                         <ul class="nav flex-column">
                             <li class="nav-item">
                                 <a class="nav-link<?= ($_GET['pagina'] ?? '') === 'main' ? ' active' : '' ?>" href="?pagina=main">
@@ -351,22 +370,25 @@
                                         <div class="row mb-3">
                                             <div class="col-md-6">
                                                 <label for="cedula" class="form-label">Cédula</label>
-                                                <input type="text" class="form-control" id="cedula" name="cedula">
+                                                <input type="text" class="form-control" id="cedula" name="cedula" maxlength="10">
                                             </div>
                                             <div class="col-md-6">
                                                 <label for="telefono" class="form-label">Teléfono</label>
-                                                <input type="tel" class="form-control" id="telefono" name="telefono">
+                                                <input type="tel" class="form-control" id="telefono" name="telefono" maxlength="12">
                                             </div>
+                                            
                                             <div class="col-md-6">
                                                 <label for="email" class="form-label">Gmail</label>
                                                 <input type="email" class="form-control" id="email" name="email">
                                             </div>
-                                        </div>
-                                        <div class="row mb-3">
+
                                             <div class="col-md-6">
                                                 <label for="fecha_nacimiento" class="form-label">Fecha de Nacimiento</label>
                                                 <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento">
                                             </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                        
                                             <div class="col-md-6">
                                                 <label for="genero" class="form-label">Género</label>
                                                 <select class="form-select" id="genero" name="genero">
@@ -376,33 +398,48 @@
                                                     <option value="otro">Otro</option>
                                                 </select>
                                             </div>
-                                        </div>
-                                        <div class="row mb-3">
+
                                             <div class="col-md-6">
                                                 <label for="direccion" class="form-label">Dirección</label>
                                                 <input type="text" class="form-control" id="direccion" name="direccion">
                                             </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                        
                                             <div class="col-md-6">
                                                 <label for="ciudad" class="form-label">Ciudad</label>
                                                 <input type="text" class="form-control" id="ciudad" name="ciudad">
                                             </div>
-                                        </div>
-                                        <div class="row mb-3">
+
                                             <div class="col-md-6">
                                                 <label for="pais" class="form-label">País</label>
                                                 <input type="text" class="form-control" id="pais" name="pais">
                                             </div>
+
+                                        </div>
+                                        <div class="row mb-3">
+                                            
                                             <div class="col-md-6">
                                                 <label for="password" class="form-label">Contraseña</label>
                                                 <input type="password" class="form-control" id="password" name="password" required>
                                             </div>
+
+                                            <!-- Confirmar contraseña -->
+                                            <div class="col-md-6">
+                                                <label for="password2" class="form-label">Confirmar Contraseña</label>
+                                                <input type="password" class="form-control" id="password2" name="password2" required>
+                                            </div>
                                         </div>
-                                        <button type="submit" class="btn btn-primary" name="guardara" value="guardara">Guardar paciente</button>
-                                    </form>
+                                        
+                                    
+                                    
                                 </div>
                                 <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary" name="guardara" value="guardara">Guardar paciente</button>
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                                 </div>
+                                </form>
+                                
                             </div>
                         </div>
                     </div>
@@ -452,6 +489,7 @@
                                                 </select>
                                             </div>
                                         </div>
+
                                         <div class="row mb-3">
                                             <div class="col-md-6">
                                                 <label for="modificar_direccion" class="form-label">Dirección</label>
@@ -485,161 +523,38 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
 
         <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                const buscarpacienteInput = document.getElementById('buscarpaciente');
-                const tablapacientesBody = document.getElementById('tablapacientes');
-                // --- OBTENER AMBAS LISTAS DE PAGINACIÓN ---
-                const paginacionpacientesTop = document.getElementById('paginacionpacientesTop');
-                const paginacionpacientesBottom = document.getElementById('paginacionpacientesBottom');
-                // --- FIN OBTENER AMBAS LISTAS ---
-                let pacientesData = [];
-                const pacientesPorPagina = 15; // O el número que prefieras
-                let paginaActual = 1;
-
-                // --- Función principal para cargar pacientes desde el backend (AJAX) ---
-                function cargarpacientes(pagina = 1, filtro = '') {
-                    // Hacemos una petición fetch al backend, pasando el filtro si existe
-                    fetch('index.php?pagina=pacientes&ajax=1&filtro=' + encodeURIComponent(filtro))
-                        .then(response => response.json())
-                        .then(data => {
-                            // Guardamos los pacientes recibidos en la variable global
-                            pacientesData = data.pacientes || [];
-                            // Siempre que se cargan pacientes, volvemos a la página 1
-                            paginaActual = 1;
-                            // Aplicamos el filtro y la paginación para mostrar los datos
-                            aplicarFiltroYPaginacion();
-                        })
-                        .catch(error => {
-                            // Si hay un error, mostramos un mensaje en la tabla y limpiamos la paginación
-                            console.error('Error al cargar pacientes:', error);
-                            tablapacientesBody.innerHTML = '<tr><td colspan="6">Error al cargar los pacientes.</td></tr>';
-                            paginacionpacientesTop.innerHTML = '';
-                            paginacionpacientesBottom.innerHTML = '';
-                        });
-                }
-
-                // --- Función para actualizar la tabla con los pacientes de la página actual ---
-                function actualizarTabla(pacientes) {
-                    tablapacientesBody.innerHTML = '';
-                    if (pacientes.length > 0) {
-                        // Por cada paciente, agregamos una fila a la tabla con sus datos y botones de acción
-                        pacientes.forEach(paciente => {
-                            const row = tablapacientesBody.insertRow();
-                            row.insertCell().textContent = paciente.id;
-                            row.insertCell().textContent = paciente.nombre;
-                            row.insertCell().textContent = paciente.apellido;
-                            row.insertCell().textContent = paciente.cedula || '-';
-                            row.insertCell().textContent = paciente.telefono || '-';
-                            const accionesCell = row.insertCell();
-                            accionesCell.innerHTML = `
-                                <button class="btn btn-accion btn-editar btn-sm" data-bs-toggle="modal" data-bs-target="#modificarpacienteModal" data-id="${paciente.id}"><i class="bi bi-pencil"></i> Editar</button>
-                                <a class="btn btn-accion btn-eliminar btn-sm" href="index.php?accion=eliminarpaciente&id=${paciente.id}"
-                                onclick="return confirm('¿Desea eliminar este paciente?');"><i class="bi bi-trash"></i> Eliminar</a>
-                                <a href="index.php?accion=verHistorial&paciente_id=${paciente.id}" class="btn btn-accion btn-historial btn-sm"><i class="bi bi-journal-text"></i> Historial</a>
-                                <a href="index.php?accion=agendarCita&paciente_id=${paciente.id}" class="btn btn-accion btn-cita btn-sm"><i class="bi bi-calendar-plus"></i> Cita</a>
-                            `;
-                        });
-                    } else {
-                        // Si no hay pacientes, mostramos un mensaje acorde al filtro
-                        const filtro = buscarpacienteInput.value;
-                        tablapacientesBody.innerHTML = `<tr><td colspan="6">${filtro ? 'No se encontraron pacientes con ese filtro.' : 'No hay pacientes registrados.'}</td></tr>`;
-                    }
-                }
-
-                // --- Función para generar la paginación tanto arriba como abajo de la tabla ---
-                function generarPaginacion(totalpacientesFiltrados, pacientesPorPagina) {
-                    const totalPaginas = Math.ceil(totalpacientesFiltrados / pacientesPorPagina);
-                    // Limpiamos ambas listas de paginación
-                    paginacionpacientesTop.innerHTML = '';
-                    paginacionpacientesBottom.innerHTML = '';
-
-                    if (totalPaginas > 1) {
-                        // Creamos los botones de página para ambas paginaciones
-                        for (let i = 1; i <= totalPaginas; i++) {
-                            const li = document.createElement('li');
-                            li.classList.add('page-item');
-                            if (i === paginaActual) {
-                                li.classList.add('active');
-                            }
-                            const a = document.createElement('a');
-                            a.classList.add('page-link');
-                            a.href = '#';
-                            a.textContent = i;
-                            a.dataset.page = i;
-                            a.addEventListener('click', handlePaginacionClick);
-                            li.appendChild(a);
-
-                            // Clonamos el elemento para la paginación inferior
-                            const liClone = li.cloneNode(true);
-                            liClone.querySelector('a').addEventListener('click', handlePaginacionClick);
-
-                            paginacionpacientesTop.appendChild(li);
-                            paginacionpacientesBottom.appendChild(liClone);
-                        }
-                    }
-                }
-
-                // --- Función que maneja el clic en los botones de paginación ---
-                function handlePaginacionClick(e) {
-                    e.preventDefault();
-                    const targetPage = parseInt(e.target.dataset.page);
-                    if (targetPage !== paginaActual) {
-                        paginaActual = targetPage;
-                        aplicarFiltroYPaginacion();
-                    }
-                }
-
-                // --- Función central que aplica el filtro de búsqueda y la paginación ---
-                function aplicarFiltroYPaginacion() {
-                    // Tomamos el filtro del input y filtramos los pacientes
-                    const filtro = buscarpacienteInput.value.toLowerCase();
-                    const pacientesFiltrados = pacientesData.filter(paciente =>
-                        paciente.nombre.toLowerCase().includes(filtro) ||
-                        paciente.apellido.toLowerCase().includes(filtro) ||
-                        (paciente.cedula && paciente.cedula.toLowerCase().includes(filtro)) ||
-                        (paciente.telefono && paciente.telefono.toLowerCase().includes(filtro))
-                    );
-
-                    // Calculamos el rango de pacientes a mostrar en la página actual
-                    const totalpacientesFiltrados = pacientesFiltrados.length;
-                    const inicio = (paginaActual - 1) * pacientesPorPagina;
-                    const fin = inicio + pacientesPorPagina;
-                    const pacientesPagina = pacientesFiltrados.slice(inicio, fin);
-
-                    // Actualizamos la tabla y la paginación
-                    actualizarTabla(pacientesPagina);
-                    generarPaginacion(totalpacientesFiltrados, pacientesPorPagina);
-                }
-
-                // --- Inicialización al cargar la página ---
-                cargarpacientes();
-
-                // --- Evento para búsqueda en tiempo real ---
-                buscarpacienteInput.addEventListener('input', function() {
-                    paginaActual = 1; // Volvemos a la primera página al buscar
-                    aplicarFiltroYPaginacion();
-                });
-
-                // --- Evento para cargar los datos del paciente en el modal de modificación ---
-                const modificarpacienteModal = document.getElementById('modificarpacienteModal');
-                modificarpacienteModal.addEventListener('show.bs.modal', function (event) {
-                    const button = event.relatedTarget;
-                    const pacienteId = button.getAttribute('data-id');
-                    const paciente = pacientesData.find(p => p.id === parseInt(pacienteId));
-                    if (paciente) {
-                        document.getElementById('modificar_id').value = paciente.id;
-                        document.getElementById('modificar_nombre').value = paciente.nombre;
-                        document.getElementById('modificar_apellido').value = paciente.apellido;
-                        document.getElementById('modificar_cedula').value = paciente.cedula || '';
-                        document.getElementById('modificar_telefono').value = paciente.telefono || '';
-                        document.getElementById('modificar_fecha_nacimiento').value = paciente.fecha_nacimiento || '';
-                        document.getElementById('modificar_genero').value = paciente.genero || '';
-                        document.getElementById('modificar_direccion').value = paciente.direccion || '';
-                        document.getElementById('modificar_ciudad').value = paciente.ciudad || '';
-                        document.getElementById('modificar_pais').value = paciente.pais || '';
-                    }
-                });
-            });
+            // Guarda los valores originales al abrir el modal
+let valoresOriginales = {};
+const modificarpacienteModal = document.getElementById('modificarpacienteModal');
+modificarpacienteModal.addEventListener('show.bs.modal', function (event) {
+    const button = event.relatedTarget;
+    const pacienteId = button.getAttribute('data-id');
+    const paciente = pacientesData.find(p => p.id === parseInt(pacienteId));
+    if (paciente) {
+        document.getElementById('modificar_id').value = paciente.id;
+        document.getElementById('modificar_nombre').value = paciente.nombre;
+        document.getElementById('modificar_apellido').value = paciente.apellido;
+        document.getElementById('modificar_cedula').value = paciente.cedula || '';
+        document.getElementById('modificar_telefono').value = paciente.telefono || '';
+        document.getElementById('modificar_fecha_nacimiento').value = paciente.fecha_nacimiento || '';
+        document.getElementById('modificar_genero').value = paciente.genero || '';
+        document.getElementById('modificar_direccion').value = paciente.direccion || '';
+        document.getElementById('modificar_ciudad').value = paciente.ciudad || '';
+        document.getElementById('modificar_pais').value = paciente.pais || '';
+        // Guarda los valores originales
+        valoresOriginales = {
+            modificar_nombre: paciente.nombre,
+            modificar_apellido: paciente.apellido,
+            modificar_cedula: paciente.cedula || '',
+            modificar_telefono: paciente.telefono || '',
+            modificar_fecha_nacimiento: paciente.fecha_nacimiento || '',
+            modificar_direccion: paciente.direccion || '',
+            modificar_ciudad: paciente.ciudad || '',
+            modificar_pais: paciente.pais || ''
+        };
+    }
+});
         </script>
+
     </body>
 </html>
