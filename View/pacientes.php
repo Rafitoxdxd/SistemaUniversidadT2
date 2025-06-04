@@ -522,39 +522,5 @@
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
 
-        <script>
-            // Guarda los valores originales al abrir el modal
-let valoresOriginales = {};
-const modificarpacienteModal = document.getElementById('modificarpacienteModal');
-modificarpacienteModal.addEventListener('show.bs.modal', function (event) {
-    const button = event.relatedTarget;
-    const pacienteId = button.getAttribute('data-id');
-    const paciente = pacientesData.find(p => p.id === parseInt(pacienteId));
-    if (paciente) {
-        document.getElementById('modificar_id').value = paciente.id;
-        document.getElementById('modificar_nombre').value = paciente.nombre;
-        document.getElementById('modificar_apellido').value = paciente.apellido;
-        document.getElementById('modificar_cedula').value = paciente.cedula || '';
-        document.getElementById('modificar_telefono').value = paciente.telefono || '';
-        document.getElementById('modificar_fecha_nacimiento').value = paciente.fecha_nacimiento || '';
-        document.getElementById('modificar_genero').value = paciente.genero || '';
-        document.getElementById('modificar_direccion').value = paciente.direccion || '';
-        document.getElementById('modificar_ciudad').value = paciente.ciudad || '';
-        document.getElementById('modificar_pais').value = paciente.pais || '';
-        // Guarda los valores originales
-        valoresOriginales = {
-            modificar_nombre: paciente.nombre,
-            modificar_apellido: paciente.apellido,
-            modificar_cedula: paciente.cedula || '',
-            modificar_telefono: paciente.telefono || '',
-            modificar_fecha_nacimiento: paciente.fecha_nacimiento || '',
-            modificar_direccion: paciente.direccion || '',
-            modificar_ciudad: paciente.ciudad || '',
-            modificar_pais: paciente.pais || ''
-        };
-    }
-});
-        </script>
-
     </body>
 </html>
