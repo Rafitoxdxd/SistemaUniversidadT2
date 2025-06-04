@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
-
     var calendar = new FullCalendar.Calendar(calendarEl, {
 
     // Aqui inclui el boostrap de forma local 
@@ -37,64 +36,31 @@ document.addEventListener('DOMContentLoaded', function() {
       },
       editable: true,
       dayMaxEvents: true, // allow "more" link when too many events
-      events: [
-        {
-          title: 'All Day Event',
-          start: '2023-01-01'
-        },
-        {
-          title: 'Long Event',
-          start: '2023-01-07',
-          end: '2023-01-10'
-        },
-        {
-          groupId: 999,
-          title: 'Repeating Event',
-          start: '2023-01-09T16:00:00'
-        },
-        {
-          groupId: 999,
-          title: 'Repeating Event',
-          start: '2023-01-16T16:00:00'
-        },
-        {
-          title: 'Conference',
-          start: '2023-01-11',
-          end: '2023-01-13'
-        },
-        {
-          title: 'Meeting',
-          start: '2023-01-12T10:30:00',
-          end: '2023-01-12T12:30:00'
-        },
-        {
-          title: 'Lunch',
-          start: '2023-01-12T12:00:00'
-        },
-        {
-          title: 'Meeting',
-          start: '2023-01-12T14:30:00'
-        },
-        {
-          title: 'Happy Hour',
-          start: '2023-01-12T17:30:00'
-        },
-        {
-          title: 'Dinner',
-          start: '2023-01-12T20:00:00'
-        },
-        {
-          title: 'Birthday Party',
-          start: '2023-01-13T07:00:00'
-        },
-        {
-          title: 'Click for Google',
-          url: 'http://google.com/',
-          start: '2023-01-28'
+      events: async function(fetchInfo, successCallback, failureCallback) {
+        try {
+          const response = await fetch('Controller/cita.php?ajax=1');
+          const data = await response.json();
+          if (Array.isArray(data.pacientes)) {
+            // Si la respuesta es {pacientes: [...]}, ignora
+            successCallback([]);
+            return;
+          }
+          if (Array.isArray(data.citas)) {
+            // Si la respuesta es {citas: [...]}, úsala
+            successCallback(data.citas);
+            return;
+          }
+          if (Array.isArray(data)) {
+            // Si la respuesta es un array plano
+            successCallback(data);
+            return;
+          }
+          successCallback([]);
+        } catch (e) {
+          failureCallback(e);
         }
-      ],
-
-    select: function name(info) {
+      },
+    select: function(info) {
         console.log(info);
 
         const GuardarModal = new bootstrap.Modal(document.getElementById("GuardarModal"));
@@ -129,24 +95,45 @@ document.addEventListener('DOMContentLoaded', function() {
         return '${año}-${mes}-${dia}T${hora}:${minuto}';
     }
 
-    const formEvento = document.getElementById("formEvent");
+    // CORRECCIÓN: El id correcto del formulario es "formEvento"
+    const formEvento = document.getElementById("formEvento");
 
     if (formEvento) {
+        formEvento.addEventListener("submit", async function(e) {
+            e.preventDefault(); // Prevenir el envío normal
 
-        formEvento.addEventListener("submit", async (e) => {
-            e.preventDefault();
+            const formData = new FormData(formEvento);
 
-            const dadosForm = new FormData(formEvento);
-
-            await fetch ("cita.php", {
-                method: "POST",
-                body: dadosForm
+            // Enviar por AJAX
+            const response = await fetch('Controller/cita.php', {
+                method: 'POST',
+                body: formData
             });
 
+            if (response.ok) {
+                // Cierra el modal
+                bootstrap.Modal.getInstance(document.getElementById("GuardarModal")).hide();
+                // Recarga los eventos del calendario
+                calendar.refetchEvents();
+            } else {
+                alert("Error al guardar la cita");
+            }
+        });
+    }
 
-        
-    })
-}
-
+    // Mostrar modal al hacer click en un evento del calendario
+    if (typeof FullCalendar !== 'undefined') {
+        var calendarEl = document.getElementById('calendar');
+        if (calendarEl) {
+            var calendar = FullCalendar.getCalendar(calendarEl);
+            if (calendar) {
+                calendar.on('eventClick', function(info) {
+                    const GuardarModal = new bootstrap.Modal(document.getElementById("GuardarModal"));
+                    GuardarModal.show();
+                    // Aquí puedes rellenar los campos del modal con info.event.extendedProps
+                });
+            }
+        }
+    }
 
 });

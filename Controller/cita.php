@@ -10,8 +10,9 @@ function obtenercita($id){
     $cita = new citaModulo();
     return $cita->obtenercita($id);
 }
-function crearcita($title, $descripcion, $color, $textColor, $start, $end){
+function crearcita($id_paciente, $title, $descripcion, $color, $textColor, $start, $end){
     $cita = new citaModulo();
+    $cita->setid_paciente($id_paciente); // Faltaba esta línea
     $cita->settitle($title);
     $cita->setdescripcion($descripcion);
     $cita->setcolor($color);
@@ -35,5 +36,23 @@ function actualizarcita($id, $title, $descripcion, $color, $textColor, $start, $
 function eliminarcita($id){
     $cita = new citaModulo();
     $cita->eliminarcita($id);
+}
+// Para la vista: obtener todos los pacientes
+function obtenerPacientesParaSelect(){
+    $paciente = new pacienteModulo();
+    return $paciente->listarpaciente();
+}
+
+if (isset($_POST['guardar_cita'])) {
+    crearcita(
+        $_POST['id_paciente'],
+        $_POST['title'],
+        $_POST['descripcion'],
+        $_POST['color'],
+        $_POST['textColor'],
+        $_POST['start'],
+        $_POST['end']
+    );
+    // Redirigir o mostrar mensaje de éxito
 }
 ?>

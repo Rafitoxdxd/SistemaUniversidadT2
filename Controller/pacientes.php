@@ -175,6 +175,8 @@ function eliminarpaciente($id){
     return $paciente->eliminarpaciente($id);
 }
 
+
+
 // Prepara los datos para la vista
 // Esto solo se ejecutará si no es una petición AJAX o un POST/GET que ya hizo `exit;`.
 $pacientes = listarpaciente(); // Llama a la función para obtener los pacientes.

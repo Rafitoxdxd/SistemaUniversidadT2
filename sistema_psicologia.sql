@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 21-05-2025 a las 10:31:33
+-- Tiempo de generación: 04-06-2025 a las 22:32:23
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -24,15 +24,39 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `consultations`
+-- Estructura de tabla para la tabla `cita`
 --
 
-CREATE TABLE `consultations` (
-  `id` int(11) NOT NULL,
-  `idUser` int(11) NOT NULL,
-  `idPsychologist` int(11) NOT NULL,
-  `consulDate` date DEFAULT NULL
+CREATE TABLE `cita` (
+  `id_cita` int(11) NOT NULL,
+  `id_paciente` int(11) NOT NULL,
+  `idpsicologo` int(11) NOT NULL,
+  `title` varchar(30) NOT NULL,
+  `descripcion` text NOT NULL,
+  `color` varchar(50) NOT NULL,
+  `textColor` varchar(50) NOT NULL,
+  `start` datetime NOT NULL,
+  `end` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `cita`
+--
+
+INSERT INTO `cita` (`id_cita`, `id_paciente`, `idpsicologo`, `title`, `descripcion`, `color`, `textColor`, `start`, `end`) VALUES
+(1, 2, 0, 'qweq', 'eqwqwe', '#6610f2', '#0d6efd', '2025-06-05 12:10:00', '2025-06-05 12:10:00'),
+(2, 2, 0, 'sdaasd', 'saddsa', '#6610f2', '#0d6efd', '2025-06-05 12:23:00', '2025-06-05 13:23:00'),
+(3, 9, 0, 'Mi casa', 'Galletas', '#6610f2', '#0d6efd', '2025-06-06 12:36:00', '2025-06-06 13:37:00'),
+(4, 5, 0, 'Sin contrato', 'pasarla bien ', '#5e4587', '#48505b', '2025-06-05 12:41:00', '2025-06-06 12:41:00'),
+(5, 5, 0, 'Sin contrato', 'pasarla bien ', '#5e4587', '#48505b', '2025-06-05 12:41:00', '2025-06-06 12:41:00'),
+(6, 5, 0, 'Sin contrato', 'pasarla bien ', '#5e4587', '#48505b', '2025-06-05 12:41:00', '2025-06-06 12:41:00'),
+(7, 7, 0, 'asd', 'asdasd', '#050505', '#0d6efd', '2025-06-06 12:46:00', '2025-06-13 12:46:00'),
+(8, 7, 0, 'asd', 'asdasd', '#050505', '#0d6efd', '2025-06-06 12:46:00', '2025-06-13 12:46:00'),
+(9, 7, 0, 'asd', 'asdasd', '#050505', '#0d6efd', '2025-06-06 12:46:00', '2025-06-13 12:46:00'),
+(10, 7, 0, 'asd', 'asdasd', '#050505', '#0d6efd', '2025-06-06 12:46:00', '2025-06-13 12:46:00'),
+(11, 7, 0, 'asd', 'asdasd', '#050505', '#0d6efd', '2025-06-06 12:46:00', '2025-06-13 12:46:00'),
+(12, 7, 0, 'asd', 'asdasd', '#050505', '#0d6efd', '2025-06-06 12:46:00', '2025-06-13 12:46:00'),
+(13, 7, 0, 'asd', 'asdasd', '#050505', '#0d6efd', '2025-06-06 12:46:00', '2025-06-13 12:46:00');
 
 -- --------------------------------------------------------
 
@@ -52,10 +76,47 @@ CREATE TABLE `history` (
 --
 
 INSERT INTO `history` (`ID`, `datos`, `idPaciente`, `idPsicologo`) VALUES
-(2, '{\"nombre\":\"Rafael\",\"apellidos\":\"Figueroa\",\"cedula\":\"30145757\",\"Edad\":\"22\",\"fecha_nacimiento\":\"2002-11-28\",\"Localidad\":\"Barrio Uni\\u00f3n\",\"telefono\":\"04245540984\",\"email\":\"rafaelantonio28112002@gmail.com\",\"estado_civil\":\"soltero\",\"profesion\":\"Desarrollador de Videojuegos\",\"estudios\":\"UPTAEB\",\"conocido\":\"Instagram\",\"sintoma\":[\"Fracaso\",\"Ansiedad\",\"Flojedad\",\"Culpa\",\"Desconfianza\",\"Cansancio\",\"Sue\\u00f1o\"],\"otros__sintoma\":\"\",\"convivencia\":\"Con mi nucleo familiar\",\"relacion_mejorar\":\"absolutamente nada, ta todo bien como est\\u00e1\",\"area_conflictiva\":\"nou\",\"alcohol\":\"si\",\"frecuencia_alcohol\":\"poca\",\"fumar\":\"no\",\"frecuencia_fumar\":\"\",\"sustancia\":\"no\",\"frecuencia_sustancia\":\"\",\"rutina_sueno\":\"malarda rutina de sue\\u00f1o, que paja explicar\",\"acudido\":\"psic\\u00f3logo\",\"tratamiento_recibido\":\"no me acuerdo\",\"finalizado_tratamiento\":\"no, que paja explica\",\"personas_significativas\":\"quien sabe\",\"ayuda_terapia\":\"quien sabe\",\"espera_terapia\":\"quien sabe\",\"compromiso_terapia\":\"5\",\"duracion_terapia\":\"un chingo\",\"importante_reflejar\":\"nada\"}', NULL, 33),
 (3, '{\"nombre\":\"Juanito\",\"apellidos\":\"Perez\",\"cedula\":\"123123123123\",\"Edad\":\"1\",\"fecha_nacimiento\":\"\",\"Localidad\":\"\",\"telefono\":\"\",\"email\":\"\",\"estado_civil\":\"\",\"profesion\":\"\",\"estudios\":\"\",\"otros__sintoma\":\"\",\"convivencia\":\"\",\"relacion_mejorar\":\"\",\"area_conflictiva\":\"\",\"frecuencia_alcohol\":\"\",\"frecuencia_fumar\":\"\",\"frecuencia_sustancia\":\"\",\"rutina_sueno\":\"\",\"tratamiento_recibido\":\"\",\"finalizado_tratamiento\":\"\",\"personas_significativas\":\"\",\"ayuda_terapia\":\"\",\"espera_terapia\":\"\",\"compromiso_terapia\":\"\",\"duracion_terapia\":\"\",\"importante_reflejar\":\"sdsd\"}', NULL, 33),
-(10, '{\"nombre\":\"Yahir\",\"apellidos\":\"Rivero\",\"cedula\":\"31574454\",\"Edad\":\"18\",\"fecha_nacimiento\":\"2025-05-23\",\"Localidad\":\"barquisimeto\",\"telefono\":\"\",\"email\":\"\",\"estado_civil\":\"\",\"profesion\":\"\",\"estudios\":\"\",\"otros__sintoma\":\"\",\"convivencia\":\"\",\"relacion_mejorar\":\"\",\"area_conflictiva\":\"\",\"frecuencia_alcohol\":\"\",\"frecuencia_fumar\":\"\",\"frecuencia_sustancia\":\"\",\"rutina_sueno\":\"\",\"tratamiento_recibido\":\"\",\"finalizado_tratamiento\":\"\",\"personas_significativas\":\"\",\"ayuda_terapia\":\"\",\"espera_terapia\":\"\",\"compromiso_terapia\":\"\",\"duracion_terapia\":\"\",\"importante_reflejar\":\"\"}', NULL, 36),
-(13, '{\"nombre\":\"isa\",\"apellidos\":\"mora\",\"cedula\":\"323232323\",\"Edad\":\"\",\"fecha_nacimiento\":\"\",\"Localidad\":\"\",\"telefono\":\"\",\"email\":\"\",\"estado_civil\":\"\",\"profesion\":\"\",\"estudios\":\"\",\"otros__sintoma\":\"\",\"convivencia\":\"\",\"relacion_mejorar\":\"\",\"area_conflictiva\":\"\",\"frecuencia_alcohol\":\"\",\"frecuencia_fumar\":\"\",\"frecuencia_sustancia\":\"\",\"rutina_sueno\":\"\",\"tratamiento_recibido\":\"\",\"finalizado_tratamiento\":\"\",\"personas_significativas\":\"\",\"ayuda_terapia\":\"\",\"espera_terapia\":\"\",\"compromiso_terapia\":\"\",\"duracion_terapia\":\"\",\"importante_reflejar\":\"\"}', NULL, 33);
+(10, '{\"nombre\":\"Yahir\",\"apellidos\":\"Rivero\",\"cedula\":\"31574454\",\"Edad\":\"18\",\"fecha_nacimiento\":\"2025-05-23\",\"Localidad\":\"barquisimeto\",\"telefono\":\"\",\"email\":\"\",\"estado_civil\":\"\",\"profesion\":\"\",\"estudios\":\"\",\"otros__sintoma\":\"\",\"convivencia\":\"\",\"relacion_mejorar\":\"\",\"area_conflictiva\":\"\",\"frecuencia_alcohol\":\"\",\"frecuencia_fumar\":\"\",\"frecuencia_sustancia\":\"\",\"rutina_sueno\":\"\",\"tratamiento_recibido\":\"\",\"finalizado_tratamiento\":\"\",\"personas_significativas\":\"\",\"ayuda_terapia\":\"\",\"espera_terapia\":\"\",\"compromiso_terapia\":\"\",\"duracion_terapia\":\"\",\"importante_reflejar\":\"\"}', NULL, 36);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `paciente`
+--
+
+CREATE TABLE `paciente` (
+  `id_paciente` int(11) NOT NULL,
+  `nombre` varchar(15) NOT NULL,
+  `apellido` varchar(15) NOT NULL,
+  `cedula` varchar(15) NOT NULL,
+  `telefono` varchar(15) NOT NULL,
+  `fecha_nacimiento` date NOT NULL,
+  `genero` varchar(25) NOT NULL,
+  `direccion` varchar(30) NOT NULL,
+  `ciudad` varchar(15) NOT NULL,
+  `pais` varchar(15) NOT NULL,
+  `email` varchar(30) NOT NULL,
+  `password` varchar(15) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `paciente`
+--
+
+INSERT INTO `paciente` (`id_paciente`, `nombre`, `apellido`, `cedula`, `telefono`, `fecha_nacimiento`, `genero`, `direccion`, `ciudad`, `pais`, `email`, `password`) VALUES
+(1, 'Beatriz', 'Pacheco', '123452341', '04266525038', '2011-12-08', 'masculino', 'Mi casa', 'Venezuela', 'Estados unidos ', '', ''),
+(2, 'Shikamaru', 'shaixhsaiu', '121212', '04266525038', '2025-05-23', 'femenino', 'carrera 4 entre calles 4 y 4', 'barquisimeto', 'dinamarca', '', ''),
+(3, 'Yahir', 'Rivero', '31574451', '2189219', '2025-05-23', 'masculino', 'hihsad', 'Caracas', 'Colombia', '', ''),
+(4, 'Gaara', 'Uzumaki', '30880792', '03030303', '2011-12-01', 'masculino', 'carrera 4 entre calles 4 y 4', 'Caracas', 'Colombia', '', ''),
+(5, 'lenny', 'Lopez', '31574454', '04145113673', '2025-05-12', 'masculino', 'carrera 4 entre calles 4 y 4', 'barquisimeto', 'salkdhsal', 'mama@gmail.com', '$2y$10$ib1x.zRf'),
+(6, 'Maribel', 'Duran ', 'dfggggg', '04165678', '2025-04-29', 'femenino', 'ijjajjaa', 'barquisimeto', 'venezuela', '', ''),
+(7, 'Lenny', 'Rivero', '31574454', '04149510472', '1992-07-23', 'masculino', 'Hola yo vivo en bequito', 'Barquisimeto', 'Venezuela', 'perrocall@gmail.com', '$2y$10$Bn67J3N5'),
+(8, 'Camila', 'Toro', '30827652', '04266525038', '2011-12-16', 'masculino', 'Avenida libertador', 'Venezuela', 'Estados unidos ', 'yahir@gmail.com', '$2y$10$lS7FpW7c'),
+(9, 'Tobirama', 'Uchiha', '12249177', '0414567897', '2011-12-08', 'masculino', 'Carrera  entre calles  y ', 'Caracas', 'Venezuela', '', ''),
+(10, 'Jezuha', 'Palmera', '32066861', '04146587451', '2011-12-01', 'femenino', 'Carrera  entre calles  y ', 'Caracas', 'Colombia', 'jezuhaja@gmail.com', '$2y$10$/7KUrdkO'),
+(11, 'Subaru', 'Natski', '32065636', '04266525036', '2006-11-04', 'masculino', 'Carrera  entre calles  y ', 'Caracas', 'Colombia', 'wizzard790@gmail.com', '$2y$10$u6oVEIAL'),
+(12, 'Satoru', 'Gojo', '20144541', '0414660543', '2011-12-02', 'masculino', 'Carrera  entre calles  y ', 'Caracas', 'Colombia', 'yahirmosq0606@gmail.com', '$2y$10$z0D2M4Wx');
 
 -- --------------------------------------------------------
 
@@ -65,26 +126,56 @@ INSERT INTO `history` (`ID`, `datos`, `idPaciente`, `idPsicologo`) VALUES
 
 CREATE TABLE `test` (
   `id` int(11) NOT NULL,
-  `nombre` varchar(80) NOT NULL,
-  `apellidos` varchar(80) NOT NULL,
-  `cedula` varchar(15) NOT NULL,
-  `edad` int(3) NOT NULL,
-  `nombre_competencia` varchar(250) NOT NULL,
-  `ubicacion_competencia` varchar(250) NOT NULL,
-  `fecha_competencia` date NOT NULL,
-  `preparado_competencia` varchar(250) NOT NULL,
-  `entrenado_previo` varchar(250) NOT NULL,
-  `estrategia_previa` varchar(250) NOT NULL,
-  `descripcion_nervios` varchar(250) NOT NULL,
-  `antes_competir` varchar(250) NOT NULL,
-  `experiencia_pasada` varchar(250) NOT NULL,
-  `motivacion_competencia` varchar(250) NOT NULL,
-  `esperar_competicion` varchar(250) NOT NULL,
-  `lograr_competencia` varchar(250) NOT NULL,
-  `rutina_mental` varchar(250) NOT NULL,
-  `pensamiento_positivo` varchar(250) NOT NULL,
-  `preparacion_mental` varchar(250) NOT NULL
+  `idpaciente` int(11) NOT NULL,
+  `nombre_competencia` varchar(100) NOT NULL,
+  `ubicacion_competencia` varchar(100) NOT NULL,
+  `fecha_competencia` varchar(100) NOT NULL,
+  `preparado_competencia` varchar(100) NOT NULL,
+  `entrenado_previo` varchar(100) NOT NULL,
+  `estrategia_previa` varchar(100) NOT NULL,
+  `descripcion_nervios` varchar(100) NOT NULL,
+  `antes_competir` varchar(100) NOT NULL,
+  `experiencia_pasada` varchar(100) NOT NULL,
+  `motivacion_competencia` varchar(100) NOT NULL,
+  `esperar_competicion` varchar(100) NOT NULL,
+  `lograr_competencia` varchar(100) NOT NULL,
+  `rutina_mental` varchar(100) NOT NULL,
+  `pensamiento_positivo` varchar(100) NOT NULL,
+  `reparacion_mental` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tratamientos`
+--
+
+CREATE TABLE `tratamientos` (
+  `id_tratamiento` int(11) NOT NULL,
+  `id_paciente` int(11) NOT NULL,
+  `fecha_creacion` date NOT NULL,
+  `diagnostico_descripcion` varchar(100) NOT NULL,
+  `tratamiento_tipo` varchar(100) NOT NULL,
+  `estado_actual` int(11) NOT NULL,
+  `observaciones` varchar(150) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `tratamientos`
+--
+
+INSERT INTO `tratamientos` (`id_tratamiento`, `id_paciente`, `fecha_creacion`, `diagnostico_descripcion`, `tratamiento_tipo`, `estado_actual`, `observaciones`, `created_at`, `updated_at`) VALUES
+(1, 0, '2025-06-05', 'hola como estas ', 'malo', 0, 'muy malas', '2025-06-19 18:56:38', '2025-06-19 18:56:38'),
+(2, 4, '2025-06-19', 'aa', 'aaa', 0, 'aa', '2025-06-04 19:47:43', '2025-06-04 19:47:43'),
+(3, 4, '2025-06-20', 'ssss', 'ssss', 0, 'sss', '2025-06-04 19:55:23', '2025-06-04 19:55:23'),
+(4, 4, '2025-06-20', 'ssss', 'ssss', 0, 'sss', '2025-06-04 20:01:05', '2025-06-04 20:01:05'),
+(5, 4, '2025-06-20', 'ssss', 'ssss', 0, 'sss', '2025-06-04 20:01:08', '2025-06-04 20:01:08'),
+(6, 4, '2025-06-20', 'ssss', 'ssss', 0, 'sss', '2025-06-04 20:01:10', '2025-06-04 20:01:10'),
+(7, 4, '2025-06-20', 'ssss', 'ssss', 0, 'sss', '2025-06-04 20:01:13', '2025-06-04 20:01:13'),
+(8, 4, '2025-06-20', 'ssss', 'ssss', 0, 'sss', '2025-06-04 20:03:10', '2025-06-04 20:03:10'),
+(9, 4, '2025-06-20', 'ssss', 'ssss', 0, 'sss', '2025-06-04 20:04:08', '2025-06-04 20:04:08');
 
 -- --------------------------------------------------------
 
@@ -123,10 +214,11 @@ INSERT INTO `users` (`id`, `cedula`, `name`, `lastName`, `mail`, `password`, `bi
 --
 
 --
--- Indices de la tabla `consultations`
+-- Indices de la tabla `cita`
 --
-ALTER TABLE `consultations`
-  ADD PRIMARY KEY (`id`);
+ALTER TABLE `cita`
+  ADD PRIMARY KEY (`id_cita`),
+  ADD KEY `id_paciente` (`id_paciente`);
 
 --
 -- Indices de la tabla `history`
@@ -135,10 +227,22 @@ ALTER TABLE `history`
   ADD PRIMARY KEY (`ID`);
 
 --
+-- Indices de la tabla `paciente`
+--
+ALTER TABLE `paciente`
+  ADD PRIMARY KEY (`id_paciente`);
+
+--
 -- Indices de la tabla `test`
 --
 ALTER TABLE `test`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `tratamientos`
+--
+ALTER TABLE `tratamientos`
+  ADD PRIMARY KEY (`id_tratamiento`);
 
 --
 -- Indices de la tabla `users`
@@ -151,16 +255,22 @@ ALTER TABLE `users`
 --
 
 --
--- AUTO_INCREMENT de la tabla `consultations`
+-- AUTO_INCREMENT de la tabla `cita`
 --
-ALTER TABLE `consultations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `cita`
+  MODIFY `id_cita` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT de la tabla `history`
 --
 ALTER TABLE `history`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT de la tabla `paciente`
+--
+ALTER TABLE `paciente`
+  MODIFY `id_paciente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de la tabla `test`
@@ -169,10 +279,32 @@ ALTER TABLE `test`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT de la tabla `tratamientos`
+--
+ALTER TABLE `tratamientos`
+  MODIFY `id_tratamiento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `cita`
+--
+ALTER TABLE `cita`
+  ADD CONSTRAINT `cita_ibfk_1` FOREIGN KEY (`id_paciente`) REFERENCES `paciente` (`id_paciente`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `tratamientos`
+--
+ALTER TABLE `tratamientos`
+  ADD CONSTRAINT `tratamientos_ibfk_1` FOREIGN KEY (`id_tratamiento`) REFERENCES `paciente` (`id_paciente`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
