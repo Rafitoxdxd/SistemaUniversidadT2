@@ -1,204 +1,182 @@
- <?php
-ob_start(); // Iniciar buffer de salida al principio del script. Esencial para header().
-
-// Asegurar que la sesión esté iniciada si se va a usar.
+<?php
+ob_start();
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
 require_once BASE_PATH . 'Model/test.php';
-// NO incluir la Vista aquí al principio.
 
-// MANEJO DE ACCIÓN AJAX PARA LISTAR test 
-if (isset($_GET['accion']) && $_GET['accion'] === 'listartestAjax') {
-    header('Content-Type: application/json'); // Indicar que la respuesta es JSON.
-    $filtro = strtolower($_GET['filtro'] ?? '');
+$model = new TestModel();
+
+// Manejar acciones AJAX
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ajax_action'])) {
+    header('Content-Type: application/json');
     
-    $todosLostest = listartest(); // Llama a la función definida más abajo.
-    $testFiltrados = $todosLostest;
-
-    if (!empty($filtro)) {
-        $testFiltrados = array_filter($todosLostest, function ($test) use ($filtro) {
-            return (stripos($test['nombre'], $filtro) !== false) ||
-                (stripos($test['apellidos'], $filtro) !== false) ||
-                (isset($test['cedula']) && stripos($test['cedula'], $filtro) !== false) ||
-                (isset($test['edad']) && stripos($test['edad'], $filtro) !== false);
-        });
-    }
-    // El JavaScript espera un objeto con una clave 'test'.
-    echo json_encode(['test' => array_values($testFiltrados)]); // array_values para reindexar.
-    exit; // MUY IMPORTANTE: Terminar la ejecución para no enviar más nada.
-}
-
-// MANEJO DE ACCIÓN DE CREAR test (cuando se envía el formulario de registro)
-if (isset($_POST['guardara'])) { // 'guardara' es el name del botón submit del formulario de registro.
-    // 1. Recolectar datos del $_POST
-    $nombre = $_POST['nombre'] ?? null;
-    $apellidos = $_POST['apellidos'] ?? null;
-    $cedula = $_POST['cedula'] ?? null;
-    $edad = $_POST['edad'] ?? null;
-    $nombre_competencia = $_POST['nombre_competencia'] ?? null;
-    $ubicacion_competencia = $_POST['ubicacion_competencia'] ?? null;
-    $fecha_competencia = $_POST['fecha_competencia'] ?? null;
-    $preparado_competencia = $_POST['preparado_competencia'] ?? null;
-    $entrenado_previo = $_POST['entrenado_previo'] ?? null;
-    $estrategia_previa = $_POST['estrategia_previa'] ?? null;
-    $descripcion_nervios = $_POST['descripcion_nervios'] ?? null;
-    $antes_competir = $_POST['antes_competir'] ?? null;
-    $experiencia_pasada = $_POST['experiencia_pasada'] ?? null;
-    $motivacion_competencia = $_POST['motivacion_competencia'] ?? null;
-    $esperar_competicion = $_POST['esperar_competicion'] ?? null;
-    $lograr_competencia = $_POST['lograr_competencia'] ?? null;
-    $rutina_mental = $_POST['rutina_mental'] ?? null;
-    $pensamiento_positivo = $_POST['pensamiento_positivo'] ?? null;
-    $preparacion_mental = $_POST['preparacion_mental'] ?? null;
-  
-
-    // 2. Validar datos (aquí puedes añadir más validaciones)
-    if (empty($nombre) || empty($apellidos) || empty($edad) || empty($cedula)) {
-        // Manejar error, por ejemplo, redirigir con un mensaje.
-        header('Location: ?pagina=test&status=error_creacion_faltan_datos');
+    try {
+        $response = [];
+        
+        switch ($_POST['ajax_action']) {
+            case 'obtenerTests':
+                $id_paciente = $_POST['id_paciente'] ?? 0;
+                $tests = $model->obtenerTestsPorPaciente($id_paciente);
+                $response = ['success' => true, 'data' => $tests];
+                break;
+                
+            case 'obtenerTest':
+                $tipo = $_POST['tipo'] ?? '';
+                $id = $_POST['id'] ?? 0;
+                $test = $model->obtenerTest($tipo, $id);
+                $response = ['success' => true, 'data' => $test];
+                break;
+                
+            case 'obtenerPacientes':
+                $pacientes = $model->obtenerPacientesParaSelect();
+                $response = ['success' => true, 'data' => $pacientes];
+                break;
+                
+            case 'guardar_test':
+                $id_paciente = $_POST['id_paciente'] ?? 0;
+                $tipo_test = $_POST['tipo_test'] ?? '';
+                $fecha = date('Y-m-d');
+                
+                switch ($tipo_test) {
+                    case 'poms':
+                        $deporte = $_POST['deporte'] ?? '';
+                        $edad = $_POST['edad'] ?? 0;
+                        $respuestas = [];
+                        
+                        for ($i = 1; $i <= 65; $i++) {
+                            $respuestas[$i] = $_POST['pregunta_'.$i] ?? 0;
+                        }
+                        
+                        $success = $model->crearTestPoms($id_paciente, $fecha, $deporte, $edad, $respuestas);
+                        $response = $success ? 
+                            ['success' => true, 'message' => 'Test POMS guardado correctamente'] : 
+                            ['success' => false, 'message' => 'Error al guardar test POMS'];
+                        break;
+                        
+                    case 'confianza':
+                        $respuestas = [];
+                        
+                        for ($i = 1; $i <= 10; $i++) {
+                            $respuestas[$i] = $_POST['pregunta_'.$i] ?? 1;
+                        }
+                        
+                        $success = $model->crearTestConfianza($id_paciente, $fecha, $respuestas);
+                        $response = $success ? 
+                            ['success' => true, 'message' => 'Test de Confianza guardado correctamente'] : 
+                            ['success' => false, 'message' => 'Error al guardar test de Confianza'];
+                        break;
+                        
+                    case 'importancia':
+                        $parte1 = [];
+                        $parte2 = [];
+                        
+                        for ($i = 1; $i <= 17; $i++) {
+                            $parte1[$i] = $_POST['parte1_pregunta_'.$i] ?? 1;
+                        }
+                        
+                        for ($i = 18; $i <= 34; $i++) {
+                            $parte2[$i] = $_POST['parte2_pregunta_'.$i] ?? 1;
+                        }
+                        
+                        $success = $model->crearTestImportancia($id_paciente, $fecha, $parte1, $parte2);
+                        $response = $success ? 
+                            ['success' => true, 'message' => 'Test de Importancia guardado correctamente'] : 
+                            ['success' => false, 'message' => 'Error al guardar test de Importancia'];
+                        break;
+                    
+                    default:
+                        $response = ['success' => false, 'message' => 'Tipo de test no válido'];
+                }
+                break;
+                
+            case 'actualizar_test':
+                $id = $_POST['id_test'] ?? 0;
+                $tipo_test = $_POST['tipo_test'] ?? '';
+                $datos = ['fecha' => date('Y-m-d')];
+                
+                switch ($tipo_test) {
+                    case 'poms':
+                        $datos['deporte'] = $_POST['deporte'] ?? '';
+                        $datos['edad'] = $_POST['edad'] ?? 0;
+                        $respuestas = [];
+                        
+                        for ($i = 1; $i <= 65; $i++) {
+                            $respuestas[$i] = $_POST['pregunta_'.$i] ?? 0;
+                        }
+                        $datos['respuestas'] = $respuestas;
+                        break;
+                        
+                    case 'confianza':
+                        $respuestas = [];
+                        
+                        for ($i = 1; $i <= 10; $i++) {
+                            $respuestas[$i] = $_POST['pregunta_'.$i] ?? 1;
+                        }
+                        $datos['respuestas'] = $respuestas;
+                        break;
+                        
+                    case 'importancia':
+                        $parte1 = [];
+                        $parte2 = [];
+                        
+                        for ($i = 1; $i <= 17; $i++) {
+                            $parte1[$i] = $_POST['parte1_pregunta_'.$i] ?? 1;
+                        }
+                        
+                        for ($i = 18; $i <= 34; $i++) {
+                            $parte2[$i] = $_POST['parte2_pregunta_'.$i] ?? 1;
+                        }
+                        
+                        $datos['parte1'] = $parte1;
+                        $datos['parte2'] = $parte2;
+                        break;
+                    
+                    default:
+                        $response = ['success' => false, 'message' => 'Tipo de test no válido'];
+                        echo json_encode($response);
+                        exit;
+                }
+                
+                $success = $model->actualizarTest($tipo_test, $id, $datos);
+                $response = $success ? 
+                    ['success' => true, 'message' => 'Test actualizado correctamente'] : 
+                    ['success' => false, 'message' => 'Error al actualizar test'];
+                break;
+                
+            case 'eliminarTest':
+                $tipo = $_POST['tipo'] ?? '';
+                $id = $_POST['id'] ?? 0;
+                
+                $success = $model->eliminarTest($tipo, $id);
+                $response = $success ? 
+                    ['success' => true, 'message' => 'Test eliminado correctamente'] : 
+                    ['success' => false, 'message' => 'Error al eliminar test'];
+                break;
+                
+            default:
+                $response = ['success' => false, 'message' => 'Acción no válida'];
+        }
+        
+        echo json_encode($response);
+        exit;
+        
+    } catch (Exception $e) {
+        echo json_encode(['success' => false, 'message' => 'Error: ' . $e->getMessage()]);
         exit;
     }
-
-    // 3. Hashear contraseña (¡Seguridad!)
-  //  $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-
-    // 4. Llamar a la función del controlador que interactúa con el modelo.
-    creartest($nombre, $apellido, $cedula, $telefono, $fecha_nacimiento, $genero, $direccion, $ciudad, $pais, $email, $hashedPassword);
-
-    // 5. Redireccionar para evitar reenvío de formulario (Patrón Post/Redirect/Get).
-    header('Location: ?pagina=test&status=creado_exitosamente');
-    exit; // MUY IMPORTANTE: Terminar la ejecución.
 }
 
-// --- MANEJO DE ACCIÓN DE ACTUALIZAR test (cuando se envía el formulario de modificación) ---
-if (isset($_POST['actualizar_test_submit'])) { // 'actualizar_test_submit' es el name del botón.
-    $id = $_POST['id'] ?? null;
-    // Recolectar todos los demás campos del formulario de modificación...
-    // (nombre, apellido, cedula, telefono, fecha_nacimiento, genero, direccion, ciudad, pais)
-    // NOTA: El formulario de modificación no pide email ni contraseña.
+// Obtener lista de pacientes para mostrar en la vista
+$pacientes = $model->obtenerPacientesParaSelect();
 
-    if ($id) {
-        // Llama a tu función existente. Asegúrate de pasar todos los parámetros que espera.
-        actualizartest(
-            $id, 
-            $_POST['nombre'] ?? null, 
-            $_POST['apellido'] ?? null, 
-            $_POST['cedula'] ?? null, 
-            $_POST['edad'] ?? null, 
-            $_POST['nombre_competencia'] ?? null, 
-            $_POST['ubicacion_competencia'] ?? null, 
-            $_POST['fecha_competencia'] ?? null, 
-            $_POST['preparado_competencia'] ?? null, 
-            $_POST['entrenado_previo'] ?? null, 
-            $_POST['estrategia_previa'] ?? null, 
-            $_POST['descripcion_nervios'] ?? null, 
-            $_POST['antes_competir'] ?? null, 
-            $_POST['experiencia_pasada'] ?? null, 
-            $_POST['motivacion_competencia'] ?? null, 
-            $_POST['esperar_competicion'] ?? null, 
-            $_POST['lograr_competencia'] ?? null, 
-            $_POST['rutina_mental'] ?? null, 
-            $_POST['pensamiento_positivo'] ?? null, 
-            $_POST['preparacion_mental'] ?? null,                 
-            null  // password no se modifica desde este form (si se quisiera, hashear)
-        );
-        header('Location: ?pagina=test&status=actualizado_exitosamente');
-        exit;
-    } else {
-        header('Location: ?pagina=test&status=error_actualizacion_sin_id');
-        exit;
-    }
-}
+// Mostrar mensajes de estado
+$status = $_GET['status'] ?? '';
+$error = $_GET['error'] ?? '';
 
-//  Manejo de accion para eliminar 
-if (isset($_GET['accion']) && $_GET['accion'] === 'eliminartest' && isset($_GET['id'])) {
-    $id_a_eliminar = $_GET['id'];
-    if (!empty($id_a_eliminar)) {
-        eliminartest($id_a_eliminar); // Llama a tu función existente.
-        header('Location: ?pagina=test&status=eliminado_exitosamente');
-        exit;
-    }
-}
+// Incluir la vista
+require_once BASE_PATH . 'View/test.php';
 
-// funciones de controlador
-// Estas funciones son llamadas por los bloques de arriba o por tu index.php/vista para mostrar datos.
-
-function listartest(){
-    $test = new testModulo();
-    return $test->listartest();
-}
-
-function obtenertest($id){
-    $test = new testModulo();
-    return $test->obtenertest($id);
-}
-
-function creartest($nombre, $apellidos, $cedula, $edad, $nombre_competencia, $ubicacion_competencia, $fecha_competencia, $preparado_competencia, $entrenado_previo, $estrategia_previa, $descripcion_nervios, $antes_competir, $experiencia_pasada, $motivacion_competencia, $esperar_competicion, $lograr_competencia, $rutina_mental, $pensamiento_positivo, $preparacion_mental){
-    $test = new testModulo();
-    $test->setnombre($nombre);
-    $test->setapellidos($apellidos);
-    $test->setcedula($cedula);
-    $test->setedad($edad);
-    $test->setnombre_competencia($nombre_competencia);
-    $test->setubicacion_competencia($ubicacion_competencia);
-    $test->setfecha_competencia($fecha_competencia);
-    $test->setpreparado_competencia($preparado_competencia);
-    $test->setentrenado_previo($entrenado_previo);
-    $test->setestrategia_previa($estrategia_previa);
-    $test->setdescripcion_nervios($descripcion_nervios);
-    $test->setantes_competir($antes_competir);
-    $test->setexperiencia_pasada($experiencia_pasada);
-    $test->setmotivacion_competencia($motivacion_competencia);
-    $test->setesperar_competicion($esperar_competicion);
-    $test->setlograr_competencia($lograr_competencia);
-    $test->setrutina_mental($rutina_mental);
-    $test->setpensamiento_positivo($pensamiento_positivo);
-    $test->setpreparacion_mental($preparacion_mental);
-   return $test->creartest(); 
-}
-
-function actualizartest($id, $nombre, $apellidos, $cedula, $edad, $nombre_competencia, $ubicacion_competencia, $fecha_competencia, $preparado_competencia, $entrenado_previo, $estrategia_previa, $descripcion_nervios, $antes_competir, $experiencia_pasada, $motivacion_competencia, $esperar_competicion, $lograr_competencia, $rutina_mental, $pensamiento_positivo, $preparacion_mental){
-    $test = new testModulo();
-    $test->setId($id); // Correcto
-    $test->setnombre($nombre);
-    $test->setapellidos($apellidos);
-    $test->setcedula($cedula);
-    $test->setedad($edad);
-    $test->setnombre_competencia($nombre_competencia);
-    $test->setubicacion_competencia($ubicacion_competencia);
-    $test->setfecha_competencia($fecha_competencia);
-    $test->setpreparado_competencia($preparado_competencia);
-    $test->setentrenado_previo($entrenado_previo);
-    $test->setestrategia_previa($estrategia_previa);
-    $test->setdescripcion_nervios($descripcion_nervios);
-    $test->setantes_competir($antes_competir);
-    $test->setexperiencia_pasada($experiencia_pasada);
-    $test->setmotivacion_competencia($motivacion_competencia);
-    $test->setesperar_competicion($esperar_competicion);
-    $test->setlograr_competencia($lograr_competencia);
-    $test->setrutina_mental($rutina_mental);
-    $test->setpensamiento_positivo($pensamiento_positivo);
-    $test->setpreparacion_mental($preparacion_mental);
-
-
-    if ($cedula !== null) { // Solo setea si se proporciona
-        $test->setcedula($cedula);
-    }
-    return $test->actualizartest(); 
-}
-function eliminartest($id){
-    $test = new testModulo();
-    return $test->eliminartest($id);
-}
-
-// Prepara los datos para la vista
-// Esto solo se ejecutará si no es una petición AJAX o un POST/GET que ya hizo `exit;`.
-$test = listartest(); // Llama a la función para obtener los test.
-
-// Incluir en la vista 
-require_once BASE_PATH . 'View/test.php'; // La vista ahora tiene acceso a $test.
-
-ob_end_flush(); // Enviar el buffer de salida.
+ob_end_flush();
 ?>
