@@ -9,6 +9,7 @@ class TestModel extends Conexion {
             Conexion::conectar();
         }
         $this->pdo = Conexion::getConexion();
+    
     }
 
     // Obtener todos los tests de un paciente

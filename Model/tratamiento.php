@@ -1,72 +1,127 @@
 <?php
 require_once BASE_PATH . 'Config/conexion.php';
 
-class tratamientoModulo extends Conexion {
-    private $id;
+class Tratamiento extends Conexion {
+    private $id_tratamiento;
     private $id_paciente;
     private $fecha_creacion;
     private $diagnostico_descripcion;
     private $tratamiento_tipo;
     private $estado_actual;
     private $observaciones;
-    protected $pdo;
+    private $pdo;       
 
     public function __construct() {
+        if (Conexion::getConexion() == null) {
+            Conexion::conectar();
+        }
         $this->pdo = Conexion::getConexion();
     }
-    // Getters
-    public function getId() { return $this->id; }
-    public function getid_paciente() { return $this->id_paciente; }
-    public function getfecha_creacion() { return $this->fecha_creacion; }
-    public function getdiagnostico_descripcion() { return $this->diagnostico_descripcion; }
-    public function gettratamiento_tipo() { return $this->tratamiento_tipo; }
-    public function getestado_actual() { return $this->estado_actual; }
-    public function getobservaciones() { return $this->observaciones; }
 
-    // Setters
-    public function setId($id) { $this->id = $id; }
-    public function setid_paciente($id_paciente) { $this->id_paciente = $id_paciente; }
-    public function setfecha_creacion($fecha_creacion) { $this->fecha_creacion = $fecha_creacion; }
-    public function setdiagnostico_descripcion($diagnostico_descripcion) { $this->diagnostico_descripcion = $diagnostico_descripcion; }
-    public function settratamiento_tipo($tratamiento_tipo) { $this->tratamiento_tipo = $tratamiento_tipo; }
-    public function setestado_actual($estado_actual) { $this->estado_actual = $estado_actual; }
-    public function setobservaciones($observaciones) { $this->observaciones = $observaciones; }
+    public function listarTratamientos() {
+        try {
+            $sql = "SELECT t.*, p.nombre, p.apellido, p.cedula 
+                    FROM tratamientos t 
+                    JOIN paciente p ON t.id_paciente = p.id_paciente 
+                    ORDER BY t.fecha_creacion DESC";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            error_log("Error al listar tratamientos: " . $e->getMessage());
+            return [];
+        }
+    }
 
-    public function listartratamientos() {
-        $stmt = $this->pdo->query("SELECT tratamientos.*, pacientes.nombre_completo, pacientes.cedula FROM tratamientos JOIN pacientes ON tratamientos.id_paciente = pacientes.id ORDER BY tratamientos.fecha_creacion DESC");
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    public function obtenerTratamiento($id) {
+        try {
+            $sql = "SELECT t.*, p.nombre, p.apellido, p.cedula 
+                    FROM tratamientos t 
+                    JOIN paciente p ON t.id_paciente = p.id_paciente 
+                    WHERE t.id_tratamiento = ?";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute([$id]);
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            error_log("Error al obtener tratamiento: " . $e->getMessage());
+            return false;
+        }
     }
-    public function obtenertratamiento($id) {
-        $stmt = $this->pdo->prepare("SELECT * FROM tratamientos WHERE id = ?");
-        $stmt->execute([$id]);
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+
+    public function buscarTratamientos($termino) {
+        try {
+            $sql = "SELECT t.*, p.nombre, p.apellido, p.cedula 
+                    FROM tratamientos t 
+                    JOIN paciente p ON t.id_paciente = p.id_paciente 
+                    WHERE p.nombre LIKE ? OR p.apellido LIKE ? OR p.cedula LIKE ? 
+                    OR t.estado_actual LIKE ? OR t.fecha_creacion LIKE ?
+                    ORDER BY t.fecha_creacion DESC";
+            $stmt = $this->pdo->prepare($sql);
+            $termino = "%$termino%";
+            $stmt->execute([$termino, $termino, $termino, $termino, $termino]);
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            error_log("Error al buscar tratamientos: " . $e->getMessage());
+            return [];
+        }
     }
-    public function creartratamiento() {
-        $stmt = $this->pdo->prepare("INSERT INTO tratamientos (id_paciente, fecha_creacion, diagnostico_descripcion, tratamiento_tipo, estado_actual, observaciones) VALUES (?,?,?,?,?,?)");
-        $stmt->execute([
-            $this->id_paciente,
-            $this->fecha_creacion,
-            $this->diagnostico_descripcion,
-            $this->tratamiento_tipo,
-            $this->estado_actual,
-            $this->observaciones
-        ]);
+
+    public function crearTratamiento($data) {
+        try {
+            $sql = "INSERT INTO tratamientos 
+                    (id_paciente, fecha_creacion, diagnostico_descripcion, tratamiento_tipo, estado_actual, observaciones) 
+                    VALUES (?, ?, ?, ?, ?, ?)";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute([
+                $data['id_paciente'],
+                $data['fecha_creacion'],
+                $data['diagnostico_descripcion'],
+                $data['tratamiento_tipo'],
+                $data['estado_actual'],
+                $data['observaciones'] ?? ''
+            ]);
+            return $this->pdo->lastInsertId();
+        } catch (PDOException $e) {
+            error_log("Error al crear tratamiento: " . $e->getMessage());
+            return false;
+        }
     }
-    public function actualizartratamiento() {
-        $stmt = $this->pdo->prepare("UPDATE tratamientos SET id_paciente = ?, fecha_creacion = ?, diagnostico_descripcion = ?, tratamiento_tipo = ?, estado_actual = ?, observaciones = ? WHERE id = ?");
-        $stmt->execute([
-            $this->id_paciente,
-            $this->fecha_creacion,
-            $this->diagnostico_descripcion,
-            $this->tratamiento_tipo,
-            $this->estado_actual,
-            $this->observaciones,
-            $this->id
-        ]);
+
+    public function actualizarTratamiento($id, $data) {
+        try {
+            $sql = "UPDATE tratamientos SET 
+                    id_paciente = ?, 
+                    fecha_creacion = ?, 
+                    diagnostico_descripcion = ?, 
+                    tratamiento_tipo = ?, 
+                    estado_actual = ?, 
+                    observaciones = ? 
+                    WHERE id_tratamiento = ?";
+            $stmt = $this->pdo->prepare($sql);
+            return $stmt->execute([
+                $data['id_paciente'],
+                $data['fecha_creacion'],
+                $data['diagnostico_descripcion'],
+                $data['tratamiento_tipo'],
+                $data['estado_actual'],
+                $data['observaciones'] ?? '',
+                $id
+            ]);
+        } catch (PDOException $e) {
+            error_log("Error al actualizar tratamiento: " . $e->getMessage());
+            return false;
+        }
     }
-    public function eliminartratamiento($id) {
-        $stmt = $this->pdo->prepare("DELETE FROM tratamientos WHERE id = ?");
-        $stmt->execute([$id]);
+
+    public function eliminarTratamiento($id) {
+        try {
+            $sql = "DELETE FROM tratamientos WHERE id_tratamiento = ?";
+            $stmt = $this->pdo->prepare($sql);
+            return $stmt->execute([$id]);
+        } catch (PDOException $e) {
+            error_log("Error al eliminar tratamiento: " . $e->getMessage());
+            return false;
+        }
     }
 }
 ?>
