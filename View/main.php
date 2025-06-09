@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="es">
     <head>
-        <title>Title</title>
+        <title>Main</title>
         <!-- Required meta tags -->
         <meta charset="utf-8" />
         <meta
@@ -11,7 +11,7 @@
 
         <!-- Bootstrap CSS v5.2.1 -->
         <link
-            href="Styles/Bootstrap/css/bootstrap.min.css"
+            href="css/bootstrap.min.css"
             rel="stylesheet"
         />
     </head>

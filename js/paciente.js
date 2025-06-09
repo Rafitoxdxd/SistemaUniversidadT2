@@ -50,18 +50,18 @@ document.addEventListener('DOMContentLoaded', function() {
         if (pacientes.length > 0) {
             pacientes.forEach(paciente => {
                 const row = tablapacientesBody.insertRow();
-                row.insertCell().textContent = paciente.id;
+                row.insertCell().textContent = paciente.id_paciente;
                 row.insertCell().textContent = paciente.nombre;
                 row.insertCell().textContent = paciente.apellido;
                 row.insertCell().textContent = paciente.cedula || '-';
                 row.insertCell().textContent = paciente.telefono || '-';
                 const accionesCell = row.insertCell();
                 accionesCell.innerHTML = `
-                    <button class="btn btn-accion btn-editar btn-sm" data-bs-toggle="modal" data-bs-target="#modificarpacienteModal" data-id="${paciente.id}"><i class="bi bi-pencil"></i> Editar</button>
-                    <a class="btn btn-accion btn-eliminar btn-sm" href="index.php?accion=eliminarpaciente&id=${paciente.id}"
+                    <button class="btn btn-accion btn-editar btn-sm" data-id="${paciente.id_paciente}"><i class="bi bi-pencil"></i> Editar</button>
+                    <a class="btn btn-accion btn-eliminar btn-sm" href="index.php?accion=eliminarpaciente&id=${paciente.id_paciente}"
                     onclick="return confirm('¿Desea eliminar este paciente?');"><i class="bi bi-trash"></i> Eliminar</a>
-                    <a href="index.php?accion=verHistorial&paciente_id=${paciente.id}" class="btn btn-accion btn-historial btn-sm"><i class="bi bi-journal-text"></i> Historial</a>
-                    <a href="index.php?accion=agendarCita&paciente_id=${paciente.id}" class="btn btn-accion btn-cita btn-sm"><i class="bi bi-calendar-plus"></i> Cita</a>
+                    <a href="index.php?accion=verHistorial&paciente_id=${paciente.id_paciente}" class="btn btn-accion btn-historial btn-sm"><i class="bi bi-journal-text"></i> Historial</a>
+                    <a href="index.php?accion=agendarCita&paciente_id=${paciente.id_paciente}" class="btn btn-accion btn-cita btn-sm"><i class="bi bi-calendar-plus"></i> Cita</a>
                 `;
             });
         } else {
@@ -135,50 +135,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // --- MODIFICAR PACIENTE: CARGA DATOS AL MODAL Y LIMPIA VALIDACIÓN ---
-    let valoresOriginales = {};
-    const modificarpacienteModal = document.getElementById('modificarpacienteModal');
-    if (modificarpacienteModal) {
-        modificarpacienteModal.addEventListener('show.bs.modal', function (event) {
-            const button = event.relatedTarget;
-            const pacienteId = button.getAttribute('data-id');
-            const paciente = pacientesData.find(p => p.id === parseInt(pacienteId));
-            if (paciente) {
-                document.getElementById('modificar_id').value = paciente.id;
-                document.getElementById('modificar_nombre').value = paciente.nombre;
-                document.getElementById('modificar_apellido').value = paciente.apellido;
-                document.getElementById('modificar_cedula').value = paciente.cedula || '';
-                document.getElementById('modificar_telefono').value = paciente.telefono || '';
-                document.getElementById('modificar_fecha_nacimiento').value = paciente.fecha_nacimiento || '';
-                document.getElementById('modificar_genero').value = paciente.genero || '';
-                document.getElementById('modificar_direccion').value = paciente.direccion || '';
-                document.getElementById('modificar_ciudad').value = paciente.ciudad || '';
-                document.getElementById('modificar_pais').value = paciente.pais || '';
-                valoresOriginales = {
-                    modificar_nombre: paciente.nombre,
-                    modificar_apellido: paciente.apellido,
-                    modificar_cedula: paciente.cedula || '',
-                    modificar_telefono: paciente.telefono || '',
-                    modificar_fecha_nacimiento: paciente.fecha_nacimiento || '',
-                    modificar_direccion: paciente.direccion || '',
-                    modificar_ciudad: paciente.ciudad || '',
-                    modificar_pais: paciente.pais || ''
-                };
-            }
-            // Limpia validación al abrir modal
-            [
-                'modificar_nombre','modificar_apellido','modificar_cedula','modificar_telefono',
-                'modificar_fecha_nacimiento','modificar_direccion','modificar_ciudad','modificar_pais'
-            ].forEach(id => {
-                const input = document.getElementById(id);
-                if (input) {
-                    input.classList.remove('is-valid', 'is-invalid');
-                    input.dataset.touched = "";
-                    let error = input.parentElement.querySelector('.invalid-feedback');
-                    if (error) error.textContent = '';
-                }
-            });
-        });
-    }
 
     // --- VALIDACIONES EN TIEMPO REAL PARA MODIFICAR PACIENTE ---
     [
@@ -327,4 +283,28 @@ document.addEventListener('DOMContentLoaded', function() {
             if (!valido) e.preventDefault();
         });
     }
+
+    // --- DELEGACIÓN DEL EVENTO PARA BOTÓN EDITAR ---
+    tablapacientesBody.addEventListener('click', function(e) {
+        const btn = e.target.closest('.btn-editar');
+        if (btn) {
+            const pacienteId = btn.getAttribute('data-id');
+            const paciente = pacientesData.find(p => String(p.id_paciente) === String(pacienteId));
+            if (paciente) {
+                document.getElementById('modificar_id').value = paciente.id_paciente;
+                document.getElementById('modificar_nombre').value = paciente.nombre || '';
+                document.getElementById('modificar_apellido').value = paciente.apellido || '';
+                document.getElementById('modificar_cedula').value = paciente.cedula || '';
+                document.getElementById('modificar_telefono').value = paciente.telefono || '';
+                document.getElementById('modificar_fecha_nacimiento').value = paciente.fecha_nacimiento || '';
+                document.getElementById('modificar_genero').value = paciente.genero || '';
+                document.getElementById('modificar_direccion').value = paciente.direccion || '';
+                document.getElementById('modificar_ciudad').value = paciente.ciudad || '';
+                document.getElementById('modificar_pais').value = paciente.pais || '';
+            }
+            // Abre el modal manualmente
+            const modal = new bootstrap.Modal(document.getElementById('modificarpacienteModal'));
+            modal.show();
+        }
+    });
 });

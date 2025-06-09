@@ -182,30 +182,31 @@
                                     </tr>
                                 </thead>
                                 <tbody id="tablapacientes">
-                                <?php
-                                    if (isset($pacientes) && !empty($pacientes)):
-                                        foreach ($pacientes as $paciente):
-                                ?>
-                                    <tr>
-                                        <td><?= htmlspecialchars($paciente['id']) ?></td>
-                                        <td><?= htmlspecialchars($paciente['nombre']) ?></td>
-                                        <td><?= htmlspecialchars($paciente['apellido']) ?></td>
-                                        <td><?= htmlspecialchars($paciente['cedula']) ?></td>
-                                        <td><?= htmlspecialchars($paciente['telefono']) ?></td>
-                                        <td>
-                                            <button class="btn btn-accion btn-editar btn-sm" data-bs-toggle="modal" data-bs-target="#modificarpacienteModal" data-id="<?= htmlspecialchars($paciente['id']) ?>"><i class="bi bi-pencil"></i> Editar</button>
-                                            <a class="btn btn-accion btn-eliminar btn-sm" href="index.php?accion=eliminarpaciente&id=<?= htmlspecialchars($paciente['id']) ?>"
-                                            onclick="return confirm('¿Desea eliminar este paciente?');"><i class="bi bi-trash"></i> Eliminar</a>
-                                            <a href="index.php?accion=verHistorial&paciente_id=<?= htmlspecialchars($paciente['id']) ?>" class="btn btn-accion btn-historial btn-sm"><i class="bi bi-journal-text"></i> Historial</a>
-                                            <a href="index.php?accion=agendarCita&paciente_id=<?= htmlspecialchars($paciente['id']) ?>" class="btn btn-accion btn-cita btn-sm"><i class="bi bi-calendar-plus"></i> Cita</a>
-                                        </td>
-                                    </tr>
-                                <?php
-                                        endforeach;
-                                    else:
-                                ?>
-                                    <tr><td colspan="6">Cargando pacientes...</td></tr>
-                                <?php endif; ?>
+<?php
+    if (isset($pacientes) && !empty($pacientes)):
+        foreach ($pacientes as $paciente):
+?>
+    <tr>
+        <td><?= htmlspecialchars($paciente['id_paciente']) ?></td>
+        <td><?= htmlspecialchars($paciente['nombre']) ?></td>
+        <td><?= htmlspecialchars($paciente['apellido']) ?></td>
+        <td><?= htmlspecialchars($paciente['cedula']) ?></td>
+        <td><?= htmlspecialchars($paciente['telefono']) ?></td>
+        <td>
+            <button class="btn btn-accion btn-editar btn-sm" data-bs-toggle="modal" data-bs-target="#modificarpacienteModal" data-id="<?= htmlspecialchars($paciente['id_paciente']) ?>">
+<i class="bi bi-pencil"></i> Editar</button>
+            <a class="btn btn-accion btn-eliminar btn-sm" href="index.php?pagina=pacientes&accion=eliminarpaciente&id=<?= htmlspecialchars($paciente['id_paciente']) ?>"
+            onclick="return confirm('¿Desea eliminar este paciente?');"><i class="bi bi-trash"></i> Eliminar</a>
+            <a href="index.php?accion=verHistorial&paciente_id=<?= htmlspecialchars($paciente['id_paciente']) ?>" class="btn btn-accion btn-historial btn-sm"><i class="bi bi-journal-text"></i> Historial</a>
+            <a href="index.php?accion=agendarCita&paciente_id=<?= htmlspecialchars($paciente['id_paciente']) ?>" class="btn btn-accion btn-cita btn-sm"><i class="bi bi-calendar-plus"></i> Cita</a>
+        </td>
+    </tr>
+<?php
+        endforeach;
+    else:
+?>
+    <tr><td colspan="6">Cargando pacientes...</td></tr>
+<?php endif; ?>
                                 </tbody>
                             </table>
                         </div>
@@ -319,7 +320,7 @@
                                 </div>
                                 <div class="modal-body">
                                     <form id="formularioModificarpaciente" action="?pagina=pacientes" method="POST">
-                                        <input type="hidden" id="modificar_id" name="id">
+                                        <input type="hidden" id="modificar_id" name="id_paciente">
                                         <div class="row mb-3">
                                             <div class="col-md-6">
                                                 <label for="modificar_nombre" class="form-label">Nombre</label>
@@ -387,6 +388,7 @@
 
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+       
 
     </body>
 </html>
