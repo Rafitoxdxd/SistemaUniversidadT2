@@ -66,26 +66,54 @@ class Tratamiento extends Conexion {
         }
     }
 
-    public function crearTratamiento($data) {
-        try {
-            $sql = "INSERT INTO tratamientos 
-                    (id_paciente, fecha_creacion, diagnostico_descripcion, tratamiento_tipo, estado_actual, observaciones) 
-                    VALUES (?, ?, ?, ?, ?, ?)";
-            $stmt = $this->pdo->prepare($sql);
-            $stmt->execute([
-                $data['id_paciente'],
-                $data['fecha_creacion'],
-                $data['diagnostico_descripcion'],
-                $data['tratamiento_tipo'],
-                $data['estado_actual'],
-                $data['observaciones'] ?? ''
-            ]);
-            return $this->pdo->lastInsertId();
-        } catch (PDOException $e) {
-            error_log("Error al crear tratamiento: " . $e->getMessage());
-            return false;
+public function crearTratamiento($data) {
+    try {
+        // Validar datos básicos antes de la inserción
+        if (empty($data['id_paciente']) || !is_numeric($data['id_paciente'])) {
+            throw new Exception('ID de paciente inválido');
         }
+        
+        // Verificar que el paciente exista
+        $sqlCheck = "SELECT id_paciente FROM paciente WHERE id_paciente = ?";
+        $stmtCheck = $this->pdo->prepare($sqlCheck);
+        $stmtCheck->execute([$data['id_paciente']]);
+        if (!$stmtCheck->fetch()) {
+            throw new Exception('El paciente no existe');
+        }
+
+        $this->pdo->beginTransaction();
+        
+        $sql = "INSERT INTO tratamientos 
+                (id_paciente, fecha_creacion, diagnostico_descripcion, 
+                 tratamiento_tipo, estado_actual, observaciones) 
+                VALUES (:id_paciente, :fecha_creacion, :diagnostico_descripcion, 
+                        :tratamiento_tipo, :estado_actual, :observaciones)";
+        
+        $stmt = $this->pdo->prepare($sql);
+        
+        $stmt->bindParam(':id_paciente', $data['id_paciente'], PDO::PARAM_INT);
+        $stmt->bindParam(':fecha_creacion', $data['fecha_creacion']);
+        $stmt->bindParam(':diagnostico_descripcion', $data['diagnostico_descripcion']);
+        $stmt->bindParam(':tratamiento_tipo', $data['tratamiento_tipo']);
+        $stmt->bindParam(':estado_actual', $data['estado_actual']);
+        $stmt->bindParam(':observaciones', $data['observaciones']);
+        
+        if (!$stmt->execute()) {
+            throw new Exception('Error al ejecutar la consulta: ' . implode(", ", $stmt->errorInfo()));
+        }
+        
+        $id = $this->pdo->lastInsertId();
+        $this->pdo->commit();
+        
+        return $id;
+    } catch (Exception $e) {
+        if ($this->pdo->inTransaction()) {
+            $this->pdo->rollBack();
+        }
+        error_log("Error en crearTratamiento: " . $e->getMessage());
+        return false;
     }
+}
 
     public function actualizarTratamiento($id, $data) {
         try {

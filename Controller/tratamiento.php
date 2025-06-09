@@ -24,17 +24,39 @@ class TratamientoController {
     }
 
     public function crearTratamiento($data) {
-        // Validación de datos antes de crear
-        $errors = $this->validarDatosTratamiento($data);
-        if (!empty($errors)) {
-            return ['success' => false, 'errors' => $errors];
+    // Validación de datos antes de crear
+    $errors = $this->validarDatosTratamiento($data);
+    if (!empty($errors)) {
+        return ['success' => false, 'errors' => $errors];
+    }
+    
+    try {
+        // Preparar datos
+        $datosTratamiento = [
+            'id_paciente' => (int)$data['id_paciente'],
+            'fecha_creacion' => $data['fecha_creacion'],
+            'diagnostico_descripcion' => trim($data['diagnostico_descripcion']),
+            'tratamiento_tipo' => trim($data['tratamiento_tipo']),
+            'estado_actual' => $data['estado_actual'],
+            'observaciones' => isset($data['observaciones']) ? trim($data['observaciones']) : null
+        ];
+        
+        $result = $this->tratamientoModel->crearTratamiento($datosTratamiento);
+        
+        if ($result === false) {
+            throw new Exception('Error al insertar en la base de datos');
         }
         
-        $result = $this->tratamientoModel->crearTratamiento($data);
-        return $result !== false 
-            ? ['success' => true, 'id' => $result] 
-            : ['success' => false, 'message' => 'Error al crear el tratamiento'];
+        return ['success' => true, 'id' => $result];
+    } catch (Exception $e) {
+        error_log("Error en crearTratamiento: " . $e->getMessage());
+        return [
+            'success' => false, 
+            'message' => 'Error al crear el tratamiento: ' . $e->getMessage(),
+            'error_details' => $e->getMessage()
+        ];
     }
+}
 
     public function actualizarTratamiento($id, $data) {
         // Validación de datos antes de actualizar
