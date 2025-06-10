@@ -72,6 +72,7 @@ class TratamientoController {
             ? ['success' => true, 'id' => $result] 
             : ['success' => false, 'message' => 'Error al crear el tratamiento'];
     }
+}
 
     /**
      * Actualiza un tratamiento existente.

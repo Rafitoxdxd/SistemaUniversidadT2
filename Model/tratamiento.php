@@ -135,7 +135,48 @@ class Tratamiento extends Conexion {
             error_log("Error al crear tratamiento: " . $e->getMessage());
             return false; // Devuelve false en caso de error.
         }
+        
+        // Verificar que el paciente exista
+        $sqlCheck = "SELECT id_paciente FROM paciente WHERE id_paciente = ?";
+        $stmtCheck = $this->pdo->prepare($sqlCheck);
+        $stmtCheck->execute([$data['id_paciente']]);
+        if (!$stmtCheck->fetch()) {
+            throw new Exception('El paciente no existe');
+        }
+
+        $this->pdo->beginTransaction();
+        
+        $sql = "INSERT INTO tratamientos 
+                (id_paciente, fecha_creacion, diagnostico_descripcion, 
+                 tratamiento_tipo, estado_actual, observaciones) 
+                VALUES (:id_paciente, :fecha_creacion, :diagnostico_descripcion, 
+                        :tratamiento_tipo, :estado_actual, :observaciones)";
+        
+        $stmt = $this->pdo->prepare($sql);
+        
+        $stmt->bindParam(':id_paciente', $data['id_paciente'], PDO::PARAM_INT);
+        $stmt->bindParam(':fecha_creacion', $data['fecha_creacion']);
+        $stmt->bindParam(':diagnostico_descripcion', $data['diagnostico_descripcion']);
+        $stmt->bindParam(':tratamiento_tipo', $data['tratamiento_tipo']);
+        $stmt->bindParam(':estado_actual', $data['estado_actual']);
+        $stmt->bindParam(':observaciones', $data['observaciones']);
+        
+        if (!$stmt->execute()) {
+            throw new Exception('Error al ejecutar la consulta: ' . implode(", ", $stmt->errorInfo()));
+        }
+        
+        $id = $this->pdo->lastInsertId();
+        $this->pdo->commit();
+        
+        return $id;
+    } catch (Exception $e) {
+        if ($this->pdo->inTransaction()) {
+            $this->pdo->rollBack();
+        }
+        error_log("Error en crearTratamiento: " . $e->getMessage());
+        return false;
     }
+}
 
     /**
      * Actualiza un tratamiento existente en la base de datos.
