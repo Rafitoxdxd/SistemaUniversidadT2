@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 09-06-2025 a las 05:51:24
+-- Tiempo de generación: 09-06-2025 a las 03:25:50
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -165,8 +165,7 @@ CREATE TABLE `test_confianza` (
 
 INSERT INTO `test_confianza` (`id`, `id_paciente`, `fecha`, `respuestas`) VALUES
 (1, 1, '2025-05-16', '{\r\n  \"1\": 2, \"2\": 2, \"3\": 1, \"4\": 2, \"5\": 3, \"6\": 2, \"7\": 1, \"8\": 2, \"9\": 1, \"10\": 2\r\n}'),
-(6, 6, '2025-06-08', '{\"1\":\"1\",\"2\":\"1\",\"3\":\"1\",\"4\":\"1\",\"5\":\"1\",\"6\":\"1\",\"7\":\"1\",\"8\":\"1\",\"9\":\"1\",\"10\":\"3\"}'),
-(8, 12, '2025-06-09', '{\"1\":\"1\",\"2\":\"1\",\"3\":\"1\",\"4\":\"1\",\"5\":\"1\",\"6\":\"1\",\"7\":\"1\",\"8\":\"1\",\"9\":\"3\",\"10\":\"3\"}');
+(6, 6, '2025-06-08', '{\"1\":\"1\",\"2\":\"1\",\"3\":\"1\",\"4\":\"1\",\"5\":\"1\",\"6\":\"1\",\"7\":\"1\",\"8\":\"1\",\"9\":\"1\",\"10\":\"3\"}');
 
 -- --------------------------------------------------------
 
@@ -235,11 +234,10 @@ CREATE TABLE `tratamientos` (
 --
 
 INSERT INTO `tratamientos` (`id_tratamiento`, `id_paciente`, `fecha_creacion`, `diagnostico_descripcion`, `tratamiento_tipo`, `estado_actual`, `observaciones`, `created_at`, `updated_at`) VALUES
-(3, 4, '2025-06-20', 'ssssa', 'ssss', 'finalizado', 'sss', '2025-06-04 19:55:23', '2025-06-04 19:55:23'),
-(10, 1, '2025-06-12', 'ds', 'hkjhk', 'inicial', 'PATOs', '2025-06-08 18:14:49', '2025-06-08 18:14:49'),
-(12, 1, '2025-06-09', 'e', 'e', 'inicial', 'e', '2025-06-09 00:19:35', '2025-06-09 00:19:35'),
-(35, 1, '2025-06-09', 'as', 's', 'inicial', 'as', '2025-06-09 03:37:37', '2025-06-09 03:37:37'),
-(36, 12, '2025-06-09', 's', 's', 'inicial', 's', '2025-06-09 03:37:46', '2025-06-09 03:37:46');
+(1, 0, '2025-06-05', 'hola como estas ', 'malo', 'inicial', 'muy malas', '2025-06-19 18:56:38', '2025-06-19 18:56:38'),
+(3, 4, '2025-06-20', 'ssss', 'ssss', 'inicial', 'sss', '2025-06-04 19:55:23', '2025-06-04 19:55:23'),
+(10, 1, '2025-06-12', 'lkmlkjl', 'hkjhk', 'inicial', 'PATO', '2025-06-08 18:14:49', '2025-06-08 18:14:49'),
+(12, 1, '2025-06-09', 'e', 'e', 'inicial', 'e', '2025-06-09 00:19:35', '2025-06-09 00:19:35');
 
 -- --------------------------------------------------------
 
@@ -327,8 +325,7 @@ ALTER TABLE `test_poms`
 -- Indices de la tabla `tratamientos`
 --
 ALTER TABLE `tratamientos`
-  ADD PRIMARY KEY (`id_tratamiento`),
-  ADD KEY `fk_tratamiento_paciente` (`id_paciente`);
+  ADD PRIMARY KEY (`id_tratamiento`);
 
 --
 -- Indices de la tabla `users`
@@ -368,7 +365,7 @@ ALTER TABLE `test`
 -- AUTO_INCREMENT de la tabla `test_confianza`
 --
 ALTER TABLE `test_confianza`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `test_importancia`
@@ -386,7 +383,7 @@ ALTER TABLE `test_poms`
 -- AUTO_INCREMENT de la tabla `tratamientos`
 --
 ALTER TABLE `tratamientos`
-  MODIFY `id_tratamiento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id_tratamiento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de la tabla `users`
@@ -426,7 +423,7 @@ ALTER TABLE `test_poms`
 -- Filtros para la tabla `tratamientos`
 --
 ALTER TABLE `tratamientos`
-  ADD CONSTRAINT `fk_tratamiento_paciente` FOREIGN KEY (`id_paciente`) REFERENCES `paciente` (`id_paciente`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `tratamientos_ibfk_1` FOREIGN KEY (`id_tratamiento`) REFERENCES `paciente` (`id_paciente`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

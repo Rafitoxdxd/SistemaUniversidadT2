@@ -3,7 +3,6 @@ document.addEventListener('DOMContentLoaded', function() {
     let testsData = [];
     let currentTestType = '';
     let currentTestId = 0;
-    let currentPatientId = '';
     
     // Inicialización
     initEventListeners();
@@ -41,19 +40,14 @@ document.addEventListener('DOMContentLoaded', function() {
         `;
         
         document.querySelector('.main-content').insertAdjacentHTML('afterbegin', alertHtml);
-        
-        // Auto cerrar después de 5 segundos
-        setTimeout(() => {
-            $('.alert').alert('close');
-        }, 5000);
     }
     
     function initEventListeners() {
         // Selección de paciente
         $('#selectPaciente').change(function() {
-            currentPatientId = $(this).val();
-            if (currentPatientId) {
-                cargarTestsPaciente(currentPatientId);
+            const idPaciente = $(this).val();
+            if (idPaciente) {
+                cargarTestsPaciente(idPaciente);
             } else {
                 $('#tablaTests').html('<tr><td colspan="5">Seleccione un paciente para ver sus tests</td></tr>');
             }
@@ -77,97 +71,77 @@ document.addEventListener('DOMContentLoaded', function() {
         // Envío del formulario nuevo test
         $('#formNuevoTest').on('submit', function(e) {
             e.preventDefault();
-            guardarTest();
+            const formData = new FormData(this);
+            formData.append('ajax_action', 'guardar_test');
+            
+            if (!formData.get('id_paciente') || !formData.get('tipo_test')) {
+                showAlert('Debe seleccionar un paciente y un tipo de test', 'danger');
+                return;
+            }
+            
+            const submitBtn = $(this).find('[name="guardar_test"]');
+            submitBtn.prop('disabled', true).html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Guardando...');
+            
+            $.ajax({
+                url: 'index.php?pagina=test',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                dataType: 'json',
+                success: function(response) {
+                    if (response.success) {
+                        showAlert(response.message, 'success');
+                        $('#nuevoTestModal').modal('hide');
+                        cargarTestsPaciente(formData.get('id_paciente'));
+                    } else {
+                        showAlert(response.message, 'danger');
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error al guardar test:', error);
+                    showAlert('Error al guardar el test', 'danger');
+                },
+                complete: function() {
+                    submitBtn.prop('disabled', false).html('Guardar Test');
+                }
+            });
         });
         
         // Envío del formulario editar test
         $('#formEditarTest').on('submit', function(e) {
             e.preventDefault();
-            actualizarTest();
-        });
-        
-        // Limpiar formulario cuando se cierra el modal
-        $('#nuevoTestModal').on('hidden.bs.modal', function() {
-            $('#formNuevoTest')[0].reset();
-            $('#formularioTestContainer').empty();
-        });
-    }
-    
-    function guardarTest() {
-        const formData = new FormData(document.getElementById('formNuevoTest'));
-        formData.append('ajax_action', 'guardar_test');
-        
-        if (!formData.get('id_paciente') || !formData.get('tipo_test')) {
-            showAlert('Debe seleccionar un paciente y un tipo de test', 'danger');
-            return;
-        }
-        
-        const submitBtn = $('#formNuevoTest').find('[name="guardar_test"]');
-        submitBtn.prop('disabled', true).html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Guardando...');
-        
-        $.ajax({
-            url: 'index.php?pagina=test',
-            type: 'POST',
-            data: formData,
-            processData: false,
-            contentType: false,
-            dataType: 'json',
-            success: function(response) {
-                if (response.success) {
-                    showAlert(response.message, 'success');
-                    $('#nuevoTestModal').modal('hide');
-                    recargarTablaTests();
-                } else {
-                    showAlert(response.message, 'danger');
+            const formData = new FormData(this);
+            formData.append('ajax_action', 'actualizar_test');
+            
+            const submitBtn = $(this).find('[name="actualizar_test"]');
+            submitBtn.prop('disabled', true).html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Actualizando...');
+            
+            $.ajax({
+                url: 'index.php?pagina=test',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                dataType: 'json',
+                success: function(response) {
+                    if (response.success) {
+                        showAlert(response.message, 'success');
+                        $('#editarTestModal').modal('hide');
+                        cargarTestsPaciente($('#selectPaciente').val());
+                    } else {
+                        showAlert(response.message, 'danger');
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error al actualizar test:', error);
+                    showAlert('Error al actualizar el test', 'danger');
+                },
+                complete: function() {
+                    submitBtn.prop('disabled', false).html('Actualizar Test');
                 }
-            },
-            error: function(xhr, status, error) {
-                console.error('Error al guardar test:', error);
-                showAlert('Error al guardar el test', 'danger');
-            },
-            complete: function() {
-                submitBtn.prop('disabled', false).html('Guardar Test');
-            }
+            });
         });
-    }
-    
-    function actualizarTest() {
-        const formData = new FormData(document.getElementById('formEditarTest'));
-        formData.append('ajax_action', 'actualizar_test');
-        
-        const submitBtn = $('#formEditarTest').find('[name="actualizar_test"]');
-        submitBtn.prop('disabled', true).html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Actualizando...');
-        
-        $.ajax({
-            url: 'index.php?pagina=test',
-            type: 'POST',
-            data: formData,
-            processData: false,
-            contentType: false,
-            dataType: 'json',
-            success: function(response) {
-                if (response.success) {
-                    showAlert(response.message, 'success');
-                    $('#editarTestModal').modal('hide');
-                    recargarTablaTests();
-                } else {
-                    showAlert(response.message, 'danger');
-                }
-            },
-            error: function(xhr, status, error) {
-                console.error('Error al actualizar test:', error);
-                showAlert('Error al actualizar el test', 'danger');
-            },
-            complete: function() {
-                submitBtn.prop('disabled', false).html('Actualizar Test');
-            }
-        });
-    }
-    
-    function recargarTablaTests() {
-        if (currentPatientId) {
-            cargarTestsPaciente(currentPatientId);
-        }
     }
     
     // Cargar tests de un paciente
@@ -232,6 +206,7 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         
+        const idPaciente = $('#selectPaciente').val();
         const nombrePaciente = $('#selectPaciente option:selected').text();
         
         tests.forEach(test => {
@@ -625,7 +600,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Hacer funciones accesibles globalmente
-    window.cargarFormularioTest = cargarFormularioTest;
+    window.cargarFormularioPOMS = cargarFormularioPOMS;
+    window.cargarFormularioConfianza = cargarFormularioConfianza;
+    window.cargarFormularioImportancia = cargarFormularioImportancia;
     window.editarTest = editarTest;
     window.eliminarTest = eliminarTest;
 });
@@ -647,7 +624,17 @@ function editarTest(tipoTest, testId) {
     $('#editarTestModal').modal('show');
     
     // Cargar el formulario correspondiente
-    cargarFormularioTest(tipoTest, 'editar');
+    switch (tipoTest) {
+        case 'poms':
+            cargarFormularioPOMS($container, 'editar');
+            break;
+        case 'confianza':
+            cargarFormularioConfianza($container, 'editar');
+            break;
+        case 'importancia':
+            cargarFormularioImportancia($container, 'editar');
+            break;
+    }
 }
 
 // Función global para eliminar test
@@ -664,17 +651,18 @@ function eliminarTest(tipoTest, testId) {
             dataType: 'json',
             success: function(response) {
                 if (response.success) {
-                    showAlert(response.message, 'success');
+                    alert(response.message);
                     // Recargar los tests del paciente actual
-                    if (window.currentPatientId) {
-                        cargarTestsPaciente(window.currentPatientId);
+                    const idPaciente = $('#selectPaciente').val();
+                    if (idPaciente) {
+                        cargarTestsPaciente(idPaciente);
                     }
                 } else {
-                    showAlert(response.message, 'danger');
+                    alert(response.message);
                 }
             },
             error: function(xhr, status, error) {
-                showAlert('Error al eliminar test: ' + error, 'danger');
+                alert('Error al eliminar test: ' + error);
             }
         });
     }
