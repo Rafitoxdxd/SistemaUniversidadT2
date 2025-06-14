@@ -1,154 +1,83 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro</title>
-    <link rel="stylesheet" href="Styles/Bootstrap/css/bootstrap.min.css">
-    <style>
-        body {
-            background-color: #f8f9fa;
-        }
-        .register-container {
-            width: 500px;
-            margin: 50px auto;
-            padding: 20px;
-            background-color: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            animation: fadeIn 1s ease-in-out;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .form-control:focus {
-            border-color: #007bff;
-            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-            animation: inputFocus 0.3s ease-in-out;
-        }
-        @keyframes inputFocus {
-            from { transform: scale(1); }
-            to { transform: scale(1.05); }
-        }
-        .btn-primary {
-            transition: background-color 0.3s ease-in-out;
-        }
-        .btn-primary:hover {
-            background-color: #0069d9;
-        }
-    </style>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <link href='css/bootstrap.v5.1.3.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="css/login.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <div class="register-container">
-            <h2 class="text-center mb-4">Registrarse</h2>
-            <form id="registroForm" action="" method="POST">
-                
-                <div class="form-group">
-                    <label for="cedula">Cédula:</label>
-                    <input type="text" class="form-control" name="cedula" id="cedula" placeholder="Ingresa tu cédula">
+    <main>
+        <form action="" method="POST">
+            <div class="login-container">
+                <h2 class="text-center">Crear cuenta</h2>
+                <div class="mb-3">
+                    <label for="nombre" class="form-label">Nombre</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-person"></i></span>
+                        <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Ingresa tu nombre" required>
+                    </div>
                 </div>
-                
-                <div class="form-group">
-                    <label for="nombre">Nombre:</label>
-                    <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Ingresa tu nombre">
+                <div class="mb-3">
+                    <label for="apellido" class="form-label">Apellido</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-person"></i></span>
+                        <input type="text" class="form-control" name="apellido" id="apellido" placeholder="Ingresa tu apellido" required>
+                    </div>
                 </div>
-
-                <div class="form-group">
-                    <label for="apellido">Apellido:</label>
-                    <input type="text" class="form-control" name="apellido" id="apellido" placeholder="Ingresa tu apellido">
+                <div class="mb-3">
+                    <label for="cedula" class="form-label">Cédula</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-credit-card"></i></span>
+                        <input type="text" class="form-control" name="cedula" id="cedula" placeholder="Ingresa tu cédula" required>
+                    </div>
                 </div>
-
-                <div class="form-group">
-                    <label for="correo">Correo:</label>
-                    <input type="email" class="form-control" name="correo" id="correo" placeholder="Ingresa tu gmail">
+                <div class="mb-3">
+                    <label for="email" class="form-label">Correo electrónico</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                        <input type="email" class="form-control" name="email" id="email" placeholder="Ingresa tu correo" required>
+                    </div>
                 </div>
-
-                <div class="form-group">
-                    <label for="contra">Contraseña:</label>
-                    <input type="password" class="form-control" name="contra" id="contra" placeholder="Ingresa tu contraseña">
+                <div class="mb-3">
+                    <label for="password" class="form-label">Contraseña</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                        <input type="password" class="form-control" name="password" id="password" placeholder="Crea una contraseña" required>
+                        <span class="input-group-text" style="cursor:pointer" onclick="togglePassword('password', 'eye1')"><i class="bi bi-eye" id="eye1"></i></span>
+                    </div>
                 </div>
-
-                <div class="form-group">
-                    <label for="FNacimiento">Fecha de nacimiento:</label>
-                    <input type="date" class="form-control" name="FNacimiento" id="FNacimiento">
+                <div class="mb-3">
+                    <label for="password2" class="form-label">Repetir Contraseña</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                        <input type="password" class="form-control" name="password2" id="password2" placeholder="Repite la contraseña" required>
+                        <span class="input-group-text" style="cursor:pointer" onclick="togglePassword('password2', 'eye2')"><i class="bi bi-eye" id="eye2"></i></span>
+                    </div>
                 </div>
-
-                <div class="form-group">
-                    <label for="genero">Género:</label>
-                    <select class="form-control" id="genero" name="genero">
-                        <option value="m">Masculino</option>
-                        <option value="f">Femenino</option>
-                        <option value="o">Otro</option>
-                    </select>
+                <button type="submit" name="register" class="btn btn-yellow">Registrarse</button>
+                <div class="form-link">
+                    ¿Ya tienes cuenta? <a href="?pagina=login">Inicia sesión</a>
                 </div>
-
-                <div class="form-group">
-                    <label for="rol">Rol:</label>
-                    <select class="form-control" id="rol" name="rol">
-                        <option value="c">Paciente</option>
-                        <option value="p">Psicólogo</option>
-                    </select>
-                </div>
-
-                <!--
-                <div class="form-group">
-                    <label for="isPsychologist">Es usted psicólogo/a?</label>
-                    <input type="checkbox" class="form-control-check" name="isPsychologist" id="isPsychologist" id="">
-                </div>
-                -->
-
-                <input type="submit" name="register" class="btn btn-primary btn-block">
-                <p>Si ya te registraste ahora <a href="?pagina=login">inicia sesion</a></p>
-            </form>
-        </div>
-    </div>
-
-</div>
-
-<div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="successModalLabel">Registro Exitoso</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
             </div>
-            <div class="modal-body">
-                Usuario Registrado exitosamente.
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <input class="btn btn-secondary" data-dismiss="modal" type="submit" name="register">
-            </div>
-        </div>
-    </div>
-</div>
-
-  
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
+        </form>
+    </main>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const registroForm = document.getElementById('registroForm');
-
-            registroForm.addEventListener('submit', function(event) {
-                //event.preventDefault(); // Evita el envío del formulario
-
-                // Aquí va tu lógica para procesar el registro
-                // (simulación de registro exitoso para este ejemplo)
-
-                $('#successModal').modal('show'); // Muestra el modal de éxito
-            });
-        });
+        function togglePassword(inputId, eyeId) {
+            const input = document.getElementById(inputId);
+            const icon = document.getElementById(eyeId);
+            if (input.type === "password") {
+                input.type = "text";
+                icon.classList.remove('bi-eye');
+                icon.classList.add('bi-eye-slash');
+            } else {
+                input.type = "password";
+                icon.classList.remove('bi-eye-slash');
+                icon.classList.add('bi-eye');
+            }
+        }
     </script>
-
-    
-    
-    
 </body>
 </html>
