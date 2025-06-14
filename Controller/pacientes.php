@@ -269,6 +269,6 @@ $pacientes = listarpaciente(); // Llama a la función para obtener la lista comp
 require_once BASE_PATH . 'View/pacientes.php'; 
 
 // Envía el contenido del búfer de salida al navegador y lo desactiva.
-// Todo lo que se haya "impreso" (echo, HTML fuera de <?php ?>) desde ob_start() se envía ahora.
+// Todo lo que se haya "impreso" (echo, HTML fuera de <?php desde ob_start() se envía ahora.
 ob_end_flush(); 
 ?>

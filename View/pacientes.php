@@ -7,11 +7,10 @@
         <link rel="stylesheet" href="css/navegacion.css">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous"/>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+        <?php require_once("menu/menu.php"); ?>
         <script src="js/paciente.js"></script>
-
-        <style>
-
-            .btn-accion {
+<style>
+    .btn-accion {
                 border-radius: 12px;
                 font-weight: 600;
                 box-shadow: 0 2px 8px rgba(0,0,0,0.07);
@@ -24,8 +23,8 @@
             .btn-editar:hover { background: #c7a91e; color: #222; }
             .btn-eliminar { background: #ff5c5c; color: #fff; }
             .btn-eliminar:hover { background: #e04a4a; }
-            .btn-historial { background: var(--color5); color: #fff; }
-            .btn-historial:hover { background: #5a8ca1; }
+            .btn-detalles { background: var(--color5); color: #fff; }
+            .btn-detalles:hover { background: #5a8ca1; }
             .btn-cita { background: #1abc9c; color: #fff; }
             .btn-cita:hover { background: #159c7c; }
             .btn-primary {
@@ -73,98 +72,35 @@
                     padding: 1rem 0.2rem;
                 }
             }
-        </style>
+@media (max-width: 991.98px) {
+    .main-content {
+        margin-left: 0;
+        padding: 1rem 0.2rem;
+    }
+}
+</style>
     </head>
     <body>
-        
-        <!-- Menú de navegación responsive -->
-            <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm mb-4 d-lg-none">
-                <div class="container-fluid">
-                <a class="navbar-brand fw-bold" href="?pagina=main" style="color: var(--color5);">Sistema</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Menú">
-                <span class="navbar-toggler-icon"></span>
-                </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                    <div class="w-100 d-flex justify-content-center my-2">
-    <img src="img/Logo3.png" alt="Logo Stephanie Quintero" style="max-width:90px; max-height:90px;">
-</div>
-                    <li class="nav-item"><a class="nav-link<?= ($_GET['pagina'] ?? '') === 'main' ? ' active' : '' ?>" href="?pagina=main"><i class="bi bi-house-door me-2"></i>Inicio</a></li>
-                    <li class="nav-item"><a class="nav-link<?= ($_GET['pagina'] ?? '') === 'historial' ? ' active' : '' ?>" href="?pagina=historial"><i class="bi bi-clock-history me-2"></i>Historial</a></li>
-                    <li class="nav-item"><a class="nav-link<?= ($_GET['pagina'] ?? '') === 'test' ? ' active' : '' ?>" href="?pagina=test"><i class="bi bi-clipboard-check me-2"></i>Test</a></li>
-                    <li class="nav-item"><a class="nav-link<?= ($_GET['pagina'] ?? '') === 'pacientes' ? ' active' : '' ?>" href="?pagina=pacientes"><i class="bi bi-people me-2"></i>Pacientes</a></li>
-                    <li class="nav-item"><a class="nav-link<?= ($_GET['pagina'] ?? '') === 'cita' ? ' active' : '' ?>" href="?pagina=cita"><i class="bi bi-calendar2-plus me-2"></i>Citas</a></li>
-                    <li class="nav-item"><a class="nav-link<?= ($_GET['pagina'] ?? '') === 'tratamiento' ? ' active' : '' ?>" href="?pagina=tratamiento"><i class="bi bi-capsule-pill me-2"></i>Tratamiento</a></li>
-                    <li class="nav-item"><a class="nav-link" href="?pagina=logout"><i class="bi bi-box-arrow-right me-2"></i>Cerrar sesión</a></li>
-                </ul>
-            </div>
-            </div>
-            </nav>
-
-        <div class="container-fluid">
-            <div class="row">
-                <nav class="col-md-2 d-none d-lg-block sidebar">
-                    <div class="sidebar-sticky">
-                        <div class="w-100 d-flex justify-content-center my-3">
-                        <img src="img/Logo3.png" alt="Logo Stephanie Quintero" style="max-width:120px; max-height:120px;">
-                        </div>
-                        <ul class="nav flex-column">
-                            <li class="nav-item">
-                                <a class="nav-link<?= ($_GET['pagina'] ?? '') === 'main' ? ' active' : '' ?>" href="?pagina=main">
-                                    <i class="bi bi-house-door me-2"></i> Inicio
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link<?= ($_GET['pagina'] ?? '') === 'historial' ? ' active' : '' ?>" href="?pagina=historial">
-                                    <i class="bi bi-clock-history me-2"></i> Historial
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link<?= ($_GET['pagina'] ?? '') === 'test' ? ' active' : '' ?>" href="?pagina=test">
-                                    <i class="bi bi-clipboard-check me-2"></i> Test
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link<?= ($_GET['pagina'] ?? '') === 'pacientes' ? ' active' : '' ?>" href="?pagina=pacientes">
-                                    <i class="bi bi-people me-2"></i> Pacientes
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link<?= ($_GET['pagina'] ?? '') === 'cita' ? ' active' : '' ?>" href="?pagina=cita">
-                                    <i class="bi bi-calendar2-plus me-2"></i> Citas
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link<?= ($_GET['pagina'] ?? '') === 'tratamiento' ? ' active' : '' ?>" href="?pagina=tratamiento">
-                                    <i class="bi bi-capsule-pill me-2"></i> Tratamiento
-                                </a>
-                            </li>
-                            <li class="nav-item mt-auto">
-                                <a class="nav-link" href="?pagina=logout">
-                                    <i class="bi bi-box-arrow-right me-2"></i> Cerrar sesión
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
                 <main role="main" class="col-md-9 ms-sm-auto col-lg-10 px-4 main-content">
                     <div class="d-flex justify-content-between align-items-center mb-4 ms-4 me-2">
-    <h2 class="fw-bold" style="color:var(--color5);">Pacientes</h2>
-    <div class="d-flex align-items-center gap-3">
-        <a href='?pagina=profile' title="Mi Perfil" class="profile-icon-link d-flex align-items-center justify-content-center">
-            <i class="bi bi-person" style="font-size: 32px; color: var(--color5);"></i>
-        </a>
-        <button type="button" class="btn btn-primary d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#registropacienteModal">
-            <i class="bi bi-plus-circle me-2"></i> Añadir paciente
-        </button>
-    </div>
-</div>
+                        <h2 class="fw-bold" style="color:var(--color5);">Pacientes</h2>
+                            <div class="d-flex align-items-center gap-3">
+                                <a href='?pagina=profile' title="Mi Perfil" class="profile-icon-link d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-person" style="font-size: 32px; color: var(--color5);"></i>
+                                </a>
+                                <button type="button" class="btn btn-primary d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#registropacienteModal">
+                                    <i class="bi bi-plus-circle me-2"></i> Añadir paciente
+                                </button>
+                    </div>
+                            </div>
+
                     <div class="mb-4">
                         <div class="input-group">
                             <span class="input-group-text"><i class="bi bi-search"></i></span>
                             <input type="text" id="buscarpaciente" class="form-control" placeholder="Buscar pacientes...">
                         </div>
                     </div>
+
                     <nav aria-label="Paginación de pacientes (arriba)">
                         <ul class="pagination justify-content-center" id="paginacionpacientesTop"></ul>
                     </nav>
@@ -181,36 +117,11 @@
                                         <th>Acciones</th>
                                     </tr>
                                 </thead>
-                                <tbody id="tablapacientes">
-<?php
-    if (isset($pacientes) && !empty($pacientes)):
-        foreach ($pacientes as $paciente):
-?>
-    <tr>
-        <td><?= htmlspecialchars($paciente['id_paciente']) ?></td>
-        <td><?= htmlspecialchars($paciente['nombre']) ?></td>
-        <td><?= htmlspecialchars($paciente['apellido']) ?></td>
-        <td><?= htmlspecialchars($paciente['cedula']) ?></td>
-        <td><?= htmlspecialchars($paciente['telefono']) ?></td>
-        <td>
-            <button class="btn btn-accion btn-editar btn-sm" data-bs-toggle="modal" data-bs-target="#modificarpacienteModal" data-id="<?= htmlspecialchars($paciente['id_paciente']) ?>">
-<i class="bi bi-pencil"></i> Editar</button>
-            <a class="btn btn-accion btn-eliminar btn-sm" href="index.php?pagina=pacientes&accion=eliminarpaciente&id=<?= htmlspecialchars($paciente['id_paciente']) ?>"
-            onclick="return confirm('¿Desea eliminar este paciente?');"><i class="bi bi-trash"></i> Eliminar</a>
-            <a href="index.php?accion=verHistorial&paciente_id=<?= htmlspecialchars($paciente['id_paciente']) ?>" class="btn btn-accion btn-historial btn-sm"><i class="bi bi-journal-text"></i> Historial</a>
-            <a href="index.php?accion=agendarCita&paciente_id=<?= htmlspecialchars($paciente['id_paciente']) ?>" class="btn btn-accion btn-cita btn-sm"><i class="bi bi-calendar-plus"></i> Cita</a>
-        </td>
-    </tr>
-<?php
-        endforeach;
-    else:
-?>
-    <tr><td colspan="6">Cargando pacientes...</td></tr>
-<?php endif; ?>
-                                </tbody>
+                                <tbody id="tablapacientes"></tbody>
                             </table>
                         </div>
                     </div>
+
                     <nav aria-label="Paginación de pacientes (abajo)">
                         <ul class="pagination justify-content-center" id="paginacionpacientesBottom"></ul>
                     </nav>
@@ -222,6 +133,7 @@
                                     <h5 class="modal-title" id="registropacienteModalLabel">Añadir Nuevo paciente</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
                                 </div>
+
                                 <div class="modal-body">
                                     <form id="formularioRegistropaciente" action="?pagina=pacientes" method="POST">
                                         <div class="row mb-3">
@@ -297,10 +209,8 @@
                                                 <input type="password" class="form-control" id="password2" name="password2" required>
                                             </div>
                                         </div>
-                                        
-                                    
-                                    
                                 </div>
+
                                 <div class="modal-footer">
                                     <button type="submit" class="btn btn-primary" name="guardara" value="guardara">Guardar paciente</button>
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
@@ -339,6 +249,10 @@
                                             <div class="col-md-6">
                                                 <label for="modificar_telefono" class="form-label">Teléfono</label>
                                                 <input type="tel" class="form-control" id="modificar_telefono" name="telefono">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="modificar_email" class="form-label">Email</label>
+                                                <input type="email" class="form-control" id="modificar_email" name="email">
                                             </div>
                                         </div>
                                         <div class="row mb-3">
@@ -382,13 +296,98 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- Modal Detalles Paciente Mejorado -->
+                    <div class="modal fade" id="detallesPacienteModal" tabindex="-1" aria-labelledby="detallesPacienteModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-scrollable modal-lg">
+                            <div class="modal-content shadow-lg border-0">
+                                <div class="modal-header bg-primary text-white">
+                                    <h4 class="modal-title fw-bold" id="detallesPacienteModalLabel">
+                                        <i class="bi bi-person-badge me-2"></i>Detalles del Paciente
+                                    </h4>
+                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                                </div>
+
+                    <div class="modal-body px-4 py-3">
+                        <div class="row g-4">
+                            <div class="col-md-4 text-center">
+                                <div class="bg-light rounded-circle mx-auto mb-3" style="width:120px;height:120px;display:flex;align-items:center;justify-content:center;">
+                                    <i class="bi bi-person-circle" style="font-size: 5rem; color: #0d6efd;"></i>
+                                </div>
+                                    <h5 class="mb-0" id="detalles_nombre" style="font-weight: bold;"></h5>
+                                <div class="text-muted" id="detalles_apellido"></div>
+                                <span class="badge bg-secondary mt-2" id="detalles_genero"></span>
+                            </div>
+
+                    <div class="col-md-8">
+                        <div class="row mb-2">
+                            <div class="col-6 mb-2">
+                                <i class="bi bi-credit-card-2-front me-2"></i>
+                                    <strong>Cédula:</strong>
+                                <span class="ms-1" id="detalles_cedula"></span>
+                            </div>
+
+                    <div class="col-6 mb-2">
+                        <i class="bi bi-telephone me-2"></i>
+                            <strong>Teléfono:</strong>
+                        <span class="ms-1" id="detalles_telefono"></span>
+                    </div>
+
+                    <div class="col-6 mb-2">
+                        <i class="bi bi-calendar-date me-2"></i>
+                            <strong>Fecha de nacimiento:</strong>
+                        <span class="ms-1" id="detalles_fecha_nacimiento"></span>
+                    </div>
+
+                    <div class="col-6 mb-2">
+                        <i class="bi bi-envelope-at me-2"></i>
+                            <strong>Email:</strong>
+                        <span class="ms-1" id="detalles_email"></span>
+                    </div>
+
+                    <div class="col-12 mb-2">
+                        <i class="bi bi-geo-alt me-2"></i>
+                            <strong>Dirección:</strong>
+                        <span class="ms-1" id="detalles_direccion"></span>
+                    </div>
+
+                    <div class="col-6 mb-2">
+                        <i class="bi bi-building me-2"></i>
+                            <strong>Ciudad:</strong>
+                        <span class="ms-1" id="detalles_ciudad"></span>
+                    </div>
+
+                    <div class="col-6 mb-2">
+                        <i class="bi bi-globe-americas me-2"></i>
+                            <strong>País:</strong>
+                        <span class="ms-1" id="detalles_pais"></span>
+                    </div>
+
+                </div>
+
+            <hr>
+
+                    <div class="alert alert-info d-flex align-items-center mb-0" role="alert" style="font-size: 1rem;">
+                        <i class="bi bi-info-circle-fill me-2"></i>
+                        Todos los datos son confidenciales y solo visibles para personal autorizado.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+                    <div class="modal-footer bg-light">
+                        <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">
+                            <i class="bi bi-x-circle me-1"></i> Cerrar
+                        </button>
+                    </div>
+            </div>
+        </div>
+    </div>
                 </main>
             </div>
         </div>
 
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
-       
-
+    
     </body>
 </html>

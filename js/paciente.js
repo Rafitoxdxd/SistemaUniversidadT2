@@ -58,9 +58,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 const accionesCell = row.insertCell();
                 accionesCell.innerHTML = `
                     <button class="btn btn-accion btn-editar btn-sm" data-id="${paciente.id_paciente}"><i class="bi bi-pencil"></i> Editar</button>
-                    <a class="btn btn-accion btn-eliminar btn-sm" href="index.php?accion=eliminarpaciente&id=${paciente.id_paciente}"
+                    <a class="btn btn-accion btn-eliminar btn-sm" href="index.php?accion=eliminarpaciente&id_paciente=${paciente.id_paciente}"
                     onclick="return confirm('¿Desea eliminar este paciente?');"><i class="bi bi-trash"></i> Eliminar</a>
-                    <a href="index.php?accion=verHistorial&paciente_id=${paciente.id_paciente}" class="btn btn-accion btn-historial btn-sm"><i class="bi bi-journal-text"></i> Historial</a>
+                    <button class="btn btn-accion btn-detalles btn-sm" data-id="${paciente.id_paciente}"><i class="bi bi-eye"></i> Ver detalles</button>
                     <a href="index.php?accion=agendarCita&paciente_id=${paciente.id_paciente}" class="btn btn-accion btn-cita btn-sm"><i class="bi bi-calendar-plus"></i> Cita</a>
                 `;
             });
@@ -296,6 +296,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.getElementById('modificar_apellido').value = paciente.apellido || '';
                 document.getElementById('modificar_cedula').value = paciente.cedula || '';
                 document.getElementById('modificar_telefono').value = paciente.telefono || '';
+                document.getElementById('modificar_email').value = paciente.email || '';
                 document.getElementById('modificar_fecha_nacimiento').value = paciente.fecha_nacimiento || '';
                 document.getElementById('modificar_genero').value = paciente.genero || '';
                 document.getElementById('modificar_direccion').value = paciente.direccion || '';
@@ -305,6 +306,30 @@ document.addEventListener('DOMContentLoaded', function() {
             // Abre el modal manualmente
             const modal = new bootstrap.Modal(document.getElementById('modificarpacienteModal'));
             modal.show();
+        }
+    });
+
+    tablapacientesBody.addEventListener('click', function(e) {
+        const btnDetalles = e.target.closest('.btn-detalles');
+        if (btnDetalles) {
+            const pacienteId = btnDetalles.getAttribute('data-id');
+            const paciente = pacientesData.find(p => String(p.id_paciente) === String(pacienteId));
+            if (paciente) {
+                // Llena el modal con los datos del paciente
+                document.getElementById('detalles_nombre').textContent = paciente.nombre || '';
+                document.getElementById('detalles_apellido').textContent = paciente.apellido || '';
+                document.getElementById('detalles_cedula').textContent = paciente.cedula || '';
+                document.getElementById('detalles_telefono').textContent = paciente.telefono || '';
+                document.getElementById('detalles_fecha_nacimiento').textContent = paciente.fecha_nacimiento || '';
+                document.getElementById('detalles_genero').textContent = paciente.genero || '';
+                document.getElementById('detalles_direccion').textContent = paciente.direccion || '';
+                document.getElementById('detalles_ciudad').textContent = paciente.ciudad || '';
+                document.getElementById('detalles_pais').textContent = paciente.pais || '';
+                document.getElementById('detalles_email').textContent = paciente.email || '';
+            }
+            // Abre el modal de detalles
+            const modalDetalles = new bootstrap.Modal(document.getElementById('detallesPacienteModal'));
+            modalDetalles.show();
         }
     });
 });

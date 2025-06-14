@@ -10,6 +10,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css">
+    <?php require_once("menu/menu.php"); ?>
+
     <style>
         .badge-inicial {
             background-color: #6c757d;
@@ -42,136 +44,13 @@
             margin-bottom: 5px;
         }
 
-        @media (max-width: 767.98px) {
-            .sidebar {
-                position: static;
-                height: auto;
-                padding-top: 0;
-                width: 100%;
-                box-shadow: none;
-                background: var(--sidebar-bg-start);
-            }
-
-            .main-content {
-                margin-left: 0 !important;
-                width: 100%;
-            }
-
-            .sidebar-sticky {
-                flex-direction: row;
-                flex-wrap: wrap;
-                justify-content: center;
-                padding: 12px 0;
-            }
-
-            .sidebar .nav-link {
-                margin: 5px;
-                padding: 10px 15px;
-                font-size: 0.95rem;
-                border-radius: 15px;
-                white-space: normal;
-                text-overflow: clip;
-                overflow: visible;
-            }
-
-            .sidebar .nav-item:first-child .nav-link {
-                font-size: 1.4rem;
-                margin-bottom: 12px;
-            }
-
-            .sidebar hr {
-                display: none;
-            }
-
-            .sidebar .nav-item.mt-auto {
-                margin-top: 10px !important;
-            }
-
-            .sidebar .nav-item.mt-auto .nav-link {
-                width: auto;
-            }
-
-            .profile-icon-container {
-                position: static;
-                margin: 10px auto;
-                text-align: center;
-                width: fit-content;
-            }
-        }
+        
+        
     </style>
 </head>
 
 <body class="bg-light p-4">
-    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm mb-4 d-lg-none">
-        <div class="container-fluid">
-            <a class="navbar-brand fw-bold" href="?pagina=main" style="color: var(--color5);">Sistema</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                    <div class="w-100 d-flex justify-content-center my-2">
-                        <img src="img/Logo3.png" alt="Logo" style="max-width:90px; max-height:90px;">
-                    </div>
-                    <li class="nav-item"><a class="nav-link<?= ($_GET['pagina'] ?? '') === 'main' ? ' active' : '' ?>" href="?pagina=main"><i class="bi bi-house-door me-2"></i>Inicio</a></li>
-                    <li class="nav-item"><a class="nav-link<?= ($_GET['pagina'] ?? '') === 'historial' ? ' active' : '' ?>" href="?pagina=historial"><i class="bi bi-clock-history me-2"></i>Historial</a></li>
-                    <li class="nav-item"><a class="nav-link<?= ($_GET['pagina'] ?? '') === 'test' ? ' active' : '' ?>" href="?pagina=test"><i class="bi bi-clipboard-check me-2"></i>Test</a></li>
-                    <li class="nav-item"><a class="nav-link<?= ($_GET['pagina'] ?? '') === 'pacientes' ? ' active' : '' ?>" href="?pagina=pacientes"><i class="bi bi-people me-2"></i>Pacientes</a></li>
-                    <li class="nav-item"><a class="nav-link<?= ($_GET['pagina'] ?? '') === 'cita' ? ' active' : '' ?>" href="?pagina=cita"><i class="bi bi-calendar2-plus me-2"></i>Citas</a></li>
-                    <li class="nav-item"><a class="nav-link<?= ($_GET['pagina'] ?? '') === 'tratamiento' ? ' active' : '' ?>" href="?pagina=tratamiento"><i class="bi bi-capsule-pill me-2"></i>Tratamiento</a></li>
-                    <li class="nav-item"><a class="nav-link" href="?pagina=logout"><i class="bi bi-box-arrow-right me-2"></i>Cerrar sesión</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-    <div class="container-fluid">
-        <div class="row">
-            <!-- Sidebar -->
-            <nav class="col-md-2 d-none d-lg-block sidebar">
-                <div class="sidebar-sticky">
-                    <div class="w-100 d-flex justify-content-center my-3">
-                        <img src="img/Logo3.png" alt="Logo" style="max-width:120px; max-height:120px;">
-                    </div>
-                    <ul class="nav flex-column">
-                        <li class="nav-item">
-                            <a class="nav-link<?= ($_GET['pagina'] ?? '') === 'main' ? ' active' : '' ?>" href="?pagina=main">
-                                <i class="bi bi-house-door me-2"></i> Inicio
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link<?= ($_GET['pagina'] ?? '') === 'historial' ? ' active' : '' ?>" href="?pagina=historial">
-                                <i class="bi bi-clock-history me-2"></i> Historial
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link<?= ($_GET['pagina'] ?? '') === 'test' ? ' active' : '' ?>" href="?pagina=test">
-                                <i class="bi bi-clipboard-check me-2"></i> Test
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link<?= ($_GET['pagina'] ?? '') === 'pacientes' ? ' active' : '' ?>" href="?pagina=pacientes">
-                                <i class="bi bi-people me-2"></i> Pacientes
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link<?= ($_GET['pagina'] ?? '') === 'cita' ? ' active' : '' ?>" href="?pagina=cita">
-                                <i class="bi bi-calendar2-plus me-2"></i> Citas
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link<?= ($_GET['pagina'] ?? '') === 'tratamiento' ? ' active' : '' ?>" href="?pagina=tratamiento">
-                                <i class="bi bi-capsule-pill me-2"></i> Tratamiento
-                            </a>
-                        </li>
-                        <li class="nav-item mt-auto">
-                            <a class="nav-link" href="?pagina=logout">
-                                <i class="bi bi-box-arrow-right me-2"></i> Cerrar sesión
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
+    
 
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4 main-content">
                 <!-- Mostrar mensajes -->

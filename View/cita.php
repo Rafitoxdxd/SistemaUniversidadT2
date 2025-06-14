@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="css/fullcalendar.min.css">
     <script src="js/fullcalendar.min.js"></script>
     <script src="js/es.js"></script>
+    <?php require_once("menu/menu.php"); ?>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     <style>
@@ -20,88 +21,11 @@
         /* Importar fuente de Google Fonts (asegúrate de que el usuario tenga conexión) */
         @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap');
 
-        
-
-        /* Estilos generales del sidebar */
-        
-
-        /* Animación para el título */
-        @keyframes bounceIn {
-            0% { transform: scale(0.05); opacity: 0; }
-            60% { transform: scale(1.25); opacity: 1; }
-            100% { transform: scale(1); }
-        }
-
-        /* Estilos de los enlaces de navegación */
-        
-        /* Contenido principal (calendario y modal) */
-        
-
-        /* Ocultar el header si está vacío o no es necesario con el sidebar fijo */
-        
-        
-
-        /* Media query para pantallas pequeñas (ajustes para la diversión móvil) */
-        @media (max-width: 767.98px) {
-           }
            
 
     </style>
 </head>
 <body>
-    
-
-    <nav class="sidebar">
-        <div class="sidebar-sticky">
-            <ul class="nav flex-column">
-                <li class="nav-item">
-                    <a class="nav-link active" href="?pagina=main">¡EXPLORA AQUÍ!</a>
-                </li>
-            </ul>
-            
-            <?php
-                // Asegúrate de iniciar la sesión al principio de tu script si aún no lo has hecho.
-                // session_start(); 
-                if (isset($_SESSION["usuario"])) {
-
-                            $v_usuario = $_SESSION["usuario"];
-
-                    $v_usuario = $_SESSION["usuario"];
-
-                } else {
-                    // Opcional: Redirigir o manejar si no hay sesión
-                    // header("Location: ?pagina=login"); 
-                    // exit();
-                }
-            ?>
-
-            <hr>
-
-            <ul class="nav flex-column flex-grow-1">
-                <li class="nav-item">
-                    <a class="nav-link" href="?pagina=main">Casa</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href='?pagina=historial'>Historial</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href='?pagina=test'>Test</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href='?pagina=pacientes'>Pacientes</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href='?pagina=cita'>Citas</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href='?pagina=tratamiento'>Tratamiento</a>
-                </li>
-                <li class="nav-item mt-auto"> 
-                    <a class="nav-link" href="?pagina=logout">Cerrar sesión</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
 
     <main class="main-content mt-8 bg-light border">
         <div class="container-fluid mt-4">
