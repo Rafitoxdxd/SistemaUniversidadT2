@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 09-06-2025 a las 03:25:50
--- Versión del servidor: 10.4.32-MariaDB
--- Versión de PHP: 8.2.12
+-- Host: 127.0.0.1
+-- Generation Time: Jun 17, 2025 at 12:42 AM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,15 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `sistema_psicologia`
+-- Database: `sistema_psicologia`
 --
-CREATE DATABASE IF NOT EXISTS `sistema_psicologia` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `sistema_psicologia`;
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `cita`
+-- Table structure for table `cita`
 --
 
 CREATE TABLE `cita` (
@@ -42,7 +40,7 @@ CREATE TABLE `cita` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `cita`
+-- Dumping data for table `cita`
 --
 
 INSERT INTO `cita` (`id_cita`, `id_paciente`, `idpsicologo`, `title`, `descripcion`, `color`, `textColor`, `start`, `end`) VALUES
@@ -63,7 +61,7 @@ INSERT INTO `cita` (`id_cita`, `id_paciente`, `idpsicologo`, `title`, `descripci
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `history`
+-- Table structure for table `history`
 --
 
 CREATE TABLE `history` (
@@ -74,7 +72,7 @@ CREATE TABLE `history` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `history`
+-- Dumping data for table `history`
 --
 
 INSERT INTO `history` (`ID`, `datos`, `idPaciente`, `idPsicologo`) VALUES
@@ -84,7 +82,7 @@ INSERT INTO `history` (`ID`, `datos`, `idPaciente`, `idPsicologo`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `paciente`
+-- Table structure for table `paciente`
 --
 
 CREATE TABLE `paciente` (
@@ -103,13 +101,12 @@ CREATE TABLE `paciente` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `paciente`
+-- Dumping data for table `paciente`
 --
 
 INSERT INTO `paciente` (`id_paciente`, `nombre`, `apellido`, `cedula`, `telefono`, `fecha_nacimiento`, `genero`, `direccion`, `ciudad`, `pais`, `email`, `password`) VALUES
-(1, 'Beatriz', 'Pacheco', '123452341', '04266525038', '2011-12-08', 'masculino', 'Mi casa', 'Venezuela', 'Estados unidos ', '', ''),
-(2, 'Shikamaru', 'shaixhsaiu', '121212', '04266525038', '2025-05-23', 'femenino', 'carrera 4 entre calles 4 y 4', 'barquisimeto', 'dinamarca', '', ''),
-(3, 'Yahir', 'Rivero', '31574451', '2189219', '2025-05-23', 'masculino', 'hihsad', 'Caracas', 'Colombia', '', ''),
+(2, 'Shikamaru', 'Nara', '12177382', '04266525036', '2011-12-03', 'masculino', 'carrera 4 entre calles 4 y 4', 'barquisimeto', 'dinamarca', '', ''),
+(3, 'YAHIR', 'Rivero', '31574451', '2189219', '2025-05-23', 'masculino', 'hihsad', 'Caracas', 'Colombia', '', ''),
 (4, 'Gaara', 'Uzumaki', '30880792', '03030303', '2011-12-01', 'masculino', 'carrera 4 entre calles 4 y 4', 'Caracas', 'Colombia', '', ''),
 (5, 'lenny', 'Lopez', '31574454', '04145113673', '2025-05-12', 'masculino', 'carrera 4 entre calles 4 y 4', 'barquisimeto', 'salkdhsal', 'mama@gmail.com', '$2y$10$ib1x.zRf'),
 (6, 'Maribel', 'Duran ', 'dfggggg', '04165678', '2025-04-29', 'femenino', 'ijjajjaa', 'barquisimeto', 'venezuela', '', ''),
@@ -118,12 +115,17 @@ INSERT INTO `paciente` (`id_paciente`, `nombre`, `apellido`, `cedula`, `telefono
 (9, 'Tobirama', 'Uchiha', '12249177', '0414567897', '2011-12-08', 'masculino', 'Carrera  entre calles  y ', 'Caracas', 'Venezuela', '', ''),
 (10, 'Jezuha', 'Palmera', '32066861', '04146587451', '2011-12-01', 'femenino', 'Carrera  entre calles  y ', 'Caracas', 'Colombia', 'jezuhaja@gmail.com', '$2y$10$/7KUrdkO'),
 (11, 'Subaru', 'Natski', '32065636', '04266525036', '2006-11-04', 'masculino', 'Carrera  entre calles  y ', 'Caracas', 'Colombia', 'wizzard790@gmail.com', '$2y$10$u6oVEIAL'),
-(12, 'Satoru', 'Gojo', '20144541', '0414660543', '2011-12-02', 'masculino', 'Carrera  entre calles  y ', 'Caracas', 'Colombia', 'yahirmosq0606@gmail.com', '$2y$10$z0D2M4Wx');
+(12, 'Satoru', 'Gojo', '20144541', '0414660543', '2011-12-02', 'masculino', 'Carrera  entre calles  y ', 'Caracas', 'Colombia', 'yahirmosq0606@gmail.com', '$2y$10$z0D2M4Wx'),
+(13, 'Monica', 'Lopez', '12249177', '2189219', '2011-12-08', 'masculino', 'Carrera  entre calles  y ', 'Barquisime', 'Dinamarca', 'yahir@gmail.com', '$2y$10$BedScnoL'),
+(14, 'Lenny', 'Lopez', '12345678', '04266525038', '2011-12-01', 'masculino', 'Carrera  entre calles  y ', 'Barquisimeto', 'Estados unidos ', 'mama@gmail.com', '$2y$10$/v2.EGHS'),
+(15, 'Lenny', 'Lopez', '12345678', '2189219', '2011-12-09', 'masculino', 'Carrera  entre calles  y ', 'Barquisimeto', 'Estados unidos ', 'mama@gmail.com', '$2y$10$Hrle.RYp'),
+(16, 'Nada', 'Nadaaa', '12345678', '2189219', '2011-12-02', 'femenino', 'Carrera  entre calles  y ', 'Caracas', 'Venezuela', '', ''),
+(17, 'Maria', 'Brachoa', '3880792', '04145646723', '2011-12-08', 'femenino', 'Carrera  entre calles  y w', 'Barquisimeto', 'Venezuela', '', '');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `test`
+-- Table structure for table `test`
 --
 
 CREATE TABLE `test` (
@@ -149,7 +151,7 @@ CREATE TABLE `test` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `test_confianza`
+-- Table structure for table `test_confianza`
 --
 
 CREATE TABLE `test_confianza` (
@@ -160,17 +162,17 @@ CREATE TABLE `test_confianza` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `test_confianza`
+-- Dumping data for table `test_confianza`
 --
 
 INSERT INTO `test_confianza` (`id`, `id_paciente`, `fecha`, `respuestas`) VALUES
-(1, 1, '2025-05-16', '{\r\n  \"1\": 2, \"2\": 2, \"3\": 1, \"4\": 2, \"5\": 3, \"6\": 2, \"7\": 1, \"8\": 2, \"9\": 1, \"10\": 2\r\n}'),
-(6, 6, '2025-06-08', '{\"1\":\"1\",\"2\":\"1\",\"3\":\"1\",\"4\":\"1\",\"5\":\"1\",\"6\":\"1\",\"7\":\"1\",\"8\":\"1\",\"9\":\"1\",\"10\":\"3\"}');
+(6, 6, '2025-06-08', '{\"1\":\"1\",\"2\":\"1\",\"3\":\"1\",\"4\":\"1\",\"5\":\"1\",\"6\":\"1\",\"7\":\"1\",\"8\":\"1\",\"9\":\"1\",\"10\":\"3\"}'),
+(8, 13, '2025-06-09', '{\"1\":1,\"2\":1,\"3\":1,\"4\":1,\"5\":1,\"6\":1,\"7\":1,\"8\":1,\"9\":1,\"10\":1}');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `test_importancia`
+-- Table structure for table `test_importancia`
 --
 
 CREATE TABLE `test_importancia` (
@@ -182,16 +184,17 @@ CREATE TABLE `test_importancia` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `test_importancia`
+-- Dumping data for table `test_importancia`
 --
 
 INSERT INTO `test_importancia` (`id`, `id_paciente`, `fecha`, `parte1`, `parte2`) VALUES
-(1, 1, '2025-05-17', '{\r\n  \"1\": 5, \"2\": 4, \"3\": 6, \"4\": 5, \"5\": 4, \"6\": 5, \"7\": 6, \"8\": 4, \"9\": 5, \"10\": 4,\r\n  \"11\": 6, \"12\": 5, \"13\": 4, \"14\": 6, \"15\": 5, \"16\": 4, \"17\": 5\r\n}', '{\r\n  \"18\": 6, \"19\": 5, \"20\": 4, \"21\": 6, \"22\": 5, \"23\": 6, \"24\": 5, \"25\": 4, \"26\": 5,\r\n  \"27\": 6, \"28\": 5, \"29\": 4, \"30\": 6, \"31\": 5, \"32\": 6, \"33\": 5, \"34\": 4\r\n}');
+(4, 11, '2025-06-09', '{\"1\":\"1\",\"2\":\"1\",\"3\":\"1\",\"4\":\"1\",\"5\":\"1\",\"6\":\"1\",\"7\":\"1\",\"8\":\"1\",\"9\":\"1\",\"10\":\"1\",\"11\":\"1\",\"12\":\"1\",\"13\":\"1\",\"14\":\"1\",\"15\":\"1\",\"16\":\"1\",\"17\":\"1\"}', '{\"18\":\"1\",\"19\":\"1\",\"20\":\"1\",\"21\":\"1\",\"22\":\"1\",\"23\":\"1\",\"24\":\"1\",\"25\":\"1\",\"26\":\"1\",\"27\":\"1\",\"28\":\"1\",\"29\":\"1\",\"30\":\"1\",\"31\":\"1\",\"32\":\"1\",\"33\":\"1\",\"34\":\"1\"}'),
+(5, 3, '2025-06-09', '{\"1\":\"4\",\"2\":\"4\",\"3\":\"6\",\"4\":\"1\",\"5\":\"1\",\"6\":\"1\",\"7\":\"1\",\"8\":\"1\",\"9\":\"1\",\"10\":\"1\",\"11\":\"1\",\"12\":\"1\",\"13\":\"1\",\"14\":\"1\",\"15\":\"1\",\"16\":\"1\",\"17\":\"1\"}', '{\"18\":\"1\",\"19\":\"1\",\"20\":\"1\",\"21\":\"1\",\"22\":\"1\",\"23\":\"1\",\"24\":\"1\",\"25\":\"1\",\"26\":\"1\",\"27\":\"1\",\"28\":\"1\",\"29\":\"1\",\"30\":\"1\",\"31\":\"1\",\"32\":\"1\",\"33\":\"1\",\"34\":\"1\"}');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `test_poms`
+-- Table structure for table `test_poms`
 --
 
 CREATE TABLE `test_poms` (
@@ -204,17 +207,18 @@ CREATE TABLE `test_poms` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `test_poms`
+-- Dumping data for table `test_poms`
 --
 
 INSERT INTO `test_poms` (`id`, `id_paciente`, `fecha`, `deporte`, `edad`, `respuestas`) VALUES
-(1, 1, '2025-05-15', 'Fútbol', 22, '{\r\n  \"1\": 2, \"2\": 1, \"3\": 0, \"4\": 3, \"5\": 1, \"6\": 2, \"7\": 3, \"8\": 1, \"9\": 0, \"10\": 0,\r\n  \"11\": 1, \"12\": 2, \"13\": 3, \"14\": 1, \"15\": 2, \"16\": 1, \"17\": 0, \"18\": 1, \"19\": 3, \"20\": 0,\r\n  \"21\": 1, \"22\": 2, \"23\": 1, \"24\": 0, \"25\": 1, \"26\": 2, \"27\": 1, \"28\": 2, \"29\": 3, \"30\": 2,\r\n  \"31\": 1, \"32\": 2, \"33\": 0, \"34\": 1, \"35\": 0, \"36\": 1, \"37\": 0, \"38\": 3, \"39\": 1, \"40\": 2,\r\n  \"41\": 1, \"42\": 2, \"43\": 3, \"44\": 1, \"45\": 0, \"46\": 1, \"47\": 0, \"48\": 1, \"49\": 2, \"50\": 1,\r\n  \"51\": 2, \"52\": 0, \"53\": 1, \"54\": 2, \"55\": 3, \"56\": 2, \"57\": 1, \"58\": 0, \"59\": 1, \"60\": 2,\r\n  \"61\": 0, \"62\": 1, \"63\": 2, \"64\": 1, \"65\": 0\r\n}'),
-(3, 8, '2025-06-07', 'Feles', 23, '{\"1\":\"0\",\"2\":\"0\",\"3\":\"0\",\"4\":\"0\",\"5\":\"0\",\"6\":\"0\",\"7\":\"0\",\"8\":\"0\",\"9\":\"0\",\"10\":\"0\",\"11\":\"0\",\"12\":\"0\",\"13\":\"0\",\"14\":\"0\",\"15\":\"0\",\"16\":\"0\",\"17\":\"0\",\"18\":\"0\",\"19\":\"0\",\"20\":\"0\",\"21\":\"0\",\"22\":\"0\",\"23\":\"0\",\"24\":\"0\",\"25\":\"0\",\"26\":\"0\",\"27\":\"0\",\"28\":\"0\",\"29\":\"0\",\"30\":\"0\",\"31\":\"0\",\"32\":\"0\",\"33\":\"0\",\"34\":\"0\",\"35\":\"0\",\"36\":\"0\",\"37\":\"0\",\"38\":\"0\",\"39\":\"0\",\"40\":\"0\",\"41\":\"0\",\"42\":\"0\",\"43\":\"0\",\"44\":\"0\",\"45\":\"0\",\"46\":\"0\",\"47\":\"0\",\"48\":\"0\",\"49\":\"0\",\"50\":\"0\",\"51\":\"0\",\"52\":\"0\",\"53\":\"0\",\"54\":\"0\",\"55\":\"0\",\"56\":\"0\",\"57\":\"0\",\"58\":\"0\",\"59\":\"0\",\"60\":\"0\",\"61\":\"0\",\"62\":\"0\",\"63\":\"0\",\"64\":\"0\",\"65\":\"0\"}');
+(3, 8, '2025-06-07', 'Feles', 23, '{\"1\":\"0\",\"2\":\"0\",\"3\":\"0\",\"4\":\"0\",\"5\":\"0\",\"6\":\"0\",\"7\":\"0\",\"8\":\"0\",\"9\":\"0\",\"10\":\"0\",\"11\":\"0\",\"12\":\"0\",\"13\":\"0\",\"14\":\"0\",\"15\":\"0\",\"16\":\"0\",\"17\":\"0\",\"18\":\"0\",\"19\":\"0\",\"20\":\"0\",\"21\":\"0\",\"22\":\"0\",\"23\":\"0\",\"24\":\"0\",\"25\":\"0\",\"26\":\"0\",\"27\":\"0\",\"28\":\"0\",\"29\":\"0\",\"30\":\"0\",\"31\":\"0\",\"32\":\"0\",\"33\":\"0\",\"34\":\"0\",\"35\":\"0\",\"36\":\"0\",\"37\":\"0\",\"38\":\"0\",\"39\":\"0\",\"40\":\"0\",\"41\":\"0\",\"42\":\"0\",\"43\":\"0\",\"44\":\"0\",\"45\":\"0\",\"46\":\"0\",\"47\":\"0\",\"48\":\"0\",\"49\":\"0\",\"50\":\"0\",\"51\":\"0\",\"52\":\"0\",\"53\":\"0\",\"54\":\"0\",\"55\":\"0\",\"56\":\"0\",\"57\":\"0\",\"58\":\"0\",\"59\":\"0\",\"60\":\"0\",\"61\":\"0\",\"62\":\"0\",\"63\":\"0\",\"64\":\"0\",\"65\":\"0\"}'),
+(6, 12, '2025-06-09', 'NADA', 14, '{\"1\":\"0\",\"2\":\"0\",\"3\":\"0\",\"4\":\"0\",\"5\":\"0\",\"6\":\"0\",\"7\":\"0\",\"8\":\"0\",\"9\":\"0\",\"10\":\"0\",\"11\":\"0\",\"12\":\"0\",\"13\":\"0\",\"14\":\"0\",\"15\":\"0\",\"16\":\"0\",\"17\":\"0\",\"18\":\"0\",\"19\":\"0\",\"20\":\"0\",\"21\":\"0\",\"22\":\"0\",\"23\":\"0\",\"24\":\"0\",\"25\":\"0\",\"26\":\"0\",\"27\":\"0\",\"28\":\"0\",\"29\":\"0\",\"30\":\"0\",\"31\":\"0\",\"32\":\"0\",\"33\":\"0\",\"34\":\"0\",\"35\":\"0\",\"36\":\"0\",\"37\":\"0\",\"38\":\"0\",\"39\":\"0\",\"40\":\"0\",\"41\":\"0\",\"42\":\"0\",\"43\":\"0\",\"44\":\"0\",\"45\":\"0\",\"46\":\"0\",\"47\":\"0\",\"48\":\"0\",\"49\":\"0\",\"50\":\"0\",\"51\":\"0\",\"52\":\"0\",\"53\":\"0\",\"54\":\"0\",\"55\":\"0\",\"56\":\"0\",\"57\":\"0\",\"58\":\"0\",\"59\":\"0\",\"60\":\"0\",\"61\":\"0\",\"62\":\"0\",\"63\":\"0\",\"64\":\"0\",\"65\":\"0\"}'),
+(7, 15, '2025-06-09', 'hola', 34, '{\"1\":\"0\",\"2\":\"0\",\"3\":\"0\",\"4\":\"0\",\"5\":\"0\",\"6\":\"0\",\"7\":\"0\",\"8\":\"0\",\"9\":\"0\",\"10\":\"0\",\"11\":\"0\",\"12\":\"0\",\"13\":\"0\",\"14\":\"0\",\"15\":\"0\",\"16\":\"0\",\"17\":\"0\",\"18\":\"0\",\"19\":\"0\",\"20\":\"0\",\"21\":\"0\",\"22\":\"0\",\"23\":\"0\",\"24\":\"0\",\"25\":\"0\",\"26\":\"0\",\"27\":\"0\",\"28\":\"0\",\"29\":\"0\",\"30\":\"0\",\"31\":\"0\",\"32\":\"0\",\"33\":\"0\",\"34\":\"0\",\"35\":\"0\",\"36\":\"0\",\"37\":\"0\",\"38\":\"0\",\"39\":\"0\",\"40\":\"0\",\"41\":\"0\",\"42\":\"0\",\"43\":\"0\",\"44\":\"0\",\"45\":\"0\",\"46\":\"0\",\"47\":\"0\",\"48\":\"0\",\"49\":\"0\",\"50\":\"0\",\"51\":\"0\",\"52\":\"0\",\"53\":\"0\",\"54\":\"0\",\"55\":\"0\",\"56\":\"0\",\"57\":\"0\",\"58\":\"0\",\"59\":\"0\",\"60\":\"0\",\"61\":\"0\",\"62\":\"0\",\"63\":\"0\",\"64\":\"0\",\"65\":\"0\"}');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `tratamientos`
+-- Table structure for table `tratamientos`
 --
 
 CREATE TABLE `tratamientos` (
@@ -230,19 +234,33 @@ CREATE TABLE `tratamientos` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `tratamientos`
+-- Dumping data for table `tratamientos`
 --
 
 INSERT INTO `tratamientos` (`id_tratamiento`, `id_paciente`, `fecha_creacion`, `diagnostico_descripcion`, `tratamiento_tipo`, `estado_actual`, `observaciones`, `created_at`, `updated_at`) VALUES
 (1, 0, '2025-06-05', 'hola como estas ', 'malo', 'inicial', 'muy malas', '2025-06-19 18:56:38', '2025-06-19 18:56:38'),
-(3, 4, '2025-06-20', 'ssss', 'ssss', 'inicial', 'sss', '2025-06-04 19:55:23', '2025-06-04 19:55:23'),
-(10, 1, '2025-06-12', 'lkmlkjl', 'hkjhk', 'inicial', 'PATO', '2025-06-08 18:14:49', '2025-06-08 18:14:49'),
-(12, 1, '2025-06-09', 'e', 'e', 'inicial', 'e', '2025-06-09 00:19:35', '2025-06-09 00:19:35');
+(10, 1, '2025-06-12', 'lik', 'hkjhk', 'inicial', 'PATO', '2025-06-08 18:14:49', '2025-06-08 18:14:49'),
+(29, 12, '2025-06-18', 'xddd', 'geometri', 'inicial', 'nkukkaoilqhs', '2025-06-09 11:11:46', '2025-06-09 11:11:46'),
+(32, 5, '2025-06-12', 'cancer ', 'Vacunas', 'seguimiento', 'viva la vida', '2025-06-12 14:19:05', '2025-06-12 14:19:05'),
+(34, 9, '2025-06-17', 'ygjbk', 'Vfhg', 'seguimiento', 'ningunax', '2025-06-12 16:03:34', '2025-06-12 16:03:34');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `users`
+-- Table structure for table `ubicacion`
+--
+
+CREATE TABLE `ubicacion` (
+  `id_ubicacion` int(11) NOT NULL,
+  `direccion` varchar(255) NOT NULL,
+  `ciudad` varchar(100) NOT NULL,
+  `pais` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
@@ -258,7 +276,7 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `users`
+-- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `cedula`, `name`, `lastName`, `mail`, `password`, `birthDate`, `gender`, `role`) VALUES
@@ -272,158 +290,164 @@ INSERT INTO `users` (`id`, `cedula`, `name`, `lastName`, `mail`, `password`, `bi
 (39, 1029384756, 'rafa', 'sample', 'qweq@gmail.com', '$2y$10$ZgugyNCtvsyYulIk0M2gnOyYfXsuej.vcwWecxOt98yf6WgK//wLK', '6767-06-07', 'm', 'p');
 
 --
--- Índices para tablas volcadas
+-- Indexes for dumped tables
 --
 
 --
--- Indices de la tabla `cita`
+-- Indexes for table `cita`
 --
 ALTER TABLE `cita`
   ADD PRIMARY KEY (`id_cita`),
   ADD KEY `id_paciente` (`id_paciente`);
 
 --
--- Indices de la tabla `history`
+-- Indexes for table `history`
 --
 ALTER TABLE `history`
   ADD PRIMARY KEY (`ID`);
 
 --
--- Indices de la tabla `paciente`
+-- Indexes for table `paciente`
 --
 ALTER TABLE `paciente`
   ADD PRIMARY KEY (`id_paciente`);
 
 --
--- Indices de la tabla `test`
+-- Indexes for table `test`
 --
 ALTER TABLE `test`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `test_confianza`
+-- Indexes for table `test_confianza`
 --
 ALTER TABLE `test_confianza`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_paciente` (`id_paciente`);
 
 --
--- Indices de la tabla `test_importancia`
+-- Indexes for table `test_importancia`
 --
 ALTER TABLE `test_importancia`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_paciente` (`id_paciente`);
 
 --
--- Indices de la tabla `test_poms`
+-- Indexes for table `test_poms`
 --
 ALTER TABLE `test_poms`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_paciente` (`id_paciente`);
 
 --
--- Indices de la tabla `tratamientos`
+-- Indexes for table `tratamientos`
 --
 ALTER TABLE `tratamientos`
   ADD PRIMARY KEY (`id_tratamiento`);
 
 --
--- Indices de la tabla `users`
+-- Indexes for table `ubicacion`
+--
+ALTER TABLE `ubicacion`
+  ADD PRIMARY KEY (`id_ubicacion`);
+
+--
+-- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT de las tablas volcadas
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT de la tabla `cita`
+-- AUTO_INCREMENT for table `cita`
 --
 ALTER TABLE `cita`
   MODIFY `id_cita` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
--- AUTO_INCREMENT de la tabla `history`
+-- AUTO_INCREMENT for table `history`
 --
 ALTER TABLE `history`
   MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
--- AUTO_INCREMENT de la tabla `paciente`
+-- AUTO_INCREMENT for table `paciente`
 --
 ALTER TABLE `paciente`
-  MODIFY `id_paciente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_paciente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
--- AUTO_INCREMENT de la tabla `test`
+-- AUTO_INCREMENT for table `test`
 --
 ALTER TABLE `test`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de la tabla `test_confianza`
+-- AUTO_INCREMENT for table `test_confianza`
 --
 ALTER TABLE `test_confianza`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- AUTO_INCREMENT de la tabla `test_importancia`
+-- AUTO_INCREMENT for table `test_importancia`
 --
 ALTER TABLE `test_importancia`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT de la tabla `test_poms`
+-- AUTO_INCREMENT for table `test_poms`
 --
 ALTER TABLE `test_poms`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT de la tabla `tratamientos`
+-- AUTO_INCREMENT for table `tratamientos`
 --
 ALTER TABLE `tratamientos`
-  MODIFY `id_tratamiento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id_tratamiento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
--- AUTO_INCREMENT de la tabla `users`
+-- AUTO_INCREMENT for table `ubicacion`
+--
+ALTER TABLE `ubicacion`
+  MODIFY `id_ubicacion` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
--- Restricciones para tablas volcadas
+-- Constraints for dumped tables
 --
 
 --
--- Filtros para la tabla `cita`
+-- Constraints for table `cita`
 --
 ALTER TABLE `cita`
   ADD CONSTRAINT `cita_ibfk_1` FOREIGN KEY (`id_paciente`) REFERENCES `paciente` (`id_paciente`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Filtros para la tabla `test_confianza`
+-- Constraints for table `test_confianza`
 --
 ALTER TABLE `test_confianza`
   ADD CONSTRAINT `test_confianza_ibfk_1` FOREIGN KEY (`id_paciente`) REFERENCES `paciente` (`id_paciente`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Filtros para la tabla `test_importancia`
+-- Constraints for table `test_importancia`
 --
 ALTER TABLE `test_importancia`
   ADD CONSTRAINT `test_importancia_ibfk_1` FOREIGN KEY (`id_paciente`) REFERENCES `paciente` (`id_paciente`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Filtros para la tabla `test_poms`
+-- Constraints for table `test_poms`
 --
 ALTER TABLE `test_poms`
   ADD CONSTRAINT `test_poms_ibfk_1` FOREIGN KEY (`id_paciente`) REFERENCES `paciente` (`id_paciente`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Filtros para la tabla `tratamientos`
---
-ALTER TABLE `tratamientos`
-  ADD CONSTRAINT `tratamientos_ibfk_1` FOREIGN KEY (`id_tratamiento`) REFERENCES `paciente` (`id_paciente`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

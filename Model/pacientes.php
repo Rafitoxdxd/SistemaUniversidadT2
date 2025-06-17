@@ -20,12 +20,18 @@ class pacienteModulo extends Conexion{
     private $telefono;
     private $fecha_nacimiento;
     private $genero;
-    private $direccion;
-    private $ciudad;
-    private $pais;
     private $email;
     private $password; // Esta propiedad almacenará la contraseña del paciente.
+    private $id_ubicacion; // Nueva propiedad para almacenar el ID de la ubicación
 
+
+    public function setIdUbicacion($id_ubicacion) {
+        $this->id_ubicacion = $id_ubicacion;
+    }
+
+    public function getIdUbicacion() {
+        return $this->id_ubicacion;
+    }
     // Este es el constructor de la clase. Se ejecuta automáticamente cuando creas un nuevo objeto 'pacienteModulo'.
     public function __construct(){
         // La línea `parent::__construct();` se eliminó porque la clase `Conexion` original
@@ -76,15 +82,7 @@ class pacienteModulo extends Conexion{
     public function getGenero(){
         return $this->genero;
     }
-    public function getDireccion(){
-        return $this->direccion;
-    }
-    public function getCiudad(){
-        return $this->ciudad;
-    }
-    public function getPais(){
-        return $this->pais;
-    }
+    
     public function getEmail(){
         return $this->email;
     }
@@ -120,14 +118,8 @@ class pacienteModulo extends Conexion{
     public function setgenero($genero){
         $this->genero = $genero;
     }
-    public function setdireccion($direccion){
-        $this->direccion = $direccion;
-    }
-    public function setciudad($ciudad){
-        $this->ciudad = $ciudad;
-    }
-    public function setpais($pais){
-        $this->pais = $pais;
+    public function setdUbicacion($id_ubicacion){
+        $this->id_ubicacion = $id_ubicacion;
     }
     public function setemail($email){
         $this->email = $email;
@@ -145,10 +137,12 @@ class pacienteModulo extends Conexion{
     public function listarpaciente(){
         // Preparamos una consulta SQL para seleccionar todos los campos (*) de la tabla 'paciente'.
         // $this->pdo->query() es adecuado para consultas que no necesitan parámetros.
-        $stmt = $this->pdo->query("SELECT * FROM paciente");
+        $stmt = $this->pdo->query("SELECT p.*, u.direccion, u.ciudad, u.pais
+        FROM paciente p
+        LEFT JOIN ubicacion u ON p.id_ubicacion = u.id_ubicacion");
         // fetchAll(PDO::FETCH_ASSOC) recupera todas las filas del resultado de la consulta
         // como un array asociativo, donde las claves son los nombres de las columnas.
-        return $stmt-> fetchALL(PDO::FETCH_ASSOC);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     // Este método obtiene un paciente específico por su ID.
@@ -170,7 +164,7 @@ class pacienteModulo extends Conexion{
     public function crearpaciente(){
         // Preparamos la consulta SQL para insertar un nuevo registro.
         // Usamos marcadores de posición (?) para cada valor que se va a insertar.
-        $stmt=$this->pdo->prepare("INSERT INTO paciente (nombre,apellido,cedula,telefono,fecha_nacimiento,genero,direccion,ciudad,pais,email,password) VALUES (?,?,?,?,?,?,?,?,?,?,?)");
+        $stmt=$this->pdo->prepare("INSERT INTO paciente (nombre,apellido,cedula,telefono,fecha_nacimiento,genero,id_ubicacion,email,password) VALUES (?,?,?,?,?,?,?,?,?)");
         // Ejecutamos la consulta, pasando un array con los valores de las propiedades del objeto.
         // El orden de los valores en el array debe coincidir con el orden de los marcadores de posición en la consulta SQL.
         // Es importante que $this->password ya contenga la contraseña hasheada.
@@ -181,9 +175,7 @@ class pacienteModulo extends Conexion{
             $this->telefono,
             $this->fecha_nacimiento,
             $this->genero,
-            $this->direccion,
-            $this->ciudad,
-            $this->pais,
+            $this->id_ubicacion,
             $this->email,
             $this->password // Contraseña (debería estar hasheada)
         ]);
@@ -197,7 +189,7 @@ class pacienteModulo extends Conexion{
     public function actualizarpaciente(){
         // Preparamos la consulta SQL para actualizar un registro.
         // Se actualizan todos los campos listados. El último marcador de posición es para el id_paciente en la cláusula WHERE.
-        $stmt = $this->pdo->prepare("UPDATE paciente SET nombre = ?, apellido = ?, cedula = ?, telefono = ?, fecha_nacimiento = ?, genero = ?, direccion = ?, ciudad = ?, pais = ?, email = ?, password = ? WHERE id_paciente = ?");
+        $stmt = $this->pdo->prepare("UPDATE paciente SET nombre = ?, apellido = ?, cedula = ?, telefono = ?, fecha_nacimiento = ?, genero = ?, email = ?, password = ? WHERE id_paciente = ?");
         // Ejecutamos la consulta, pasando los valores de las propiedades del objeto.
         // $this->id_paciente se usa para la cláusula WHERE, asegurando que solo se actualice el paciente correcto.
         // Si la contraseña no se va a cambiar, el controlador debería asegurarse de que $this->password
@@ -209,9 +201,6 @@ class pacienteModulo extends Conexion{
             $this->telefono, 
             $this->fecha_nacimiento, 
             $this->genero, 
-            $this->direccion, 
-            $this->ciudad, 
-            $this->pais, 
             $this->email, 
             $this->password, // Contraseña (debería estar hasheada o ser la original si no cambia)
             $this->id_paciente // ID del paciente a actualizar
@@ -227,6 +216,27 @@ class pacienteModulo extends Conexion{
         // El método execute() devuelve true si la consulta se ejecutó con éxito, o false en caso contrario.
         // Por lo tanto, este método devolverá true o false indicando si la eliminación fue exitosa.
         return $stmt->execute([$id_paciente]);
+    }
+
+    // Crear ubicación y devolver el id
+    public function crearUbicacion($direccion, $ciudad, $pais) {
+        $stmt = $this->pdo->prepare("INSERT INTO ubicacion (direccion, ciudad, pais) VALUES (?, ?, ?)");
+        $stmt->execute([$direccion, $ciudad, $pais]);
+        return $this->pdo->lastInsertId();
+    }
+
+    // Actualizar ubicación
+    public function actualizarUbicacion($id_ubicacion, $direccion, $ciudad, $pais) {
+        $stmt = $this->pdo->prepare("UPDATE ubicacion SET direccion=?, ciudad=?, pais=? WHERE id_ubicacion=?");
+        return $stmt->execute([$direccion, $ciudad, $pais, $id_ubicacion]);
+    }
+
+    // Obtener id_ubicacion por id_paciente
+    public function obtenerIdUbicacionPorPaciente($id_paciente) {
+        $stmt = $this->pdo->prepare("SELECT id_ubicacion FROM paciente WHERE id_paciente=?");
+        $stmt->execute([$id_paciente]);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $row ? $row['id_ubicacion'] : null;
     }
 }
 ?>

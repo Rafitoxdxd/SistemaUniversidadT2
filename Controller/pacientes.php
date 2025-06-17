@@ -202,19 +202,20 @@ function obtenerpaciente($id){
 // Recibe todos los datos del paciente como parámetros.
 function crearpaciente($nombre, $apellido, $cedula, $telefono, $fecha_nacimiento, $genero, $direccion, $ciudad, $pais, $email, $password){
     $paciente = new pacienteModulo();
-    // Usa los métodos 'set' del modelo para asignar cada valor a las propiedades correspondientes del objeto $paciente.
+
+    // 1. Insertar en ubicacion y obtener el id
+    $id_ubicacion = $paciente->crearUbicacion($direccion, $ciudad, $pais);
+
+    // 2. Insertar en paciente usando el id_ubicacion
     $paciente->setNombre($nombre);
     $paciente->setapellido($apellido);
     $paciente->setcedula($cedula);
     $paciente->settelefono($telefono); 
     $paciente->setfecha_nacimiento($fecha_nacimiento);
     $paciente->setgenero($genero);
-    $paciente->setdireccion($direccion);
-    $paciente->setciudad($ciudad);
-    $paciente->setpais($pais);
+    $paciente->setIdUbicacion($id_ubicacion);
     $paciente->setemail($email);
-    $paciente->setpassword($password); // La contraseña ya debería estar hasheada aquí.
-    // Llama al método 'crearpaciente' del modelo para insertar los datos en la BD.
+    $paciente->setpassword($password);
     return $paciente->crearpaciente(); 
 }
 
@@ -222,30 +223,25 @@ function crearpaciente($nombre, $apellido, $cedula, $telefono, $fecha_nacimiento
 // Recibe el ID del paciente y los nuevos datos.
 function actualizarpaciente($id, $nombre, $apellido, $cedula, $telefono, $fecha_nacimiento, $genero, $direccion, $ciudad, $pais, $email, $password){
     $paciente = new pacienteModulo();
-    $paciente->setId($id); // Establece el ID del paciente a modificar.
+    $paciente->setId($id);
+
+    // 1. Obtener id_ubicacion del paciente
+    $id_ubicacion = $paciente->obtenerIdUbicacionPorPaciente($id);
+
+    // 2. Actualizar ubicacion
+    $paciente->actualizarUbicacion($id_ubicacion, $direccion, $ciudad, $pais);
+
+    // 3. Actualizar paciente (sin tocar direccion, ciudad, pais)
     $paciente->setNombre($nombre);
     $paciente->setapellido($apellido);
     $paciente->setcedula($cedula);
     $paciente->settelefono($telefono); 
     $paciente->setfecha_nacimiento($fecha_nacimiento);
     $paciente->setgenero($genero);
-    $paciente->setdireccion($direccion);
-    $paciente->setciudad($ciudad);
-    $paciente->setpais($pais);
-
-    // Solo actualiza el email si se proporciona uno nuevo (no es null).
-    if ($email !== null) { 
-        $paciente->setemail($email);
-    }
-    // Solo actualiza la contraseña si se proporciona una nueva (no es null).
-    // IMPORTANTE: Si se permite actualizar la contraseña aquí, debería ser hasheada antes de llamar a setpassword.
-    // Actualmente, se pasa $password (que es null en el flujo de actualización de arriba).
-    // Si se quisiera cambiar la contraseña, el formulario de edición necesitaría campos para la nueva contraseña
-    // y este controlador debería hashearla.
+    $paciente->setemail($email);
     if ($password !== null) { 
-        $paciente->setpassword($password); // Si $password no es null, debería ser una contraseña ya hasheada.
+        $paciente->setpassword($password);
     }
-    // Llama al método 'actualizarpaciente' del modelo.
     return $paciente->actualizarpaciente(); 
 }
 
