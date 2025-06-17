@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 17, 2025 at 12:42 AM
+-- Generation Time: Jun 18, 2025 at 01:39 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -93,34 +93,34 @@ CREATE TABLE `paciente` (
   `telefono` varchar(15) NOT NULL,
   `fecha_nacimiento` date NOT NULL,
   `genero` varchar(25) NOT NULL,
-  `direccion` varchar(30) NOT NULL,
-  `ciudad` varchar(15) NOT NULL,
-  `pais` varchar(15) NOT NULL,
   `email` varchar(30) NOT NULL,
-  `password` varchar(15) NOT NULL
+  `password` varchar(15) NOT NULL,
+  `id_ubicacion` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `paciente`
 --
 
-INSERT INTO `paciente` (`id_paciente`, `nombre`, `apellido`, `cedula`, `telefono`, `fecha_nacimiento`, `genero`, `direccion`, `ciudad`, `pais`, `email`, `password`) VALUES
-(2, 'Shikamaru', 'Nara', '12177382', '04266525036', '2011-12-03', 'masculino', 'carrera 4 entre calles 4 y 4', 'barquisimeto', 'dinamarca', '', ''),
-(3, 'YAHIR', 'Rivero', '31574451', '2189219', '2025-05-23', 'masculino', 'hihsad', 'Caracas', 'Colombia', '', ''),
-(4, 'Gaara', 'Uzumaki', '30880792', '03030303', '2011-12-01', 'masculino', 'carrera 4 entre calles 4 y 4', 'Caracas', 'Colombia', '', ''),
-(5, 'lenny', 'Lopez', '31574454', '04145113673', '2025-05-12', 'masculino', 'carrera 4 entre calles 4 y 4', 'barquisimeto', 'salkdhsal', 'mama@gmail.com', '$2y$10$ib1x.zRf'),
-(6, 'Maribel', 'Duran ', 'dfggggg', '04165678', '2025-04-29', 'femenino', 'ijjajjaa', 'barquisimeto', 'venezuela', '', ''),
-(7, 'Lenny', 'Rivero', '31574454', '04149510472', '1992-07-23', 'masculino', 'Hola yo vivo en bequito', 'Barquisimeto', 'Venezuela', 'perrocall@gmail.com', '$2y$10$Bn67J3N5'),
-(8, 'Camila', 'Toro', '30827652', '04266525038', '2011-12-16', 'masculino', 'Avenida libertador', 'Venezuela', 'Estados unidos ', 'yahir@gmail.com', '$2y$10$lS7FpW7c'),
-(9, 'Tobirama', 'Uchiha', '12249177', '0414567897', '2011-12-08', 'masculino', 'Carrera  entre calles  y ', 'Caracas', 'Venezuela', '', ''),
-(10, 'Jezuha', 'Palmera', '32066861', '04146587451', '2011-12-01', 'femenino', 'Carrera  entre calles  y ', 'Caracas', 'Colombia', 'jezuhaja@gmail.com', '$2y$10$/7KUrdkO'),
-(11, 'Subaru', 'Natski', '32065636', '04266525036', '2006-11-04', 'masculino', 'Carrera  entre calles  y ', 'Caracas', 'Colombia', 'wizzard790@gmail.com', '$2y$10$u6oVEIAL'),
-(12, 'Satoru', 'Gojo', '20144541', '0414660543', '2011-12-02', 'masculino', 'Carrera  entre calles  y ', 'Caracas', 'Colombia', 'yahirmosq0606@gmail.com', '$2y$10$z0D2M4Wx'),
-(13, 'Monica', 'Lopez', '12249177', '2189219', '2011-12-08', 'masculino', 'Carrera  entre calles  y ', 'Barquisime', 'Dinamarca', 'yahir@gmail.com', '$2y$10$BedScnoL'),
-(14, 'Lenny', 'Lopez', '12345678', '04266525038', '2011-12-01', 'masculino', 'Carrera  entre calles  y ', 'Barquisimeto', 'Estados unidos ', 'mama@gmail.com', '$2y$10$/v2.EGHS'),
-(15, 'Lenny', 'Lopez', '12345678', '2189219', '2011-12-09', 'masculino', 'Carrera  entre calles  y ', 'Barquisimeto', 'Estados unidos ', 'mama@gmail.com', '$2y$10$Hrle.RYp'),
-(16, 'Nada', 'Nadaaa', '12345678', '2189219', '2011-12-02', 'femenino', 'Carrera  entre calles  y ', 'Caracas', 'Venezuela', '', ''),
-(17, 'Maria', 'Brachoa', '3880792', '04145646723', '2011-12-08', 'femenino', 'Carrera  entre calles  y w', 'Barquisimeto', 'Venezuela', '', '');
+INSERT INTO `paciente` (`id_paciente`, `nombre`, `apellido`, `cedula`, `telefono`, `fecha_nacimiento`, `genero`, `email`, `password`, `id_ubicacion`) VALUES
+(2, 'Shikamaru', 'Nara', '12177382', '04266525036', '2011-12-03', 'masculino', 'yahir@gmail.com', '', NULL),
+(3, 'YAHIR', 'Rivero', '31574451', '2189219', '2025-05-23', 'masculino', '', '', NULL),
+(4, 'Gaara', 'Uzumaki', '30880792', '03030303', '2011-12-01', 'masculino', '', '', NULL),
+(5, 'lenny', 'Lopez', '31574454', '04145113673', '2025-05-12', 'masculino', 'mama@gmail.com', '$2y$10$ib1x.zRf', NULL),
+(6, 'Maribel', 'Duran ', 'dfggggg', '04165678', '2025-04-29', 'femenino', '', '', NULL),
+(7, 'Lenny', 'Rivero', '31574454', '04149510472', '1992-07-23', 'masculino', 'perrocall@gmail.com', '$2y$10$Bn67J3N5', NULL),
+(8, 'Camila', 'Toro', '30827652', '04266525038', '2011-12-16', 'masculino', 'yahir@gmail.com', '$2y$10$lS7FpW7c', NULL),
+(9, 'Tobirama', 'Uchiha', '12249177', '0414567897', '2011-12-08', 'masculino', '', '', NULL),
+(10, 'Jezuha', 'Palmera', '32066861', '04146587451', '2011-12-01', 'femenino', 'jezuhaja@gmail.com', '$2y$10$/7KUrdkO', NULL),
+(11, 'Subaru', 'Natski', '32065636', '04266525036', '2006-11-04', 'masculino', 'wizzard790@gmail.com', '$2y$10$u6oVEIAL', NULL),
+(12, 'Satoru', 'Gojo', '20144541', '0414660543', '2011-12-02', 'masculino', 'yahirmosq0606@gmail.com', '$2y$10$z0D2M4Wx', NULL),
+(13, 'Monica', 'Lopez', '12249177', '2189219', '2011-12-08', 'masculino', 'yahir@gmail.com', '$2y$10$BedScnoL', NULL),
+(14, 'Lenny', 'Lopez', '12345678', '04266525038', '2011-12-01', 'masculino', 'mama@gmail.com', '$2y$10$/v2.EGHS', NULL),
+(15, 'Lenny', 'Lopez', '12345678', '2189219', '2011-12-09', 'masculino', 'mama@gmail.com', '$2y$10$Hrle.RYp', NULL),
+(16, 'Nada', 'Nadaaa', '12345678', '2189219', '2011-12-02', 'femenino', '', '', NULL),
+(17, 'Maria', 'Brachoa', '3880792', '04145646723', '2011-12-08', 'femenino', '', '', NULL),
+(18, 'Camila', 'Toro', '31567654', '04266525033', '2011-12-08', 'masculino', 'camilatoro@gmail.com', '$2y$10$DI6NnLiy', 4),
+(19, 'Jenny', 'Mosquera', '12249177', '04145307016', '2011-12-02', 'femenino', 'jennymosq2211@gmail.com', '', 5);
 
 -- --------------------------------------------------------
 
@@ -257,6 +257,17 @@ CREATE TABLE `ubicacion` (
   `pais` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `ubicacion`
+--
+
+INSERT INTO `ubicacion` (`id_ubicacion`, `direccion`, `ciudad`, `pais`) VALUES
+(1, 'Carrera  entre calles  y ', 'Barquisimeto', 'Venezuela'),
+(2, 'Carrera  entre calles  y ', 'Barquisimeto', 'Venezuela'),
+(3, 'Carrera  entre calles  y ', 'Barquisimeto', 'Venezuela'),
+(4, 'Carrera  entre calles  y ', 'Barquisimeto', 'Venezuela'),
+(5, 'Mi casa', 'Barquisimeto', 'Venezuela');
+
 -- --------------------------------------------------------
 
 --
@@ -310,7 +321,8 @@ ALTER TABLE `history`
 -- Indexes for table `paciente`
 --
 ALTER TABLE `paciente`
-  ADD PRIMARY KEY (`id_paciente`);
+  ADD PRIMARY KEY (`id_paciente`),
+  ADD KEY `fk_ubicacion` (`id_ubicacion`);
 
 --
 -- Indexes for table `test`
@@ -377,7 +389,7 @@ ALTER TABLE `history`
 -- AUTO_INCREMENT for table `paciente`
 --
 ALTER TABLE `paciente`
-  MODIFY `id_paciente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id_paciente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `test`
@@ -413,7 +425,7 @@ ALTER TABLE `tratamientos`
 -- AUTO_INCREMENT for table `ubicacion`
 --
 ALTER TABLE `ubicacion`
-  MODIFY `id_ubicacion` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_ubicacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -430,6 +442,12 @@ ALTER TABLE `users`
 --
 ALTER TABLE `cita`
   ADD CONSTRAINT `cita_ibfk_1` FOREIGN KEY (`id_paciente`) REFERENCES `paciente` (`id_paciente`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `paciente`
+--
+ALTER TABLE `paciente`
+  ADD CONSTRAINT `fk_ubicacion` FOREIGN KEY (`id_ubicacion`) REFERENCES `ubicacion` (`id_ubicacion`);
 
 --
 -- Constraints for table `test_confianza`
