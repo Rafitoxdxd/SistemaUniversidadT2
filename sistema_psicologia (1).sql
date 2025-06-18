@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 18, 2025 at 02:13 AM
+-- Generation Time: Jun 18, 2025 at 02:17 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -136,32 +136,6 @@ INSERT INTO `paciente` (`id_paciente`, `nombre`, `apellido`, `cedula`, `telefono
 (17, 'Maria', 'Brachoa', '3880792', '04145646723', '2011-12-08', 'femenino', '', '', NULL),
 (18, 'Camila', 'Toro', '31567654', '04266525033', '2011-12-08', 'masculino', 'camilatoro@gmail.com', '$2y$10$DI6NnLiy', 4),
 (19, 'Jenny', 'Mosquera', '12249177', '04145307016', '2011-12-02', 'femenino', 'jennymosq2211@gmail.com', '', 5);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `test`
---
-
-CREATE TABLE `test` (
-  `id` int(11) NOT NULL,
-  `idpaciente` int(11) NOT NULL,
-  `nombre_competencia` varchar(100) NOT NULL,
-  `ubicacion_competencia` varchar(100) NOT NULL,
-  `fecha_competencia` varchar(100) NOT NULL,
-  `preparado_competencia` varchar(100) NOT NULL,
-  `entrenado_previo` varchar(100) NOT NULL,
-  `estrategia_previa` varchar(100) NOT NULL,
-  `descripcion_nervios` varchar(100) NOT NULL,
-  `antes_competir` varchar(100) NOT NULL,
-  `experiencia_pasada` varchar(100) NOT NULL,
-  `motivacion_competencia` varchar(100) NOT NULL,
-  `esperar_competicion` varchar(100) NOT NULL,
-  `lograr_competencia` varchar(100) NOT NULL,
-  `rutina_mental` varchar(100) NOT NULL,
-  `pensamiento_positivo` varchar(100) NOT NULL,
-  `reparacion_mental` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -351,12 +325,6 @@ ALTER TABLE `paciente`
   ADD KEY `fk_ubicacion` (`id_ubicacion`);
 
 --
--- Indexes for table `test`
---
-ALTER TABLE `test`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `test_confianza`
 --
 ALTER TABLE `test_confianza`
@@ -422,12 +390,6 @@ ALTER TABLE `history`
 --
 ALTER TABLE `paciente`
   MODIFY `id_paciente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
-
---
--- AUTO_INCREMENT for table `test`
---
-ALTER TABLE `test`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `test_confianza`
