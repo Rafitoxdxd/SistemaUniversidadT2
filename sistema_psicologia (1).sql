@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 18, 2025 at 01:39 AM
+-- Generation Time: Jun 18, 2025 at 02:13 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -57,6 +57,21 @@ INSERT INTO `cita` (`id_cita`, `id_paciente`, `idpsicologo`, `title`, `descripci
 (11, 7, 0, 'asd', 'asdasd', '#050505', '#0d6efd', '2025-06-06 12:46:00', '2025-06-13 12:46:00'),
 (12, 7, 0, 'asd', 'asdasd', '#050505', '#0d6efd', '2025-06-06 12:46:00', '2025-06-13 12:46:00'),
 (13, 7, 0, 'asd', 'asdasd', '#050505', '#0d6efd', '2025-06-06 12:46:00', '2025-06-13 12:46:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `consulta`
+--
+
+CREATE TABLE `consulta` (
+  `id_consulta` int(11) NOT NULL,
+  `id_cita` int(11) NOT NULL,
+  `id_tratamiento` int(11) DEFAULT NULL,
+  `id_test_confianza` int(11) DEFAULT NULL,
+  `id_test_importancia` int(11) DEFAULT NULL,
+  `id_test_poms` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -155,7 +170,7 @@ CREATE TABLE `test` (
 --
 
 CREATE TABLE `test_confianza` (
-  `id` int(11) NOT NULL,
+  `id_test_confianza` int(11) NOT NULL,
   `id_paciente` int(11) NOT NULL,
   `fecha` date NOT NULL,
   `respuestas` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`respuestas`))
@@ -165,7 +180,7 @@ CREATE TABLE `test_confianza` (
 -- Dumping data for table `test_confianza`
 --
 
-INSERT INTO `test_confianza` (`id`, `id_paciente`, `fecha`, `respuestas`) VALUES
+INSERT INTO `test_confianza` (`id_test_confianza`, `id_paciente`, `fecha`, `respuestas`) VALUES
 (6, 6, '2025-06-08', '{\"1\":\"1\",\"2\":\"1\",\"3\":\"1\",\"4\":\"1\",\"5\":\"1\",\"6\":\"1\",\"7\":\"1\",\"8\":\"1\",\"9\":\"1\",\"10\":\"3\"}'),
 (8, 13, '2025-06-09', '{\"1\":1,\"2\":1,\"3\":1,\"4\":1,\"5\":1,\"6\":1,\"7\":1,\"8\":1,\"9\":1,\"10\":1}');
 
@@ -176,7 +191,7 @@ INSERT INTO `test_confianza` (`id`, `id_paciente`, `fecha`, `respuestas`) VALUES
 --
 
 CREATE TABLE `test_importancia` (
-  `id` int(11) NOT NULL,
+  `id_test_importancia` int(11) NOT NULL,
   `id_paciente` int(11) NOT NULL,
   `fecha` date NOT NULL,
   `parte1` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`parte1`)),
@@ -187,7 +202,7 @@ CREATE TABLE `test_importancia` (
 -- Dumping data for table `test_importancia`
 --
 
-INSERT INTO `test_importancia` (`id`, `id_paciente`, `fecha`, `parte1`, `parte2`) VALUES
+INSERT INTO `test_importancia` (`id_test_importancia`, `id_paciente`, `fecha`, `parte1`, `parte2`) VALUES
 (4, 11, '2025-06-09', '{\"1\":\"1\",\"2\":\"1\",\"3\":\"1\",\"4\":\"1\",\"5\":\"1\",\"6\":\"1\",\"7\":\"1\",\"8\":\"1\",\"9\":\"1\",\"10\":\"1\",\"11\":\"1\",\"12\":\"1\",\"13\":\"1\",\"14\":\"1\",\"15\":\"1\",\"16\":\"1\",\"17\":\"1\"}', '{\"18\":\"1\",\"19\":\"1\",\"20\":\"1\",\"21\":\"1\",\"22\":\"1\",\"23\":\"1\",\"24\":\"1\",\"25\":\"1\",\"26\":\"1\",\"27\":\"1\",\"28\":\"1\",\"29\":\"1\",\"30\":\"1\",\"31\":\"1\",\"32\":\"1\",\"33\":\"1\",\"34\":\"1\"}'),
 (5, 3, '2025-06-09', '{\"1\":\"4\",\"2\":\"4\",\"3\":\"6\",\"4\":\"1\",\"5\":\"1\",\"6\":\"1\",\"7\":\"1\",\"8\":\"1\",\"9\":\"1\",\"10\":\"1\",\"11\":\"1\",\"12\":\"1\",\"13\":\"1\",\"14\":\"1\",\"15\":\"1\",\"16\":\"1\",\"17\":\"1\"}', '{\"18\":\"1\",\"19\":\"1\",\"20\":\"1\",\"21\":\"1\",\"22\":\"1\",\"23\":\"1\",\"24\":\"1\",\"25\":\"1\",\"26\":\"1\",\"27\":\"1\",\"28\":\"1\",\"29\":\"1\",\"30\":\"1\",\"31\":\"1\",\"32\":\"1\",\"33\":\"1\",\"34\":\"1\"}');
 
@@ -198,7 +213,7 @@ INSERT INTO `test_importancia` (`id`, `id_paciente`, `fecha`, `parte1`, `parte2`
 --
 
 CREATE TABLE `test_poms` (
-  `id` int(11) NOT NULL,
+  `id_test_poms` int(11) NOT NULL,
   `id_paciente` int(11) NOT NULL,
   `fecha` date NOT NULL,
   `deporte` varchar(100) DEFAULT NULL,
@@ -210,7 +225,7 @@ CREATE TABLE `test_poms` (
 -- Dumping data for table `test_poms`
 --
 
-INSERT INTO `test_poms` (`id`, `id_paciente`, `fecha`, `deporte`, `edad`, `respuestas`) VALUES
+INSERT INTO `test_poms` (`id_test_poms`, `id_paciente`, `fecha`, `deporte`, `edad`, `respuestas`) VALUES
 (3, 8, '2025-06-07', 'Feles', 23, '{\"1\":\"0\",\"2\":\"0\",\"3\":\"0\",\"4\":\"0\",\"5\":\"0\",\"6\":\"0\",\"7\":\"0\",\"8\":\"0\",\"9\":\"0\",\"10\":\"0\",\"11\":\"0\",\"12\":\"0\",\"13\":\"0\",\"14\":\"0\",\"15\":\"0\",\"16\":\"0\",\"17\":\"0\",\"18\":\"0\",\"19\":\"0\",\"20\":\"0\",\"21\":\"0\",\"22\":\"0\",\"23\":\"0\",\"24\":\"0\",\"25\":\"0\",\"26\":\"0\",\"27\":\"0\",\"28\":\"0\",\"29\":\"0\",\"30\":\"0\",\"31\":\"0\",\"32\":\"0\",\"33\":\"0\",\"34\":\"0\",\"35\":\"0\",\"36\":\"0\",\"37\":\"0\",\"38\":\"0\",\"39\":\"0\",\"40\":\"0\",\"41\":\"0\",\"42\":\"0\",\"43\":\"0\",\"44\":\"0\",\"45\":\"0\",\"46\":\"0\",\"47\":\"0\",\"48\":\"0\",\"49\":\"0\",\"50\":\"0\",\"51\":\"0\",\"52\":\"0\",\"53\":\"0\",\"54\":\"0\",\"55\":\"0\",\"56\":\"0\",\"57\":\"0\",\"58\":\"0\",\"59\":\"0\",\"60\":\"0\",\"61\":\"0\",\"62\":\"0\",\"63\":\"0\",\"64\":\"0\",\"65\":\"0\"}'),
 (6, 12, '2025-06-09', 'NADA', 14, '{\"1\":\"0\",\"2\":\"0\",\"3\":\"0\",\"4\":\"0\",\"5\":\"0\",\"6\":\"0\",\"7\":\"0\",\"8\":\"0\",\"9\":\"0\",\"10\":\"0\",\"11\":\"0\",\"12\":\"0\",\"13\":\"0\",\"14\":\"0\",\"15\":\"0\",\"16\":\"0\",\"17\":\"0\",\"18\":\"0\",\"19\":\"0\",\"20\":\"0\",\"21\":\"0\",\"22\":\"0\",\"23\":\"0\",\"24\":\"0\",\"25\":\"0\",\"26\":\"0\",\"27\":\"0\",\"28\":\"0\",\"29\":\"0\",\"30\":\"0\",\"31\":\"0\",\"32\":\"0\",\"33\":\"0\",\"34\":\"0\",\"35\":\"0\",\"36\":\"0\",\"37\":\"0\",\"38\":\"0\",\"39\":\"0\",\"40\":\"0\",\"41\":\"0\",\"42\":\"0\",\"43\":\"0\",\"44\":\"0\",\"45\":\"0\",\"46\":\"0\",\"47\":\"0\",\"48\":\"0\",\"49\":\"0\",\"50\":\"0\",\"51\":\"0\",\"52\":\"0\",\"53\":\"0\",\"54\":\"0\",\"55\":\"0\",\"56\":\"0\",\"57\":\"0\",\"58\":\"0\",\"59\":\"0\",\"60\":\"0\",\"61\":\"0\",\"62\":\"0\",\"63\":\"0\",\"64\":\"0\",\"65\":\"0\"}'),
 (7, 15, '2025-06-09', 'hola', 34, '{\"1\":\"0\",\"2\":\"0\",\"3\":\"0\",\"4\":\"0\",\"5\":\"0\",\"6\":\"0\",\"7\":\"0\",\"8\":\"0\",\"9\":\"0\",\"10\":\"0\",\"11\":\"0\",\"12\":\"0\",\"13\":\"0\",\"14\":\"0\",\"15\":\"0\",\"16\":\"0\",\"17\":\"0\",\"18\":\"0\",\"19\":\"0\",\"20\":\"0\",\"21\":\"0\",\"22\":\"0\",\"23\":\"0\",\"24\":\"0\",\"25\":\"0\",\"26\":\"0\",\"27\":\"0\",\"28\":\"0\",\"29\":\"0\",\"30\":\"0\",\"31\":\"0\",\"32\":\"0\",\"33\":\"0\",\"34\":\"0\",\"35\":\"0\",\"36\":\"0\",\"37\":\"0\",\"38\":\"0\",\"39\":\"0\",\"40\":\"0\",\"41\":\"0\",\"42\":\"0\",\"43\":\"0\",\"44\":\"0\",\"45\":\"0\",\"46\":\"0\",\"47\":\"0\",\"48\":\"0\",\"49\":\"0\",\"50\":\"0\",\"51\":\"0\",\"52\":\"0\",\"53\":\"0\",\"54\":\"0\",\"55\":\"0\",\"56\":\"0\",\"57\":\"0\",\"58\":\"0\",\"59\":\"0\",\"60\":\"0\",\"61\":\"0\",\"62\":\"0\",\"63\":\"0\",\"64\":\"0\",\"65\":\"0\"}');
@@ -312,6 +327,17 @@ ALTER TABLE `cita`
   ADD KEY `id_paciente` (`id_paciente`);
 
 --
+-- Indexes for table `consulta`
+--
+ALTER TABLE `consulta`
+  ADD PRIMARY KEY (`id_consulta`),
+  ADD KEY `id_cita` (`id_cita`),
+  ADD KEY `id_tratamiento` (`id_tratamiento`),
+  ADD KEY `id_test_confianza` (`id_test_confianza`),
+  ADD KEY `id_test_importancia` (`id_test_importancia`),
+  ADD KEY `id_test_poms` (`id_test_poms`);
+
+--
 -- Indexes for table `history`
 --
 ALTER TABLE `history`
@@ -334,21 +360,21 @@ ALTER TABLE `test`
 -- Indexes for table `test_confianza`
 --
 ALTER TABLE `test_confianza`
-  ADD PRIMARY KEY (`id`),
+  ADD PRIMARY KEY (`id_test_confianza`),
   ADD KEY `id_paciente` (`id_paciente`);
 
 --
 -- Indexes for table `test_importancia`
 --
 ALTER TABLE `test_importancia`
-  ADD PRIMARY KEY (`id`),
+  ADD PRIMARY KEY (`id_test_importancia`),
   ADD KEY `id_paciente` (`id_paciente`);
 
 --
 -- Indexes for table `test_poms`
 --
 ALTER TABLE `test_poms`
-  ADD PRIMARY KEY (`id`),
+  ADD PRIMARY KEY (`id_test_poms`),
   ADD KEY `id_paciente` (`id_paciente`);
 
 --
@@ -380,6 +406,12 @@ ALTER TABLE `cita`
   MODIFY `id_cita` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
+-- AUTO_INCREMENT for table `consulta`
+--
+ALTER TABLE `consulta`
+  MODIFY `id_consulta` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `history`
 --
 ALTER TABLE `history`
@@ -401,19 +433,19 @@ ALTER TABLE `test`
 -- AUTO_INCREMENT for table `test_confianza`
 --
 ALTER TABLE `test_confianza`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_test_confianza` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `test_importancia`
 --
 ALTER TABLE `test_importancia`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_test_importancia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `test_poms`
 --
 ALTER TABLE `test_poms`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_test_poms` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `tratamientos`
@@ -442,6 +474,16 @@ ALTER TABLE `users`
 --
 ALTER TABLE `cita`
   ADD CONSTRAINT `cita_ibfk_1` FOREIGN KEY (`id_paciente`) REFERENCES `paciente` (`id_paciente`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `consulta`
+--
+ALTER TABLE `consulta`
+  ADD CONSTRAINT `consulta_ibfk_1` FOREIGN KEY (`id_cita`) REFERENCES `cita` (`id_cita`),
+  ADD CONSTRAINT `consulta_ibfk_2` FOREIGN KEY (`id_tratamiento`) REFERENCES `tratamientos` (`id_tratamiento`),
+  ADD CONSTRAINT `consulta_ibfk_3` FOREIGN KEY (`id_test_confianza`) REFERENCES `test_confianza` (`id_test_confianza`),
+  ADD CONSTRAINT `consulta_ibfk_4` FOREIGN KEY (`id_test_importancia`) REFERENCES `test_importancia` (`id_test_importancia`),
+  ADD CONSTRAINT `consulta_ibfk_5` FOREIGN KEY (`id_test_poms`) REFERENCES `test_poms` (`id_test_poms`);
 
 --
 -- Constraints for table `paciente`
