@@ -7,8 +7,8 @@
     <link rel="stylesheet" href="css/navegacion.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <?php require_once("menu/menu.php"); ?>
-
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
     <style>
         .btn-accion {
             border-radius: 12px;
@@ -18,11 +18,33 @@
             align-items: center;
             gap: 4px;
             border: none;
+            padding: 0.375rem 0.75rem;
+            margin: 0.125rem;
+            font-size: 0.875rem;
         }
-        .btn-editar { background: var(--color4); color: #4B4949; }
-        .btn-editar:hover { background: #c7a91e; color: #222; }
-        .btn-eliminar { background: #ff5c5c; color: #fff; }
-        .btn-eliminar:hover { background: #e04a4a; }
+        .btn-detalles { 
+            background: #0d6efd; 
+            color: #fff; 
+        }
+        .btn-detalles:hover { 
+            background: #0b5ed7; 
+            color: #fff;
+        }
+        .btn-editar { 
+            background: var(--color4); 
+            color: #4B4949; 
+        }
+        .btn-editar:hover { 
+            background: #c7a91e; 
+            color: #222; 
+        }
+        .btn-eliminar { 
+            background: #ff5c5c; 
+            color: #fff; 
+        }
+        .btn-eliminar:hover { 
+            background: #e04a4a; 
+        }
         .btn-primary {
             background: var(--color5);
             border: none;
@@ -64,9 +86,85 @@
             flex-wrap: wrap;
             gap: 10px;
         }
+        .table-responsive {
+            max-height: 400px;
+            overflow-y: auto;
+        }
     </style>
 </head>
 <body>
+    <!-- Menú de navegación responsive -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm mb-4 d-lg-none">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold" href="?pagina=main" style="color: var(--color5);">Sistema</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <div class="w-100 d-flex justify-content-center my-2">
+                        <img src="img/Logo3.png" alt="Logo" style="max-width:90px; max-height:90px;">
+                    </div>
+                    <li class="nav-item"><a class="nav-link<?= ($_GET['pagina'] ?? '') === 'main' ? ' active' : '' ?>" href="?pagina=main"><i class="bi bi-house-door me-2"></i>Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link<?= ($_GET['pagina'] ?? '') === 'historial' ? ' active' : '' ?>" href="?pagina=historial"><i class="bi bi-clock-history me-2"></i>Historial</a></li>
+                    <li class="nav-item"><a class="nav-link<?= ($_GET['pagina'] ?? '') === 'test' ? ' active' : '' ?>" href="?pagina=test"><i class="bi bi-clipboard-check me-2"></i>Test</a></li>
+                    <li class="nav-item"><a class="nav-link<?= ($_GET['pagina'] ?? '') === 'pacientes' ? ' active' : '' ?>" href="?pagina=pacientes"><i class="bi bi-people me-2"></i>Pacientes</a></li>
+                    <li class="nav-item"><a class="nav-link<?= ($_GET['pagina'] ?? '') === 'cita' ? ' active' : '' ?>" href="?pagina=cita"><i class="bi bi-calendar2-plus me-2"></i>Citas</a></li>
+                    <li class="nav-item"><a class="nav-link<?= ($_GET['pagina'] ?? '') === 'tratamiento' ? ' active' : '' ?>" href="?pagina=tratamiento"><i class="bi bi-capsule-pill me-2"></i>Tratamiento</a></li>
+                    <li class="nav-item"><a class="nav-link" href="?pagina=logout"><i class="bi bi-box-arrow-right me-2"></i>Cerrar sesión</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <nav class="col-md-2 d-none d-lg-block sidebar">
+                <div class="sidebar-sticky">
+                    <div class="w-100 d-flex justify-content-center my-3">
+                        <img src="img/Logo3.png" alt="Logo" style="max-width:120px; max-height:120px;">
+                    </div>
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link<?= ($_GET['pagina'] ?? '') === 'main' ? ' active' : '' ?>" href="?pagina=main">
+                                <i class="bi bi-house-door me-2"></i> Inicio
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link<?= ($_GET['pagina'] ?? '') === 'historial' ? ' active' : '' ?>" href="?pagina=historial">
+                                <i class="bi bi-clock-history me-2"></i> Historial
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link<?= ($_GET['pagina'] ?? '') === 'test' ? ' active' : '' ?>" href="?pagina=test">
+                                <i class="bi bi-clipboard-check me-2"></i> Test
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link<?= ($_GET['pagina'] ?? '') === 'pacientes' ? ' active' : '' ?>" href="?pagina=pacientes">
+                                <i class="bi bi-people me-2"></i> Pacientes
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link<?= ($_GET['pagina'] ?? '') === 'cita' ? ' active' : '' ?>" href="?pagina=cita">
+                                <i class="bi bi-calendar2-plus me-2"></i> Citas
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link<?= ($_GET['pagina'] ?? '') === 'tratamiento' ? ' active' : '' ?>" href="?pagina=tratamiento">
+                                <i class="bi bi-capsule-pill me-2"></i> Tratamiento
+                            </a>
+                        </li>
+                        <li class="nav-item mt-auto">
+                            <a class="nav-link" href="?pagina=logout">
+                                <i class="bi bi-box-arrow-right me-2"></i> Cerrar sesión
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
             <!-- Contenido principal -->
             <main role="main" class="col-md-9 ms-sm-auto col-lg-10 px-4 main-content">
                 <div class="d-flex justify-content-between align-items-center mb-4 ms-4 me-2">
@@ -82,33 +180,7 @@
                 </div>
 
                 <!-- Filtros y selección de paciente -->
-                <div class="card shadow-sm mb-4">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label for="selectPaciente" class="form-label">Seleccionar Paciente</label>
-                                <select class="form-select" id="selectPaciente">
-                                    <option value="">-- Seleccione un paciente --</option>
-                                    <?php foreach ($pacientes as $paciente): ?>
-                                        <option value="<?= $paciente['id_paciente'] ?>">
-                                            <?= htmlspecialchars($paciente['apellido'] . ', ' . $paciente['nombre']) ?>
-                                        </option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="filtroTest" class="form-label">Filtrar por tipo de test</label>
-                                <select class="form-select" id="filtroTest">
-                                    <option value="">Todos los tests</option>
-                                    <option value="poms">POMS</option>
-                                    <option value="confianza">Confianza</option>
-                                    <option value="importancia">Importancia</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
+                <!-- Eliminado el bloque de selects de filtrado -->
                 <!-- Lista de tests -->
                 <div class="card shadow-sm rounded-4 mb-4">
                     <div class="card-header">
@@ -127,7 +199,7 @@
                             </thead>
                             <tbody id="tablaTests">
                                 <tr>
-                                    <td colspan="5">Seleccione un paciente para ver sus tests</td>
+                                    <td colspan="5">Cargando tests...</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -213,6 +285,8 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
     <script src="js/test.js"></script>
 </body>
 </html>

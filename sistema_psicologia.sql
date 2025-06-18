@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Jun 18, 2025 at 01:39 AM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 18-06-2025 a las 02:14:24
+-- Versión del servidor: 10.4.32-MariaDB
+-- Versión de PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `sistema_psicologia`
+-- Base de datos: `sistema_psicologia`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `cita`
+-- Estructura de tabla para la tabla `cita`
 --
 
 CREATE TABLE `cita` (
@@ -40,7 +40,7 @@ CREATE TABLE `cita` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `cita`
+-- Volcado de datos para la tabla `cita`
 --
 
 INSERT INTO `cita` (`id_cita`, `id_paciente`, `idpsicologo`, `title`, `descripcion`, `color`, `textColor`, `start`, `end`) VALUES
@@ -61,7 +61,7 @@ INSERT INTO `cita` (`id_cita`, `id_paciente`, `idpsicologo`, `title`, `descripci
 -- --------------------------------------------------------
 
 --
--- Table structure for table `history`
+-- Estructura de tabla para la tabla `history`
 --
 
 CREATE TABLE `history` (
@@ -72,7 +72,7 @@ CREATE TABLE `history` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `history`
+-- Volcado de datos para la tabla `history`
 --
 
 INSERT INTO `history` (`ID`, `datos`, `idPaciente`, `idPsicologo`) VALUES
@@ -82,7 +82,7 @@ INSERT INTO `history` (`ID`, `datos`, `idPaciente`, `idPsicologo`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `paciente`
+-- Estructura de tabla para la tabla `paciente`
 --
 
 CREATE TABLE `paciente` (
@@ -99,7 +99,7 @@ CREATE TABLE `paciente` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `paciente`
+-- Volcado de datos para la tabla `paciente`
 --
 
 INSERT INTO `paciente` (`id_paciente`, `nombre`, `apellido`, `cedula`, `telefono`, `fecha_nacimiento`, `genero`, `email`, `password`, `id_ubicacion`) VALUES
@@ -120,12 +120,13 @@ INSERT INTO `paciente` (`id_paciente`, `nombre`, `apellido`, `cedula`, `telefono
 (16, 'Nada', 'Nadaaa', '12345678', '2189219', '2011-12-02', 'femenino', '', '', NULL),
 (17, 'Maria', 'Brachoa', '3880792', '04145646723', '2011-12-08', 'femenino', '', '', NULL),
 (18, 'Camila', 'Toro', '31567654', '04266525033', '2011-12-08', 'masculino', 'camilatoro@gmail.com', '$2y$10$DI6NnLiy', 4),
-(19, 'Jenny', 'Mosquera', '12249177', '04145307016', '2011-12-02', 'femenino', 'jennymosq2211@gmail.com', '', 5);
+(19, 'Jenny', 'Mosquera', '12249177', '04145307016', '2011-12-02', 'femenino', 'jennymosq2211@gmail.com', '', 5),
+(20, 'Mari', 'Crooss', '12345678', '04144444', '2006-02-12', 'masculino', 'subaru@gmail.com', '$2y$10$wvpVUlrw', 6);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `test`
+-- Estructura de tabla para la tabla `test`
 --
 
 CREATE TABLE `test` (
@@ -151,50 +152,54 @@ CREATE TABLE `test` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `test_confianza`
+-- Estructura de tabla para la tabla `test_confianza`
 --
 
 CREATE TABLE `test_confianza` (
   `id` int(11) NOT NULL,
   `id_paciente` int(11) NOT NULL,
+  `edad` int(11) DEFAULT NULL,
   `fecha` date NOT NULL,
   `respuestas` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`respuestas`))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `test_confianza`
+-- Volcado de datos para la tabla `test_confianza`
 --
 
-INSERT INTO `test_confianza` (`id`, `id_paciente`, `fecha`, `respuestas`) VALUES
-(6, 6, '2025-06-08', '{\"1\":\"1\",\"2\":\"1\",\"3\":\"1\",\"4\":\"1\",\"5\":\"1\",\"6\":\"1\",\"7\":\"1\",\"8\":\"1\",\"9\":\"1\",\"10\":\"3\"}'),
-(8, 13, '2025-06-09', '{\"1\":1,\"2\":1,\"3\":1,\"4\":1,\"5\":1,\"6\":1,\"7\":1,\"8\":1,\"9\":1,\"10\":1}');
+INSERT INTO `test_confianza` (`id`, `id_paciente`, `edad`, `fecha`, `respuestas`) VALUES
+(6, 6, NULL, '2025-06-08', '{\"1\":\"1\",\"2\":\"1\",\"3\":\"1\",\"4\":\"1\",\"5\":\"1\",\"6\":\"1\",\"7\":\"1\",\"8\":\"1\",\"9\":\"1\",\"10\":\"3\"}'),
+(8, 13, NULL, '2025-06-09', '{\"1\":1,\"2\":1,\"3\":1,\"4\":1,\"5\":1,\"6\":1,\"7\":1,\"8\":1,\"9\":1,\"10\":1}'),
+(10, 20, 14, '2025-06-18', '{\"1\":1,\"2\":1,\"3\":1,\"4\":1,\"5\":1,\"6\":1,\"7\":1,\"8\":1,\"9\":5,\"10\":5}');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `test_importancia`
+-- Estructura de tabla para la tabla `test_importancia`
 --
 
 CREATE TABLE `test_importancia` (
   `id` int(11) NOT NULL,
   `id_paciente` int(11) NOT NULL,
+  `edad` int(11) DEFAULT NULL,
   `fecha` date NOT NULL,
   `parte1` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`parte1`)),
   `parte2` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`parte2`))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `test_importancia`
+-- Volcado de datos para la tabla `test_importancia`
 --
 
-INSERT INTO `test_importancia` (`id`, `id_paciente`, `fecha`, `parte1`, `parte2`) VALUES
-(4, 11, '2025-06-09', '{\"1\":\"1\",\"2\":\"1\",\"3\":\"1\",\"4\":\"1\",\"5\":\"1\",\"6\":\"1\",\"7\":\"1\",\"8\":\"1\",\"9\":\"1\",\"10\":\"1\",\"11\":\"1\",\"12\":\"1\",\"13\":\"1\",\"14\":\"1\",\"15\":\"1\",\"16\":\"1\",\"17\":\"1\"}', '{\"18\":\"1\",\"19\":\"1\",\"20\":\"1\",\"21\":\"1\",\"22\":\"1\",\"23\":\"1\",\"24\":\"1\",\"25\":\"1\",\"26\":\"1\",\"27\":\"1\",\"28\":\"1\",\"29\":\"1\",\"30\":\"1\",\"31\":\"1\",\"32\":\"1\",\"33\":\"1\",\"34\":\"1\"}'),
-(5, 3, '2025-06-09', '{\"1\":\"4\",\"2\":\"4\",\"3\":\"6\",\"4\":\"1\",\"5\":\"1\",\"6\":\"1\",\"7\":\"1\",\"8\":\"1\",\"9\":\"1\",\"10\":\"1\",\"11\":\"1\",\"12\":\"1\",\"13\":\"1\",\"14\":\"1\",\"15\":\"1\",\"16\":\"1\",\"17\":\"1\"}', '{\"18\":\"1\",\"19\":\"1\",\"20\":\"1\",\"21\":\"1\",\"22\":\"1\",\"23\":\"1\",\"24\":\"1\",\"25\":\"1\",\"26\":\"1\",\"27\":\"1\",\"28\":\"1\",\"29\":\"1\",\"30\":\"1\",\"31\":\"1\",\"32\":\"1\",\"33\":\"1\",\"34\":\"1\"}');
+INSERT INTO `test_importancia` (`id`, `id_paciente`, `edad`, `fecha`, `parte1`, `parte2`) VALUES
+(4, 11, NULL, '2025-06-09', '{\"1\":\"1\",\"2\":\"1\",\"3\":\"1\",\"4\":\"1\",\"5\":\"1\",\"6\":\"1\",\"7\":\"1\",\"8\":\"1\",\"9\":\"1\",\"10\":\"1\",\"11\":\"1\",\"12\":\"1\",\"13\":\"1\",\"14\":\"1\",\"15\":\"1\",\"16\":\"1\",\"17\":\"1\"}', '{\"18\":\"1\",\"19\":\"1\",\"20\":\"1\",\"21\":\"1\",\"22\":\"1\",\"23\":\"1\",\"24\":\"1\",\"25\":\"1\",\"26\":\"1\",\"27\":\"1\",\"28\":\"1\",\"29\":\"1\",\"30\":\"1\",\"31\":\"1\",\"32\":\"1\",\"33\":\"1\",\"34\":\"1\"}'),
+(5, 3, NULL, '2025-06-09', '{\"1\":\"4\",\"2\":\"4\",\"3\":\"6\",\"4\":\"1\",\"5\":\"1\",\"6\":\"1\",\"7\":\"1\",\"8\":\"1\",\"9\":\"1\",\"10\":\"1\",\"11\":\"1\",\"12\":\"1\",\"13\":\"1\",\"14\":\"1\",\"15\":\"1\",\"16\":\"1\",\"17\":\"1\"}', '{\"18\":\"1\",\"19\":\"1\",\"20\":\"1\",\"21\":\"1\",\"22\":\"1\",\"23\":\"1\",\"24\":\"1\",\"25\":\"1\",\"26\":\"1\",\"27\":\"1\",\"28\":\"1\",\"29\":\"1\",\"30\":\"1\",\"31\":\"1\",\"32\":\"1\",\"33\":\"1\",\"34\":\"1\"}'),
+(6, 20, 17, '2025-06-18', '{\n    \"1\": 1,\n    \"2\": 1,\n    \"3\": 1,\n    \"4\": 1,\n    \"5\": 1,\n    \"6\": 1,\n    \"7\": 1,\n    \"8\": 1,\n    \"9\": 1,\n    \"10\": 1,\n    \"11\": 1,\n    \"12\": 1,\n    \"13\": 1,\n    \"14\": 1,\n    \"15\": 1,\n    \"16\": 1,\n    \"17\": 1\n}', '{\n    \"18\": 1,\n    \"19\": 1,\n    \"20\": 1,\n    \"21\": 1,\n    \"22\": 1,\n    \"23\": 1,\n    \"24\": 1,\n    \"25\": 1,\n    \"26\": 1,\n    \"27\": 1,\n    \"28\": 1,\n    \"29\": 1,\n    \"30\": 1,\n    \"31\": 1,\n    \"32\": 1,\n    \"33\": 1,\n    \"34\": 6\n}');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `test_poms`
+-- Estructura de tabla para la tabla `test_poms`
 --
 
 CREATE TABLE `test_poms` (
@@ -207,7 +212,7 @@ CREATE TABLE `test_poms` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `test_poms`
+-- Volcado de datos para la tabla `test_poms`
 --
 
 INSERT INTO `test_poms` (`id`, `id_paciente`, `fecha`, `deporte`, `edad`, `respuestas`) VALUES
@@ -218,7 +223,7 @@ INSERT INTO `test_poms` (`id`, `id_paciente`, `fecha`, `deporte`, `edad`, `respu
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tratamientos`
+-- Estructura de tabla para la tabla `tratamientos`
 --
 
 CREATE TABLE `tratamientos` (
@@ -234,7 +239,7 @@ CREATE TABLE `tratamientos` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `tratamientos`
+-- Volcado de datos para la tabla `tratamientos`
 --
 
 INSERT INTO `tratamientos` (`id_tratamiento`, `id_paciente`, `fecha_creacion`, `diagnostico_descripcion`, `tratamiento_tipo`, `estado_actual`, `observaciones`, `created_at`, `updated_at`) VALUES
@@ -247,7 +252,7 @@ INSERT INTO `tratamientos` (`id_tratamiento`, `id_paciente`, `fecha_creacion`, `
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ubicacion`
+-- Estructura de tabla para la tabla `ubicacion`
 --
 
 CREATE TABLE `ubicacion` (
@@ -258,7 +263,7 @@ CREATE TABLE `ubicacion` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `ubicacion`
+-- Volcado de datos para la tabla `ubicacion`
 --
 
 INSERT INTO `ubicacion` (`id_ubicacion`, `direccion`, `ciudad`, `pais`) VALUES
@@ -266,12 +271,13 @@ INSERT INTO `ubicacion` (`id_ubicacion`, `direccion`, `ciudad`, `pais`) VALUES
 (2, 'Carrera  entre calles  y ', 'Barquisimeto', 'Venezuela'),
 (3, 'Carrera  entre calles  y ', 'Barquisimeto', 'Venezuela'),
 (4, 'Carrera  entre calles  y ', 'Barquisimeto', 'Venezuela'),
-(5, 'Mi casa', 'Barquisimeto', 'Venezuela');
+(5, 'Mi casa', 'Barquisimeto', 'Venezuela'),
+(6, 'Barquisimeto', 'Lara', 'Calombia');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Estructura de tabla para la tabla `users`
 --
 
 CREATE TABLE `users` (
@@ -287,7 +293,7 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `users`
+-- Volcado de datos para la tabla `users`
 --
 
 INSERT INTO `users` (`id`, `cedula`, `name`, `lastName`, `mail`, `password`, `birthDate`, `gender`, `role`) VALUES
@@ -301,168 +307,168 @@ INSERT INTO `users` (`id`, `cedula`, `name`, `lastName`, `mail`, `password`, `bi
 (39, 1029384756, 'rafa', 'sample', 'qweq@gmail.com', '$2y$10$ZgugyNCtvsyYulIk0M2gnOyYfXsuej.vcwWecxOt98yf6WgK//wLK', '6767-06-07', 'm', 'p');
 
 --
--- Indexes for dumped tables
+-- Índices para tablas volcadas
 --
 
 --
--- Indexes for table `cita`
+-- Indices de la tabla `cita`
 --
 ALTER TABLE `cita`
   ADD PRIMARY KEY (`id_cita`),
   ADD KEY `id_paciente` (`id_paciente`);
 
 --
--- Indexes for table `history`
+-- Indices de la tabla `history`
 --
 ALTER TABLE `history`
   ADD PRIMARY KEY (`ID`);
 
 --
--- Indexes for table `paciente`
+-- Indices de la tabla `paciente`
 --
 ALTER TABLE `paciente`
   ADD PRIMARY KEY (`id_paciente`),
   ADD KEY `fk_ubicacion` (`id_ubicacion`);
 
 --
--- Indexes for table `test`
+-- Indices de la tabla `test`
 --
 ALTER TABLE `test`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `test_confianza`
+-- Indices de la tabla `test_confianza`
 --
 ALTER TABLE `test_confianza`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_paciente` (`id_paciente`);
 
 --
--- Indexes for table `test_importancia`
+-- Indices de la tabla `test_importancia`
 --
 ALTER TABLE `test_importancia`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_paciente` (`id_paciente`);
 
 --
--- Indexes for table `test_poms`
+-- Indices de la tabla `test_poms`
 --
 ALTER TABLE `test_poms`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_paciente` (`id_paciente`);
 
 --
--- Indexes for table `tratamientos`
+-- Indices de la tabla `tratamientos`
 --
 ALTER TABLE `tratamientos`
   ADD PRIMARY KEY (`id_tratamiento`);
 
 --
--- Indexes for table `ubicacion`
+-- Indices de la tabla `ubicacion`
 --
 ALTER TABLE `ubicacion`
   ADD PRIMARY KEY (`id_ubicacion`);
 
 --
--- Indexes for table `users`
+-- Indices de la tabla `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT de las tablas volcadas
 --
 
 --
--- AUTO_INCREMENT for table `cita`
+-- AUTO_INCREMENT de la tabla `cita`
 --
 ALTER TABLE `cita`
   MODIFY `id_cita` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
--- AUTO_INCREMENT for table `history`
+-- AUTO_INCREMENT de la tabla `history`
 --
 ALTER TABLE `history`
   MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
--- AUTO_INCREMENT for table `paciente`
+-- AUTO_INCREMENT de la tabla `paciente`
 --
 ALTER TABLE `paciente`
-  MODIFY `id_paciente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id_paciente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
--- AUTO_INCREMENT for table `test`
+-- AUTO_INCREMENT de la tabla `test`
 --
 ALTER TABLE `test`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `test_confianza`
+-- AUTO_INCREMENT de la tabla `test_confianza`
 --
 ALTER TABLE `test_confianza`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- AUTO_INCREMENT for table `test_importancia`
+-- AUTO_INCREMENT de la tabla `test_importancia`
 --
 ALTER TABLE `test_importancia`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT for table `test_poms`
+-- AUTO_INCREMENT de la tabla `test_poms`
 --
 ALTER TABLE `test_poms`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT for table `tratamientos`
+-- AUTO_INCREMENT de la tabla `tratamientos`
 --
 ALTER TABLE `tratamientos`
   MODIFY `id_tratamiento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
--- AUTO_INCREMENT for table `ubicacion`
+-- AUTO_INCREMENT de la tabla `ubicacion`
 --
 ALTER TABLE `ubicacion`
-  MODIFY `id_ubicacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_ubicacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT for table `users`
+-- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
--- Constraints for dumped tables
+-- Restricciones para tablas volcadas
 --
 
 --
--- Constraints for table `cita`
+-- Filtros para la tabla `cita`
 --
 ALTER TABLE `cita`
   ADD CONSTRAINT `cita_ibfk_1` FOREIGN KEY (`id_paciente`) REFERENCES `paciente` (`id_paciente`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `paciente`
+-- Filtros para la tabla `paciente`
 --
 ALTER TABLE `paciente`
   ADD CONSTRAINT `fk_ubicacion` FOREIGN KEY (`id_ubicacion`) REFERENCES `ubicacion` (`id_ubicacion`);
 
 --
--- Constraints for table `test_confianza`
+-- Filtros para la tabla `test_confianza`
 --
 ALTER TABLE `test_confianza`
   ADD CONSTRAINT `test_confianza_ibfk_1` FOREIGN KEY (`id_paciente`) REFERENCES `paciente` (`id_paciente`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `test_importancia`
+-- Filtros para la tabla `test_importancia`
 --
 ALTER TABLE `test_importancia`
   ADD CONSTRAINT `test_importancia_ibfk_1` FOREIGN KEY (`id_paciente`) REFERENCES `paciente` (`id_paciente`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `test_poms`
+-- Filtros para la tabla `test_poms`
 --
 ALTER TABLE `test_poms`
   ADD CONSTRAINT `test_poms_ibfk_1` FOREIGN KEY (`id_paciente`) REFERENCES `paciente` (`id_paciente`) ON DELETE CASCADE ON UPDATE CASCADE;

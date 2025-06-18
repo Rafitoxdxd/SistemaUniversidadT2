@@ -1,209 +1,340 @@
 <?php
-// Incluye el archivo de configuración de la conexión a la base de datos.
-// Se asume que 'BASE_PATH' es una constante definida previamente que apunta
-// a la ruta base de la aplicación. Este archivo contiene la clase 'Conexion'
-// que gestiona la conexión con la base de datos.
 require_once BASE_PATH . 'Config/conexion.php';
 
-/**
- * Clase TestModel
- *
- * Hereda de la clase 'Conexion' y se encarga de todas las operaciones
- * relacionadas con la gestión de tests (POMS, Confianza, Importancia)
- * en la base de datos. Actúa como la capa del Modelo en una arquitectura MVC.
- */
 class TestModel extends Conexion {
-    // Propiedad privada para almacenar la instancia de PDO (conexión a la base de datos).
+    // Atributos privados para encapsulación
+    private $id;
+    private $id_paciente;
+    private $fecha;
+    private $deporte;
+    private $edad;
+    private $respuestas;
+    private $parte1;
+    private $parte2;
     private $pdo;
 
-    /**
-     * Constructor de la clase TestModel.
-     *
-     * Inicializa la conexión a la base de datos. Si la conexión no está activa,
-     * la establece y luego obtiene la instancia de PDO para ser utilizada
-     * por los métodos de la clase.
-     */
     public function __construct() {
-        // Verifica si la conexión a la base de datos no ha sido establecida.
         if (Conexion::getConexion() == null) {
-            // Si no hay conexión, la establece llamando al método estático 'conectar'.
             Conexion::conectar();
         }
-        // Obtiene la instancia de PDO de la conexión establecida.
         $this->pdo = Conexion::getConexion();
     }
 
-    /**
-     * Obtiene todos los tests (POMS, Confianza, Importancia) asociados a un paciente específico.
-     *
-     * @param int $id_paciente El ID del paciente cuyos tests se desean obtener.
-     * @return array Un array asociativo que contiene los tests clasificados por tipo (poms, confianza, importancia).
-     */
+    // Métodos Getter
+    public function getId() {
+        return $this->id;
+    }
+
+    public function getIdPaciente() {
+        return $this->id_paciente;
+    }
+
+    public function getFecha() {
+        return $this->fecha;
+    }
+
+    public function getDeporte() {
+        return $this->deporte;
+    }
+
+    public function getEdad() {
+        return $this->edad;
+    }
+
+    public function getRespuestas() {
+        return $this->respuestas;
+    }
+
+    public function getParte1() {
+        return $this->parte1;
+    }
+
+    public function getParte2() {
+        return $this->parte2;
+    }
+
+    // Métodos Setter
+    public function setId($id) {
+        $this->id = $id;
+        return $this;
+    }
+
+    public function setIdPaciente($id_paciente) {
+        $this->id_paciente = $id_paciente;
+        return $this;
+    }
+
+    public function setFecha($fecha) {
+        $this->fecha = $fecha;
+        return $this;
+    }
+
+    public function setDeporte($deporte) {
+        $this->deporte = $deporte;
+        return $this;
+    }
+
+    public function setEdad($edad) {
+        $this->edad = $edad;
+        return $this;
+    }
+
+    public function setRespuestas($respuestas) {
+        $this->respuestas = $respuestas;
+        return $this;
+    }
+
+    public function setParte1($parte1) {
+        $this->parte1 = $parte1;
+        return $this;
+    }
+
+    public function setParte2($parte2) {
+        $this->parte2 = $parte2;
+        return $this;
+    }
+
+    // Métodos públicos para operaciones CRUD
     public function obtenerTestsPorPaciente($id_paciente) {
-        // Inicializa un array para almacenar los resultados de los diferentes tipos de tests.
         $tests = [];
         
-        // --- Obtener tests POMS ---
-        // Prepara la consulta SQL para seleccionar todos los registros de 'test_poms' para el paciente dado.
-        $stmt = $this->pdo->prepare("SELECT * FROM test_poms WHERE id_paciente = ?");
-        // Ejecuta la consulta, pasando el ID del paciente como parámetro.
-        $stmt->execute([$id_paciente]);
-        // Almacena todos los resultados obtenidos en el índice 'poms' del array $tests.
-        $tests['poms'] = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        // Obtener tests POMS
+        $tests['poms'] = $this->obtenerTestsPorTipo('poms', $id_paciente);
         
-        // --- Obtener tests Confianza ---
-        // Prepara la consulta SQL para seleccionar todos los registros de 'test_confianza'.
-        $stmt = $this->pdo->prepare("SELECT * FROM test_confianza WHERE id_paciente = ?");
-        // Ejecuta la consulta.
-        $stmt->execute([$id_paciente]);
-        // Almacena los resultados en el índice 'confianza'.
-        $tests['confianza'] = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        // Obtener tests Confianza
+        $tests['confianza'] = $this->obtenerTestsPorTipo('confianza', $id_paciente);
         
-        // --- Obtener tests Importancia ---
-        // Prepara la consulta SQL para seleccionar todos los registros de 'test_importancia'.
-        $stmt = $this->pdo->prepare("SELECT * FROM test_importancia WHERE id_paciente = ?");
-        // Ejecuta la consulta.
-        $stmt->execute([$id_paciente]);
-        // Almacena los resultados en el índice 'importancia'.
-        $tests['importancia'] = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        // Obtener tests Importancia
+        $tests['importancia'] = $this->obtenerTestsPorTipo('importancia', $id_paciente);
         
-        // Devuelve el array que contiene todos los tests del paciente.
         return $tests;
     }
 
-    /**
-     * Crea un nuevo registro para un test POMS en la base de datos.
-     *
-     * @param int $id_paciente El ID del paciente al que se asocia el test.
-     * @param string $fecha La fecha en que se realizó el test (formato YYYY-MM-DD).
-     * @param string $deporte El deporte asociado al test POMS.
-     * @param int $edad La edad del paciente en el momento del test.
-     * @param array $respuestas Un array asociativo o indexado de las respuestas del test POMS.
-     * @return bool True si la inserción fue exitosa, false en caso contrario.
-     */
     public function crearTestPoms($id_paciente, $fecha, $deporte, $edad, $respuestas) {
-        // Prepara la consulta SQL para insertar un nuevo test POMS.
-        // Las respuestas se codifican a formato JSON para ser almacenadas como una cadena.
+        $this->setIdPaciente($id_paciente)
+             ->setFecha($fecha)
+             ->setDeporte($deporte)
+             ->setEdad($edad)
+             ->setRespuestas($respuestas);
+
+        // Asegurar que las respuestas sean numéricas
+        $respuestasFormateadas = [];
+        foreach ($this->getRespuestas() as $key => $value) {
+            $respuestasFormateadas[$key] = (int)$value;
+        }
+
         $stmt = $this->pdo->prepare("INSERT INTO test_poms (id_paciente, fecha, deporte, edad, respuestas) VALUES (?, ?, ?, ?, ?)");
-        // Ejecuta la consulta con los parámetros proporcionados.
-        return $stmt->execute([$id_paciente, $fecha, $deporte, $edad, json_encode($respuestas)]);
+        return $stmt->execute([
+            $this->getIdPaciente(),
+            $this->getFecha(),
+            $this->getDeporte(),
+            $this->getEdad(),
+            json_encode($respuestasFormateadas, JSON_PRETTY_PRINT)
+        ]);
     }
 
-    /**
-     * Crea un nuevo registro para un test de Confianza en la base de datos.
-     *
-     * @param int $id_paciente El ID del paciente.
-     * @param string $fecha La fecha del test.
-     * @param array $respuestas Un array de las respuestas del test de Confianza.
-     * @return bool True si la inserción fue exitosa, false en caso contrario.
-     */
-    public function crearTestConfianza($id_paciente, $fecha, $respuestas) {
-        // Prepara la consulta SQL para insertar un nuevo test de Confianza.
-        // Las respuestas se codifican a JSON.
-        $stmt = $this->pdo->prepare("INSERT INTO test_confianza (id_paciente, fecha, respuestas) VALUES (?, ?, ?)");
-        // Ejecuta la consulta.
-        return $stmt->execute([$id_paciente, $fecha, json_encode($respuestas)]);
+    public function crearTestConfianza($id_paciente, $fecha, $respuestas, $edad = null) {
+        $this->setIdPaciente($id_paciente)
+             ->setFecha($fecha)
+             ->setRespuestas($respuestas)
+             ->setEdad($edad);
+
+        // Asegurar que las respuestas sean numéricas
+        $respuestasFormateadas = [];
+        foreach ($this->getRespuestas() as $key => $value) {
+            $respuestasFormateadas[$key] = (int)$value;
+        }
+
+        $stmt = $this->pdo->prepare("INSERT INTO test_confianza (id_paciente, edad, fecha, respuestas) VALUES (?, ?, ?, ?)");
+        return $stmt->execute([
+            $this->getIdPaciente(),
+            $this->getEdad(),
+            $this->getFecha(),
+            json_encode($respuestasFormateadas, JSON_PRETTY_PRINT)
+        ]);
     }
 
-    /**
-     * Crea un nuevo registro para un test de Importancia en la base de datos.
-     *
-     * @param int $id_paciente El ID del paciente.
-     * @param string $fecha La fecha del test.
-     * @param array $parte1 Un array de las respuestas de la primera parte del test.
-     * @param array $parte2 Un array de las respuestas de la segunda parte del test.
-     * @return bool True si la inserción fue exitosa, false en caso contrario.
-     */
-    public function crearTestImportancia($id_paciente, $fecha, $parte1, $parte2) {
-        // Prepara la consulta SQL para insertar un nuevo test de Importancia.
-        // Ambas partes de las respuestas se codifican a JSON.
-        $stmt = $this->pdo->prepare("INSERT INTO test_importancia (id_paciente, fecha, parte1, parte2) VALUES (?, ?, ?, ?)");
-        // Ejecuta la consulta.
-        return $stmt->execute([$id_paciente, $fecha, json_encode($parte1), json_encode($parte2)]);
-    }
+    public function crearTestImportancia($id_paciente, $fecha, $parte1, $parte2, $edad = null) {
+        $this->setIdPaciente($id_paciente)
+             ->setFecha($fecha)
+             ->setParte1($parte1)
+             ->setParte2($parte2)
+             ->setEdad($edad);
 
-    /**
-     * Obtiene un test específico por su tipo y su ID.
-     *
-     * @param string $tipo El tipo de test ('poms', 'confianza', 'importancia').
-     * @param int $id El ID único del test dentro de su tabla.
-     * @return array|false Un array asociativo con los datos del test si se encuentra, o false si no.
-     */
-    public function obtenerTest($tipo, $id) {
-        // Construye el nombre de la tabla dinámicamente, asegurando que sea en minúsculas.
-        $tabla = "test_" . strtolower($tipo);
-        // Prepara la consulta SQL para seleccionar el test por su ID de la tabla correspondiente.
-        $stmt = $this->pdo->prepare("SELECT * FROM $tabla WHERE id = ?");
-        // Ejecuta la consulta.
-        $stmt->execute([$id]);
-        // Devuelve la primera fila del resultado como un array asociativo.
-        return $stmt->fetch(PDO::FETCH_ASSOC);
-    }
-
-    /**
-     * Actualiza un test existente en la base de datos.
-     *
-     * @param string $tipo El tipo de test a actualizar.
-     * @param int $id El ID del test a actualizar.
-     * @param array $datos Un array asociativo con los campos y nuevos valores a actualizar.
-     * Los arrays dentro de $datos se codificarán a JSON.
-     * @return bool True si la actualización fue exitosa, false en caso contrario.
-     */
-    public function actualizarTest($tipo, $id, $datos) {
-        // Construye el nombre de la tabla dinámicamente.
-        $tabla = "test_" . strtolower($tipo);
-        // Inicializa arrays para los campos a actualizar y sus valores.
-        $campos = [];
-        $valores = [];
+        // Asegurar que las respuestas sean numéricas
+        $parte1Formateada = [];
+        $parte2Formateada = [];
         
-        // Itera sobre los datos proporcionados para construir la parte SET de la consulta SQL.
-        foreach ($datos as $campo => $valor) {
-            // Agrega el nombre del campo con un placeholder (?) al array de campos.
-            $campos[] = "$campo = ?";
-            // Agrega el valor correspondiente. Si es un array, lo codifica a JSON.
-            $valores[] = is_array($valor) ? json_encode($valor) : $valor;
+        foreach ($this->getParte1() as $key => $value) {
+            $parte1Formateada[$key] = (int)$value;
         }
         
-        // Agrega el ID del test al final del array de valores para la cláusula WHERE.
-        $valores[] = $id;
-        // Construye la consulta SQL completa de actualización.
-        // implode(', ', $campos) une los elementos del array $campos con ', '.
-        $sql = "UPDATE $tabla SET " . implode(', ', $campos) . " WHERE id = ?";
-        // Prepara la consulta.
+        foreach ($this->getParte2() as $key => $value) {
+            $parte2Formateada[$key] = (int)$value;
+        }
+
+        $stmt = $this->pdo->prepare("INSERT INTO test_importancia (id_paciente, edad, fecha, parte1, parte2) VALUES (?, ?, ?, ?, ?)");
+        return $stmt->execute([
+            $this->getIdPaciente(),
+            $this->getEdad(),
+            $this->getFecha(),
+            json_encode($parte1Formateada, JSON_PRETTY_PRINT),
+            json_encode($parte2Formateada, JSON_PRETTY_PRINT)
+        ]);
+    }
+    public function obtenerTest($tipo, $id) {
+        $tabla = "test_" . strtolower($tipo);
+        $stmt = $this->pdo->prepare("SELECT * FROM $tabla WHERE id = ?");
+        $stmt->execute([$id]);
+        $test = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        if ($test) {
+            $this->mapearDatosTest($test, $tipo);
+            return $this->getDatosTest();
+        }
+        
+        return null;
+    }
+
+    public function obtenerTestConPaciente($tipo, $id) {
+        $tabla = "test_" . strtolower($tipo);
+        
+        $sql = "SELECT t.*, p.nombre, p.apellido, p.cedula, p.telefono, p.fecha_nacimiento, p.genero 
+                FROM $tabla t
+                JOIN paciente p ON t.id_paciente = p.id_paciente
+                WHERE t.id = ?";
+                
         $stmt = $this->pdo->prepare($sql);
-        // Ejecuta la consulta con todos los valores.
+        $stmt->execute([$id]);
+        $test = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        if ($test) {
+            $this->mapearDatosTest($test, $tipo);
+            $datosTest = $this->getDatosTest();
+            $datosTest['paciente'] = $this->obtenerInfoPaciente($this->getIdPaciente());
+            return $datosTest;
+        }
+        
+        return null;
+    }
+
+    public function actualizarTest($tipo, $id, $datos) {
+        $tabla = "test_" . strtolower($tipo);
+        $campos = [];
+        $valores = [];
+
+        foreach ($datos as $campo => $valor) {
+            $campos[] = "$campo = ?";
+            $valores[] = is_array($valor) ? json_encode($valor) : $valor;
+        }
+
+        $valores[] = $id;
+        $sql = "UPDATE $tabla SET " . implode(', ', $campos) . " WHERE id = ?";
+        $stmt = $this->pdo->prepare($sql);
         return $stmt->execute($valores);
     }
 
-    /**
-     * Elimina un test de la base de datos.
-     *
-     * @param string $tipo El tipo de test a eliminar.
-     * @param int $id El ID del test a eliminar.
-     * @return bool True si la eliminación fue exitosa, false en caso contrario.
-     */
     public function eliminarTest($tipo, $id) {
-        // Construye el nombre de la tabla dinámicamente.
         $tabla = "test_" . strtolower($tipo);
-        // Prepara la consulta SQL para eliminar el test.
         $stmt = $this->pdo->prepare("DELETE FROM $tabla WHERE id = ?");
-        // Ejecuta la consulta.
         return $stmt->execute([$id]);
     }
 
-    /**
-     * Obtiene una lista de pacientes, incluyendo su ID, nombre y apellido,
-     * útil para poblar un elemento select (dropdown) en la interfaz de usuario.
-     * Los resultados se ordenan por apellido y luego por nombre.
-     *
-     * @return array Un array de arrays asociativos, cada uno representando un paciente.
-     */
     public function obtenerPacientesParaSelect() {
-        // Ejecuta una consulta para seleccionar el ID, nombre y apellido de la tabla 'paciente'.
-        // La consulta se ordena para una presentación más legible.
         $stmt = $this->pdo->query("SELECT id_paciente, nombre, apellido FROM paciente ORDER BY apellido, nombre");
-        // Devuelve todos los resultados como un array de arrays asociativos.
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    
+    // Métodos privados para encapsular lógica interna
+    private function obtenerTestsPorTipo($tipo, $id_paciente) {
+        $tabla = "test_" . strtolower($tipo);
+        $stmt = $this->pdo->prepare("SELECT * FROM $tabla WHERE id_paciente = ?");
+        $stmt->execute([$id_paciente]);
+        $tests = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+        // Decodificar respuestas JSON para cada test
+        foreach ($tests as &$test) {
+            if (isset($test['respuestas'])) {
+                $test['respuestas'] = json_decode($test['respuestas'], true);
+            }
+            if (isset($test['parte1'])) {
+                $test['parte1'] = json_decode($test['parte1'], true);
+            }
+            if (isset($test['parte2'])) {
+                $test['parte2'] = json_decode($test['parte2'], true);
+            }
+        }
+        
+        return $tests;
+    }
+
+    public function obtenerTodosLosTests() {
+        $tests = [];
+        $tests['poms'] = $this->obtenerTestsPorTipoTodos('poms');
+        $tests['confianza'] = $this->obtenerTestsPorTipoTodos('confianza');
+        $tests['importancia'] = $this->obtenerTestsPorTipoTodos('importancia');
+        return $tests;
+    }
+
+    private function obtenerTestsPorTipoTodos($tipo) {
+        $tabla = "test_" . strtolower($tipo);
+        $stmt = $this->pdo->query("SELECT * FROM $tabla");
+        $tests = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach ($tests as &$test) {
+            if (isset($test['respuestas'])) {
+                $test['respuestas'] = json_decode($test['respuestas'], true);
+            }
+            if (isset($test['parte1'])) {
+                $test['parte1'] = json_decode($test['parte1'], true);
+            }
+            if (isset($test['parte2'])) {
+                $test['parte2'] = json_decode($test['parte2'], true);
+            }
+        }
+        return $tests;
+    }
+
+    private function obtenerInfoPaciente($id_paciente) {
+        $stmt = $this->pdo->prepare("SELECT * FROM paciente WHERE id_paciente = ?");
+        $stmt->execute([$id_paciente]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    private function mapearDatosTest($datos, $tipo) {
+        $this->setId($datos['id'])
+             ->setIdPaciente($datos['id_paciente'])
+             ->setFecha($datos['fecha'])
+             ->setEdad(isset($datos['edad']) ? $datos['edad'] : null);
+
+        switch($tipo) {
+            case 'poms':
+                $this->setDeporte($datos['deporte'] ?? null)
+                     ->setRespuestas(isset($datos['respuestas']) ? json_decode($datos['respuestas'], true) : []);
+                break;
+                
+            case 'confianza':
+                $this->setRespuestas(isset($datos['respuestas']) ? json_decode($datos['respuestas'], true) : []);
+                break;
+                
+            case 'importancia':
+                $this->setParte1(isset($datos['parte1']) ? json_decode($datos['parte1'], true) : [])
+                     ->setParte2(isset($datos['parte2']) ? json_decode($datos['parte2'], true) : []);
+                break;
+        }
+    }
+
+    private function getDatosTest() {
+        return [
+            'id' => $this->getId(),
+            'id_paciente' => $this->getIdPaciente(),
+            'fecha' => $this->getFecha(),
+            'deporte' => $this->getDeporte(),
+            'edad' => $this->getEdad(),
+            'respuestas' => $this->getRespuestas(),
+            'parte1' => $this->getParte1(),
+            'parte2' => $this->getParte2()
+        ];
     }
 }
 ?>
