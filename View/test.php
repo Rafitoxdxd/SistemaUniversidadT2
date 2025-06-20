@@ -86,10 +86,7 @@
             flex-wrap: wrap;
             gap: 10px;
         }
-        .table-responsive {
-            max-height: 400px;
-            overflow-y: auto;
-        }
+        
     </style>
 </head>
 <body>
@@ -182,6 +179,15 @@
                 <!-- Filtros y selección de paciente -->
                 <!-- Eliminado el bloque de selects de filtrado -->
                 <!-- Lista de tests -->
+                <!-- Buscador arriba de la tabla, igual al de pacientes -->
+                <div class="mb-4">
+                    <div class="input-group">
+                        <span class="input-group-text" style="background: var(--color1); border: none; color: var(--color5); font-size: 1.2rem; border-radius: 20px 0 0 20px;">
+                            <i class="bi bi-search"></i>
+                        </span>
+                        <input type="text" id="buscarTest" class="form-control" placeholder="Buscar tests..." style="border-radius: 0 20px 20px 0;">
+                    </div>
+                </div>
                 <div class="card shadow-sm rounded-4 mb-4">
                     <div class="card-header">
                         <h5 class="mb-0">Tests Registrados</h5>

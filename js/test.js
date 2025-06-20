@@ -96,7 +96,17 @@ $(document).ready(function() {
 
         function obtenerNombrePaciente(idPaciente) {
             if (pacientesCache[idPaciente]) return pacientesCache[idPaciente];
-            return 'Desconocido';
+            // Buscar en todos los tests por idPaciente y usar nombre_paciente si está disponible
+            for (const tipo of ['poms', 'confianza', 'importancia']) {
+                if (tests[tipo] && Array.isArray(tests[tipo])) {
+                    const encontrado = tests[tipo].find(t => t.id_paciente == idPaciente && t.nombre_paciente);
+                    if (encontrado) {
+                        return encontrado.nombre_paciente;
+                    }
+                }
+            }
+            // Si no se encuentra, retorna vacío
+            return '';
         }
 
         // Mostrar todos los tests de todos los tipos
@@ -130,8 +140,35 @@ $(document).ready(function() {
             language: {
                 url: 'https://cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json'
             },
-            order: [[0, 'asc']]
+            order: [[0, 'asc']],
+            dom: '<"d-flex flex-wrap justify-content-between align-items-center mb-2"lp>rt',
+            // Quita el scroll interno y muestra más filas por página
+            pageLength: 25, // Puedes aumentar este valor si tienes muchos registros
+            lengthMenu: [ [10, 25, 50, 100, -1], [10, 25, 50, 100, "Todos"] ],
+            scrollY: false,
+            scrollCollapse: false,
+            initComplete: function() {
+                // Estilos para los selects de DataTable
+                $('.dataTables_length select').addClass('form-select').css({
+                    'border-radius': '20px',
+                    'padding': '0.375rem 1.75rem 0.375rem 0.75rem',
+                    'font-size': '1rem',
+                    'box-shadow': '0 2px 8px rgba(0,0,0,0.07)'
+                });
+                // Oculta el buscador interno de DataTable
+                $('.dataTables_filter').hide();
+                // Opcional: estilos para la paginación
+                $('.dataTables_paginate').addClass('mt-0 mb-2');
+            }
         });
+
+        // Si el buscador externo no tiene evento, lo agregamos (solo una vez)
+        if (!$('#buscarTest').data('dt-attached')) {
+            $('#buscarTest').on('input', function() {
+                $('.table').DataTable().search(this.value).draw();
+            });
+            $('#buscarTest').data('dt-attached', true);
+        }
     }
 
     // Modifica para aceptar nombrePaciente como parámetro
@@ -238,6 +275,7 @@ $(document).ready(function() {
                                         <li class="list-group-item"><strong>Teléfono:</strong> ${paciente.telefono}</li>
                                         <li class="list-group-item"><strong>Fecha Nacimiento:</strong> ${paciente.fecha_nacimiento}</li>
                                         <li class="list-group-item"><strong>Género:</strong> ${paciente.genero}</li>
+                                        <li class="list-group-item"><strong>Edad:</strong> ${test.edad ? test.edad : 'No especificada'}</li>
                                     </ul>
                                 </div>
                                 <div class="col-md-6">
@@ -246,7 +284,6 @@ $(document).ready(function() {
                                         <li class="list-group-item"><strong>Tipo:</strong> ${tipoTest.toUpperCase()}</li>
                                         <li class="list-group-item"><strong>Fecha:</strong> ${test.fecha}</li>
                                         ${tipoTest === 'poms' ? `<li class="list-group-item"><strong>Deporte:</strong> ${test.deporte || 'No especificado'}</li>` : ''}
-                                        ${tipoTest === 'poms' ? `<li class="list-group-item"><strong>Edad:</strong> ${test.edad || 'No especificada'}</li>` : ''}
                                     </ul>
                                 </div>
                             </div>
@@ -539,19 +576,34 @@ $(document).ready(function() {
         // Parte 1 (preguntas 1-17)
         for (let i = 1; i <= 17; i++) {
             const valorActual = parte1[i] !== undefined ? parte1[i] : 1;
-            
             html += `
                 <div class="test-question">
                     <p class="fw-bold">Pregunta ${i}:</p>
                     <div class="test-options-group">
-                        <select class="form-select" name="parte1_pregunta_${i}" style="max-width: 200px;">
-                            <option value="1" ${valorActual === 1 ? 'selected' : ''}>1 - Muy poco importante</option>
-                            <option value="2" ${valorActual === 2 ? 'selected' : ''}>2</option>
-                            <option value="3" ${valorActual === 3 ? 'selected' : ''}>3</option>
-                            <option value="4" ${valorActual === 4 ? 'selected' : ''}>4</option>
-                            <option value="5" ${valorActual === 5 ? 'selected' : ''}>5</option>
-                            <option value="6" ${valorActual === 6 ? 'selected' : ''}>6 - Extremadamente importante</option>
-                        </select>
+                        <div class="form-check test-option">
+                            <input class="form-check-input" type="radio" name="parte1_pregunta_${i}" id="parte1_${i}_1" value="1" ${valorActual == 1 ? 'checked' : ''}>
+                            <label class="form-check-label" for="parte1_${i}_1">1 - Muy poco importante</label>
+                        </div>
+                        <div class="form-check test-option">
+                            <input class="form-check-input" type="radio" name="parte1_pregunta_${i}" id="parte1_${i}_2" value="2" ${valorActual == 2 ? 'checked' : ''}>
+                            <label class="form-check-label" for="parte1_${i}_2">2</label>
+                        </div>
+                        <div class="form-check test-option">
+                            <input class="form-check-input" type="radio" name="parte1_pregunta_${i}" id="parte1_${i}_3" value="3" ${valorActual == 3 ? 'checked' : ''}>
+                            <label class="form-check-label" for="parte1_${i}_3">3</label>
+                        </div>
+                        <div class="form-check test-option">
+                            <input class="form-check-input" type="radio" name="parte1_pregunta_${i}" id="parte1_${i}_4" value="4" ${valorActual == 4 ? 'checked' : ''}>
+                            <label class="form-check-label" for="parte1_${i}_4">4</label>
+                        </div>
+                        <div class="form-check test-option">
+                            <input class="form-check-input" type="radio" name="parte1_pregunta_${i}" id="parte1_${i}_5" value="5" ${valorActual == 5 ? 'checked' : ''}>
+                            <label class="form-check-label" for="parte1_${i}_5">5</label>
+                        </div>
+                        <div class="form-check test-option">
+                            <input class="form-check-input" type="radio" name="parte1_pregunta_${i}" id="parte1_${i}_6" value="6" ${valorActual == 6 ? 'checked' : ''}>
+                            <label class="form-check-label" for="parte1_${i}_6">6 - Extremadamente importante</label>
+                        </div>
                     </div>
                 </div>
             `;
@@ -564,19 +616,34 @@ $(document).ready(function() {
         // Parte 2 (preguntas 18-34)
         for (let i = 18; i <= 34; i++) {
             const valorActual = parte2[i] !== undefined ? parte2[i] : 1;
-            
             html += `
                 <div class="test-question">
                     <p class="fw-bold">Pregunta ${i}:</p>
                     <div class="test-options-group">
-                        <select class="form-select" name="parte2_pregunta_${i}" style="max-width: 200px;">
-                            <option value="1" ${valorActual === 1 ? 'selected' : ''}>1 - Muy poco importante</option>
-                            <option value="2" ${valorActual === 2 ? 'selected' : ''}>2</option>
-                            <option value="3" ${valorActual === 3 ? 'selected' : ''}>3</option>
-                            <option value="4" ${valorActual === 4 ? 'selected' : ''}>4</option>
-                            <option value="5" ${valorActual === 5 ? 'selected' : ''}>5</option>
-                            <option value="6" ${valorActual === 6 ? 'selected' : ''}>6 - Extremadamente importante</option>
-                        </select>
+                        <div class="form-check test-option">
+                            <input class="form-check-input" type="radio" name="parte2_pregunta_${i}" id="parte2_${i}_1" value="1" ${valorActual == 1 ? 'checked' : ''}>
+                            <label class="form-check-label" for="parte2_${i}_1">1 - Muy poco importante</label>
+                        </div>
+                        <div class="form-check test-option">
+                            <input class="form-check-input" type="radio" name="parte2_pregunta_${i}" id="parte2_${i}_2" value="2" ${valorActual == 2 ? 'checked' : ''}>
+                            <label class="form-check-label" for="parte2_${i}_2">2</label>
+                        </div>
+                        <div class="form-check test-option">
+                            <input class="form-check-input" type="radio" name="parte2_pregunta_${i}" id="parte2_${i}_3" value="3" ${valorActual == 3 ? 'checked' : ''}>
+                            <label class="form-check-label" for="parte2_${i}_3">3</label>
+                        </div>
+                        <div class="form-check test-option">
+                            <input class="form-check-input" type="radio" name="parte2_pregunta_${i}" id="parte2_${i}_4" value="4" ${valorActual == 4 ? 'checked' : ''}>
+                            <label class="form-check-label" for="parte2_${i}_4">4</label>
+                        </div>
+                        <div class="form-check test-option">
+                            <input class="form-check-input" type="radio" name="parte2_pregunta_${i}" id="parte2_${i}_5" value="5" ${valorActual == 5 ? 'checked' : ''}>
+                            <label class="form-check-label" for="parte2_${i}_5">5</label>
+                        </div>
+                        <div class="form-check test-option">
+                            <input class="form-check-input" type="radio" name="parte2_pregunta_${i}" id="parte2_${i}_6" value="6" ${valorActual == 6 ? 'checked' : ''}>
+                            <label class="form-check-label" for="parte2_${i}_6">6 - Extremadamente importante</label>
+                        </div>
                     </div>
                 </div>
             `;
@@ -675,4 +742,10 @@ $(document).ready(function() {
         $('body').append(alertHTML);
         setTimeout(() => $('.alert').alert('close'), 3000);
     }
+
+    // Limpiar el formulario de registro cada vez que se abre el modal de "Nuevo Test"
+    $('#nuevoTestModal').on('show.bs.modal', function () {
+        $('#formNuevoTest')[0].reset();
+        $('#formularioTestContainer').html('');
+    });
 });
